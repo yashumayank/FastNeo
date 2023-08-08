@@ -24,7 +24,7 @@ awk '(FNR==1){f++;}{if(f<=2){a[$1]=1}else{if(FNR%4==1){if(a[$1]==1){x=1}else{x=0
 rm  ${sample}_1.nullomers.sorted ${sample}_2.nullomers.sorted ${sample}_1.fastq ${sample}_2.fastq
 
 export LD_LIBRARY_PATH=/apps/software-compiled/tbb/2018_U5-GCCcore-7.3.0/build/linux_intel64_gcc_cc7.3.0_libc2.12_kernel2.6.32_release:$LD_LIBRARY_PATH
-bowtie2 -x /data/hemberg/shared_resources/genomes/human/GRCh38.p7.gencode25 -p $cores --mp 4 -1 ${sample}_1.fastq.nullomers.union -2 ${sample}_2.fastq.nullomers.union -S ${sample}.nullomers.union.sam
+bowtie2 -x /data/hemberg/shared_resources/genomes/human/GRCh38.p7.gencode25 -p $cores --very-sensitive-local -1 ${sample}_1.fastq.nullomers.union -2 ${sample}_2.fastq.nullomers.union -S ${sample}.nullomers.union.sam
 
 module purge
 module load perl gcc htslib python bcftools samtools bedtools
