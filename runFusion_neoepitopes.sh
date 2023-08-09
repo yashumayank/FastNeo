@@ -29,6 +29,5 @@ module purge
 module load perl gcc htslib python bcftools samtools bedtools
 samtools sort ${sample}.neomers.union.sam |samtools rmdup - ${sample}.neomers.union.bam
 samtools idxstats ${sample}.neomers.union.bam | awk ' {print $1" "$3}' > ${sample}.fusionJunction_Reads.tab
-#samtools view ${sample}.neomers.union.bam|cut -f1,3|sort|uniq|cut -f2|sort|uniq -c|sort -k1n > ${sample}.fusionJunction_Reads2.tab
 
 rm ${sample}*.union ${sample}*.union.sam ${sample}_1.neomers.fastq ${sample}_2.neomers.fastq ${sample}_1.fastq ${sample}_2.fastq
