@@ -1,8 +1,8 @@
 dataset=${2}
-path1="/data/hemberg/nullomers/IEDB/"
-pathDS=${path1}${dataset}"/epitopeDB_neoepitopes/"
-pathDB=${path1}epitope_DBs/
-cd ${path2}
+path="/data/hemberg/nullomers/IEDB/"
+pathDS=${path}${dataset}"/epitopeDB_neoepitopes/"
+pathDB=${path}epitope_DBs/
+cd ${pathDS}
 
 cores=2
 genome_fasta=$path_prefix"genome.fa"
@@ -10,8 +10,8 @@ genome_fasta=$path_prefix"genome.fa"
 sample=${1}"
 module load julia Bowtie2
 /data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 ${sample}
-julia ${path1}cfDNAnullomers5.jl -f ${path2}${sample}_1.fastq -n ${pathDB}epitopeDB_nullomers.tsv -l 16 -S ${path2}${sample}_1.nullomers.fastq -p 0.0 -q 0 --logfile ${path2}${sample}_1.nullomers.json -N / &
-julia ${path1}cfDNAnullomers5.jl -f ${path2}${sample}_2.fastq -n ${pathDB}epitopeDB_nullomers_revComp.tsv -l 16 -S ${path2}${sample}_2.nullomers.fastq -p 0.0 -q 0 --logfile ${path2}${sample}_2.nullomers.json -N /
+julia ${path}cfDNAnullomers5.jl -f ${pathDS}${sample}_1.fastq -n ${pathDB}epitopeDB_nullomers.tsv -l 16 -S ${pathDS}${sample}_1.nullomers.fastq -p 0.0 -q 0 --logfile ${pathDS}${sample}_1.nullomers.json -N / &
+julia ${path}cfDNAnullomers5.jl -f ${pathDS}${sample}_2.fastq -n ${pathDB}epitopeDB_nullomers_revComp.tsv -l 16 -S ${pathDS}${sample}_2.nullomers.fastq -p 0.0 -q 0 --logfile ${pathDS}${sample}_2.nullomers.json -N /
 wait
 
 grep -h -e '^@SRR' ${sample}_1.nullomers.fastq | cut -f 1 --delim=' ' > ${sample}_1.nullomers.sorted &
@@ -20,7 +20,7 @@ wait
 awk '(FNR==1){f++;}{if(f<=2){a[$1]=1}else{if(FNR%4==1){if(a[$1]==1){x=1}else{x=0}};if(x==1)print $0 > FILENAME".nullomers.union"}}' ${sample}_1.nullomers.sorted ${sample}_2.nullomers.sorted ${sample}_1.fastq ${sample}_2.fastq
 
 export LD_LIBRARY_PATH=/apps/software-compiled/tbb/2018_U5-GCCcore-7.3.0/build/linux_intel64_gcc_cc7.3.0_libc2.12_kernel2.6.32_release/:$LD_LIBRARY_PATH
-bowtie2 -x ${path1}Homo_sapiens.GRCh38.cds.all -p $cores --very-sensitive-local --no-discordant -1 ${sample}_1.fastq.nullomers.union -2 ${sample}_2.fastq.nullomers.union -S ${sample}.nullomers.union.cds.sam
+bowtie2 -x ${path}Homo_sapiens.GRCh38.cds.all -p $cores --very-sensitive-local --no-discordant -1 ${sample}_1.fastq.nullomers.union -2 ${sample}_2.fastq.nullomers.union -S ${sample}.nullomers.union.cds.sam
 
 module purge
 module load samtools
