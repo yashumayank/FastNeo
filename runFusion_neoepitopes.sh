@@ -1,7 +1,7 @@
 dataset=${2}
-path1="/data/hemberg/nullomers/IEDB/"
-pathDS=${path1}${dataset}"/fusion_neoepitopes/"
-pathDB=${path1}epitope_DBs/fusion/
+path="/data/hemberg/nullomers/IEDB/"
+pathDS=${path}${dataset}"/fusion_neoepitopes/"
+pathDB=${path}epitope_DBs/fusion/
 cd ${pathDS}
 
 cores=2
@@ -13,8 +13,8 @@ alignment_file=ChimerKB_bowtie
 
 module load julia Bowtie2
 /data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 ${sample}
-julia ${path1}cfDNAnullomers5.jl -f ${pathDS}${sample}_1.fastq -n ${pathDB}ChimerKB_nullomers.tsv -l 16 -S ${pathDS}${sample}_1.neomers.fastq -p 0.0 -q 0 --logfile ${pathDS}${sample}_1.neomers.json -N / &
-julia ${path1}cfDNAnullomers5.jl -f ${pathDS}${sample}_2.fastq -n ${pathDB}ChimerKB_nullomers_revComp.tsv -l 16 -S ${pathDS}${sample}_2.neomers.fastq -p 0.0 -q 0 --logfile ${pathDS}${sample}_2.neomers.json -N /
+julia ${path}cfDNAnullomers5.jl -f ${pathDS}${sample}_1.fastq -n ${pathDB}ChimerKB_nullomers.tsv -l 16 -S ${pathDS}${sample}_1.neomers.fastq -p 0.0 -q 0 --logfile ${pathDS}${sample}_1.neomers.json -N / &
+julia ${path}cfDNAnullomers5.jl -f ${pathDS}${sample}_2.fastq -n ${pathDB}ChimerKB_nullomers_revComp.tsv -l 16 -S ${pathDS}${sample}_2.neomers.fastq -p 0.0 -q 0 --logfile ${pathDS}${sample}_2.neomers.json -N /
 wait
 
 grep -h -e '^@SRR' ${sample}_1.neomers.fastq | cut -f 1 --delim=' ' > ${sample}_1.neomers.sorted &
