@@ -10,7 +10,7 @@ x86-64 compatible processors
 64 bit Linux or Mac OS X
 
 # PRE-REQUISITES
-- For Max OSx:
+- For Mac OSx:
 Install Xcode or to install only git: "brew install git"
 - For Windows:
 git for windows (https://gitforwindows.org/),
