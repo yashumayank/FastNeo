@@ -1,5 +1,5 @@
-# cfRNA-neoepitopes
-Detection of known neoepitopes in cfRNA
+# RNA-neoepitopes
+This tool has been developed to detect a known list of neoepitopes in cell free RNA. It supports detection of neoepitopes from IEDB, TSNAdb, neoepitopes produced via the gene fusion events described in ChimerKB and ChimerPub (cite), and neoepitopes produced transcription of Transposable elements (cite: ). Cancer specific : TSNAdb and Transposable elements
 
 # REFERENCES/AUTHOR
 
