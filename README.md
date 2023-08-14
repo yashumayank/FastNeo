@@ -23,7 +23,8 @@ contains detailed information about the latest major release CHANGES contains de
 # INSTALL AND SETUP
 git clone https://github.com/yashumayank/cfRNA-neoepitopes.git
 - Download mapping indices
-
+-   for fusions (https://hgdownload.cse.ucsc.edu/goldenpath/hg19/bigZips/)
+- 
 
 # LIMITATIONS
 
