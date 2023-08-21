@@ -24,7 +24,7 @@ contains detailed information about the latest major release CHANGES contains de
 git clone https://github.com/yashumayank/cfRNA-neoepitopes.git
 Download mapping indices
 -   for fusions (https://hgdownload.cse.ucsc.edu/goldenpath/hg19/bigZips/)
-- 
+-   proteins (https://ftp.ensembl.org/pub/release-107/fasta/homo_sapiens/pep/Homo_sapiens.GRCh38.pep.all.fa.gz)
 
 # LIMITATIONS
 
