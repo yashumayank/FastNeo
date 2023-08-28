@@ -5,11 +5,9 @@ pathDB=${path}epitope_DBs/fusion/
 cd ${pathDS}
 
 cores=2
-genome_fasta=$path_prefix"genome.fa"
-
 sample=${1}"
 
-alignment_file=ChimerKB_bowtie
+alignment_file="ChimerKB_bowtie"
 
 module load julia Bowtie2
 /data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 ${sample}
@@ -26,8 +24,11 @@ export LD_LIBRARY_PATH=/apps/software-compiled/tbb/2018_U5-GCCcore-7.3.0/build/l
 bowtie2 -x ${pathDB}ChimerKB_bowtie -p $cores --very-sensitive --mp 3 -1 ${sample}_1.fastq.neomers.union -2 ${sample}_2.fastq.neomers.union -S ${sample}.neomers.union.sam
 
 module purge
-module load perl gcc htslib python bcftools samtools bedtools
+module load htslib bcftools samtools bedtools
 samtools sort ${sample}.neomers.union.sam |samtools rmdup - ${sample}.neomers.union.bam
-samtools idxstats ${sample}.neomers.union.bam | awk ' {print $1" "$3}' > ${sample}.fusionJunction_Reads.tab
+
+samtools view ${n}.nullomers.union.bam| awk -v "sid=${n}" -F "\t" '{if(FNR==1){fn++; split(FILENAME,dbName,"_n")};if(fn<=3){if($1!="" || NF==5){split($1,u,";");if(null_list[$4]==""){null_list[$4]=$1;for(i=1;i<=length(u);i++){null_neo[$4"_"u[i]]=$3;null_db[$4"_"u[i]]=dbName[1]}}else{for(i=1;i<=length(u);i++){if(index(null_list[$4],u[i])==0){null_list[$4]=null_list[$4]";"u[i]};if(null_neo[$4"_"u[i]]==""){null_neo[$4"_"u[i]]=$3}else{if(index(null_neo[$4"_"u[i]],$3)==0){null_neo[$4"_"u[i]]=null_neo[$4"_"u[i]]";"$3}};if(null_db[$4"_"u[i]]==""){null_db[$4"_"u[i]]=dbName[1]}else{if(index(null_db[$4"_"u[i]],dbName[1])==0){null_db[$4"_"u[i]]=null_db[$4"_"u[i]]";"dbName[1]}}}}}}else{split($3,v,".");if(et!=v[1]){et=v[1];nt=split(null_list[et],nlu,";")};for(i=1;i<=length(nlu);i++){if(index($10,nlu[i])>0){null_count[et"_"nlu[i]]++}}}}END{for(k in null_count){split(k,w,"_");print sid"\t"w[2]"\t"null_neo[k]"\t"null_count[k]"\t"w[1]"\t"neo_db[k]}}' ${path3}ChimerKB_n_Pub_junction_nullomers.tsv - > ${n}_nullomers_fusions_counts_raw.tsv
+
+samtools idxstats ${sample}.neomers.union.bam| awk ' {print $1" "$3}' > ${sample}.fusionJunction_Reads.tab
 
 rm ${sample}*.union ${sample}*.union.sam ${sample}_1.neomers.fastq ${sample}_2.neomers.fastq ${sample}_1.fastq ${sample}_2.fastq
