@@ -23,7 +23,7 @@ wait
 awk '(FNR==1){f++;}{if(f<=2){a[$1]=1}else{if(FNR%4==1){if(a[$1]==1){x=1}else{x=0}};if(x==1)print $0 > FILENAME".neomers.union"}}' ${sample}_1.neomers.sorted ${sample}_2.neomers.sorted ${sample}_1.fastq ${sample}_2.fastq
 
 export LD_LIBRARY_PATH=/apps/software-compiled/tbb/2018_U5-GCCcore-7.3.0/build/linux_intel64_gcc_cc7.3.0_libc2.12_kernel2.6.32_release/:$LD_LIBRARY_PATH
-bowtie2 -x ${pathDB}ChimerKB_bowtie -p $cores --very-sensitive --no-discordant --mp 3 -1 ${sample}_1.fastq.neomers.union -2 ${sample}_2.fastq.neomers.union -S ${sample}.neomers.union.sam
+bowtie2 -x ${pathDB}ChimerKB_bowtie -p $cores --very-sensitive --mp 3 -1 ${sample}_1.fastq.neomers.union -2 ${sample}_2.fastq.neomers.union -S ${sample}.neomers.union.sam
 
 module purge
 module load perl gcc htslib python bcftools samtools bedtools
