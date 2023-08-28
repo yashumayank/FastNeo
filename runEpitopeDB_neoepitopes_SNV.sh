@@ -5,7 +5,6 @@ pathDB=${path}epitope_DBs/
 cd ${pathDS}
 
 cores=2
-genome_fasta=$path_prefix"genome.fa"
 
 sample=${1}"
 module load julia Bowtie2
