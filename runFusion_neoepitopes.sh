@@ -26,9 +26,8 @@ bowtie2 -x ${pathDB}ChimerKB_bowtie -p $cores --very-sensitive --mp 3 -1 ${sampl
 module purge
 module load htslib bcftools samtools bedtools
 samtools sort ${sample}.neomers.union.sam |samtools rmdup - ${sample}.neomers.union.bam
+samtools view ${sample}.nullomers.union.bam| awk -v "sid=${sample}" -F "\t" '{if(FNR==NR){if($1!="" || NF==7){split($1,u,";");null_list[$3]=$1;for(i=1;i<length(u);i++){null_neo[$3"_"u[i]]=$2;null_genes[$3"_"u[i]]=$5}}}else{split($3,v,".");if(et!=v[1]){et=v[1];nt=split(null_list[et],nlu,";")};for(i=1;i<length(nlu);i++){if(index($10,nlu[i])>0){null_count[et"_"nlu[i]]++}}}}END{for(k in null_count){split(k,w,"_");print sid"\t"w[2]"\t"null_neo[k]"\t"w[1]"\t"null_genes[k]"\t"null_count[k]}}' ${pathDB}ChimerKB_n_Pub_junction_nullomers.tsv - > ${sample}_nullomers_fusions_counts_raw.tsv
 
-samtools view ${n}.nullomers.union.bam| awk -v "sid=${n}" -F "\t" '{if(FNR==1){fn++; split(FILENAME,dbName,"_n")};if(fn<=3){if($1!="" || NF==5){split($1,u,";");if(null_list[$4]==""){null_list[$4]=$1;for(i=1;i<=length(u);i++){null_neo[$4"_"u[i]]=$3;null_db[$4"_"u[i]]=dbName[1]}}else{for(i=1;i<=length(u);i++){if(index(null_list[$4],u[i])==0){null_list[$4]=null_list[$4]";"u[i]};if(null_neo[$4"_"u[i]]==""){null_neo[$4"_"u[i]]=$3}else{if(index(null_neo[$4"_"u[i]],$3)==0){null_neo[$4"_"u[i]]=null_neo[$4"_"u[i]]";"$3}};if(null_db[$4"_"u[i]]==""){null_db[$4"_"u[i]]=dbName[1]}else{if(index(null_db[$4"_"u[i]],dbName[1])==0){null_db[$4"_"u[i]]=null_db[$4"_"u[i]]";"dbName[1]}}}}}}else{split($3,v,".");if(et!=v[1]){et=v[1];nt=split(null_list[et],nlu,";")};for(i=1;i<=length(nlu);i++){if(index($10,nlu[i])>0){null_count[et"_"nlu[i]]++}}}}END{for(k in null_count){split(k,w,"_");print sid"\t"w[2]"\t"null_neo[k]"\t"null_count[k]"\t"w[1]"\t"neo_db[k]}}' ${path3}ChimerKB_n_Pub_junction_nullomers.tsv - > ${n}_nullomers_fusions_counts_raw.tsv
-
-samtools idxstats ${sample}.neomers.union.bam| awk ' {print $1" "$3}' > ${sample}.fusionJunction_Reads.tab
+#samtools idxstats ${sample}.neomers.union.bam| awk ' {print $1" "$3}' > ${sample}.fusionJunction_Reads.tab
 
 rm ${sample}*.union ${sample}*.union.sam ${sample}_1.neomers.fastq ${sample}_2.neomers.fastq ${sample}_1.fastq ${sample}_2.fastq
