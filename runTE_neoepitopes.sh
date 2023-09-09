@@ -31,6 +31,6 @@ bowtie2 -x /data/hemberg/shared_resources/genomes/human/GRCh38.p7.gencode25 -p $
 module purge
 module load perl gcc htslib python bcftools samtools bedtools
 samtools sort ${sample}.nullomers.union.sam |samtools rmdup - ${sample}.nullomers.union.bam
-bedtools intersect -C -a ${pathDB}TE_antigenRegions.bed -b ${sample}.nullomers.union.bam |awk '$3>1' >  ${sample}.TE_antigenReads.tab
+bedtools intersect -C -a ${pathDB}TE_antigenRegions.bed -b ${sample}.nullomers.union.bam |awk '$7>1' >  ${sample}.TE_antigenReads.tab
 
 rm ${sample}*.union ${sample}*.union.sam ${sample}_1.nullomers.fastq ${sample}_2.nullomers.fastq ${sample}_1.fastq ${sample}_2.fastq
