@@ -29,6 +29,7 @@ module purge
 module load htslib bcftools samtools bedtools
 samtools sort ${sample}.nullomers.union.sam |samtools rmdup - ${sample}.nullomers.union.bam
 samtools view ${sample}.nullomers.union.bam| awk -v "sid=${sample}" -F "\t" '{if(FNR==NR){if($1!="" || NF==7){split($1,u,";");null_list[$3]=$1;for(i=1;i<length(u);i++){null_neo[$3"_"u[i]]=$2;null_genes[$3"_"u[i]]=$5}}}else{split($3,v,".");if(et!=v[1]){et=v[1];nt=split(null_list[et],nlu,";")};for(i=1;i<length(nlu);i++){if(index($10,nlu[i])>0){null_count[et"_"nlu[i]]++}}}}END{for(k in null_count){split(k,w,"_");print sid"\t"w[2]"\t"null_neo[k]"\t"w[1]"\t"null_genes[k]"\t"null_count[k]}}' ${pathDB}ChimerKB_n_Pub_junction_nullomers.tsv - > ${sample}_nullomers_fusions_counts_raw.tsv
+sort -k1,1 -k4,4 -k6n -t$'\t' ${sample}_nullomers_fusions_counts_raw.tsv |awk -F "\t" '{if(et!=$4){if(FNR!=1 && rcount>1){print pid"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"et}; pid=$1; neo_list=$3; et=$4; ncount=0}; ncount++;rcount=$6; null=$2}END{if(rcount>1){print pid"\t"null"\t"neo_list"\t"rcount}}' > ${sample}_nullomers_neoepitopes_readCounts.tsv
 
 #samtools idxstats ${sample}.nullomers.union.bam| awk ' {print $1" "$3}' > ${sample}.fusionJunction_Reads.tab
 
