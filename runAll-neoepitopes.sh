@@ -33,5 +33,5 @@ samtools view ${sample}.nullomers.union.ChimerDB.bam| awk -v "sid=${sample}" -F 
 bedtools intersect -C -a ${pathDB}TransposElements/TE_antigenRegions.bed -b ${sample}.nullomers.union.TE.bam |awk '$7>1' >  ${sample}.TE_antigen_readCounts.tab
 wait
 
-sort -k1,1 -k5,5 -k3,3 -k4n ${sample}_epitopeDB_neoepitopes_counts_raw.tsv|awk '{if(neo_list!=$3 || et!=$5){if(FNR!=1 && rcount>1){print pid"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"et}; pid=$1; neo_list=$3; et=$5; ncount=0}; ncount++;rcount=$4; null=$2}END{if(rcount>1){print pid"\t"null"\t"neo_list"\t"rcount}}' > ${sample}_epitopeDB_neoepitopes_readCounts.tsv
+sort -k1,1 -k5,5 -k3,3 -k4n ${sample}_epitopeDB_neoepitopes_counts_raw.tsv|awk '{if(neo_list!=$3 || et!=$5){if(FNR!=1 && rcount>1){print pid"\t"null"\t"neo_list"\t"et"\t"rcount}; pid=$1; neo_list=$3; et=$5; ncount=0}; ncount++;rcount=$4; null=$2}END{if(rcount>1){print pid"\t"null"\t"neo_list"\t"et"\t"rcount}}' > ${sample}_epitopeDB_neoepitopes_readCounts.tsv
 sort -k1,1 -k4,4 -k6n -t$'\t' ${sample}_fusions_neoepitopes_counts_raw.tsv |awk -F "\t" '{if(et!=$4){if(FNR!=1 && rcount>1){print pid"\t"null"\t"neo_list"\t"et"\t"ann"\t"rcount}; pid=$1; neo_list=$3; et=$4; ann=$5; ncount=0}; ncount++;rcount=$6; null=$2}END{if(rcount>1){print pid"\t"null"\t"neo_list"\t"et"\t"ann"\t"rcount}}' > ${sample}_fusions_neoepitopes_readCounts.tsv
