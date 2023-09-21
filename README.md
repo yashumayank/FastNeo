@@ -27,6 +27,7 @@ Download mapping indices
 -   proteins (https://ftp.ensembl.org/pub/release-107/fasta/homo_sapiens/pep/Homo_sapiens.GRCh38.pep.all.fa.gz)
 
 # LIMITATIONS
+The neoepitopes found in plasma-cell-free RNA represents cells from the whole body and only a miniscule proportion of the RNA is from the tumour. Thus, even the most discrimanative neoepitopes might not have originated in the tumour itself.
 
 # FUNDING
 
