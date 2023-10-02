@@ -21,10 +21,10 @@ module purge
 module load bowtie2
 bowtie2 -x ${path1}Homo_sapiens.GRCh38.cds.all -p $cores --very-sensitive-local -1 ${sample}_1.nullomers.union.epitopeDB.fastq -2 ${sample}_2.nullomers.union.epitopeDB.fastq -S ${sample}.nullomers.union.epitopeDB.sam
 rm ${sample}_*.nullomers.union.epitopeDB.fastq
-bowtie2 -x /data/hemberg/shared_resources/genomes/human/GRCh38.p7.gencode25 -p $cores --very-sensitive --mp 3 -1 ${sample}_1.nullomers.union.TE.fastq -2 ${sample}_2.nullomers.union.TE.fastq -S ${sample}.nullomers.union.TE.sam
-rm ${sample}_*.nullomers.union.TE.fastq
-bowtie2 -x ${pathDB}fusion/ChimerDB_bowtie -p $cores -1 ${sample}_1.nullomers.union.ChimerDB.fastq -2 ${sample}_2.nullomers.union.ChimerDB.fastq -S ${sample}.nullomers.union.ChimerDB.sam
+bowtie2 -x ${pathDB}fusion/ChimerDB_bowtie -p $cores --very-sensitive --mp 3 -1 ${sample}_1.nullomers.union.ChimerDB.fastq -2 ${sample}_2.nullomers.union.ChimerDB.fastq -S ${sample}.nullomers.union.ChimerDB.sam
 rm ${sample}_*.nullomers.union.ChimerDB.fastq
+bowtie2 -x /data/hemberg/shared_resources/genomes/human/GRCh38.p7.gencode25 -p $cores -1 ${sample}_1.nullomers.union.TE.fastq -2 ${sample}_2.nullomers.union.TE.fastq -S ${sample}.nullomers.union.TE.sam
+rm ${sample}_*.nullomers.union.TE.fastq
 module purge
 
 module load samtools bedtools
