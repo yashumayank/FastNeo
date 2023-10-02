@@ -5,7 +5,7 @@ cores=2
 
 sample=$1
 
-/data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 ${sample}
+#/data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 ${sample}
 julia ${path1}cfRNAnullomers1.2.jl -f ${pathDS}${sample}_1.fastq -n ${pathDB}epitopeDB_nullomers.tsv,${pathDB}TransposElements/TE_nullomers.tsv,${pathDB}fusion/ChimerDB_nullomers.tsv -l 16 -S ${pathDS}${sample}_1.nullomers -p 0.0 -q 0 --logfile ${pathDS}${sample}_1.nullomers.json -N / &
 julia ${path1}cfRNAnullomers1.2.jl -f ${pathDS}${sample}_2.fastq -n ${pathDB}epitopeDB_nullomersRevComp.tsv,${pathDB}TransposElements/TE_nullomersRevComp.tsv,${pathDB}fusion/ChimerDB_nullomersRevComp.tsv -l 16 -S ${pathDS}${sample}_2.nullomers -p 0.0 -q 0 --logfile ${pathDS}${sample}_2.nullomers.json -N /
 wait
@@ -23,7 +23,7 @@ bowtie2 -x ${path1}Homo_sapiens.GRCh38.cds.all -p $cores --very-sensitive-local 
 rm ${sample}_*.nullomers.union.epitopeDB.fastq
 bowtie2 -x /data/hemberg/shared_resources/genomes/human/GRCh38.p7.gencode25 -p $cores --very-sensitive --mp 3 -1 ${sample}_1.nullomers.union.TE.fastq -2 ${sample}_2.nullomers.union.TE.fastq -S ${sample}.nullomers.union.TE.sam
 rm ${sample}_*.nullomers.union.TE.fastq
-bowtie2 -x ${pathDB}fusion/ChimerDB_bowtie -p $cores --very-sensitive --mp 3 -1 ${sample}_1.nullomers.union.ChimerDB.fastq -2 ${sample}_2.nullomers.union.ChimerDB.fastq -S ${sample}.nullomers.union.ChimerDB.sam
+bowtie2 -x ${pathDB}fusion/ChimerDB_bowtie -p $cores -1 ${sample}_1.nullomers.union.ChimerDB.fastq -2 ${sample}_2.nullomers.union.ChimerDB.fastq -S ${sample}.nullomers.union.ChimerDB.sam
 rm ${sample}_*.nullomers.union.ChimerDB.fastq
 module purge
 
