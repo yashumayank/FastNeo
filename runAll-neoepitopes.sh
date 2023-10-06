@@ -1,15 +1,15 @@
 pathDS=$(pwd)
-Path1="" #specify full path of the install directory eg. /usr/bin/cfRNA-neoepitopes
-pathDB=${Path1}nullomer_lists/
-pathMI=${Path1}mapping_indices/
+path1="" #specify full path of the install directory eg. /usr/bin/cfRNA-neoepitopes
+pathDB=${path1}/nullomer_lists/
+pathMI=${path1}/mapping_indices/
 cd ${pathDS}
 cores=2
 
 sample=$1
 #julia
 #/data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 ${sample}
-julia ${path1}cfRNAnullomers.v0.2.jl -f ${pathDS}${sample}_1.fastq -n ${pathDB}epitopeDB_nullomers.tsv,${pathDB}TE_nullomers.tsv,${pathDB}ChimerDB_nullomers.tsv -l 16 -S ${pathDS}${sample}_1.nullomers -p 0.0 -q 0 --logfile ${pathDS}${sample}_1.nullomers.json -N / &
-julia ${path1}cfRNAnullomers.v0.2.jl -f ${pathDS}${sample}_2.fastq -n ${pathDB}epitopeDB_nullomersRevComp.tsv,${pathDB}TE_nullomersRevComp.tsv,${pathDB}ChimerDB_nullomersRevComp.tsv -l 16 -S ${pathDS}${sample}_2.nullomers -p 0.0 -q 0 --logfile ${pathDS}${sample}_2.nullomers.json -N /
+julia ${path1}/cfRNAnullomers.v0.2.jl -f ${pathDS}${sample}_1.fastq -n ${pathDB}epitopeDB_nullomers.tsv,${pathDB}TE_nullomers.tsv,${pathDB}ChimerDB_nullomers.tsv -l 16 -S ${pathDS}${sample}_1.nullomers -p 0.0 -q 0 --logfile ${pathDS}${sample}_1.nullomers.json -N / &
+julia ${path1}/cfRNAnullomers.v0.2.jl -f ${pathDS}${sample}_2.fastq -n ${pathDB}epitopeDB_nullomersRevComp.tsv,${pathDB}TE_nullomersRevComp.tsv,${pathDB}ChimerDB_nullomersRevComp.tsv -l 16 -S ${pathDS}${sample}_2.nullomers -p 0.0 -q 0 --logfile ${pathDS}${sample}_2.nullomers.json -N /
 wait
 awk -v pid=${sample}_1 '{if(FNR==1){f++};if(f<=2){if(FNR%4==1){a[$1]=1}}else{if(f==3 || f==4){if(FNR%4==1){b[$1]=1}}else{if(f==5 || f==6){if(FNR%4==1){c[$1]=1}}else{if(FNR%4==1){if(a[$1]==1){x=1}else{x=0};if(b[$1]==1){y=1}else{y=0};if(c[$1]==1){z=1}else{z=0}};if(x==1){print $0 > pid ".nullomers.union.epitopeDB.fastq"};if(y==1){print $0 > pid ".nullomers.union.ChimerDB.fastq"};if(z==1){print $0 > pid ".nullomers.union.TE.fastq"}}}}}' ${sample}_*.nullomers_epitopeDB.fastq ${sample}_*.nullomers_ChimerDB.fastq ${sample}_*.nullomers_TE.fastq ${sample}_1.fastq &
 awk -v pid=${sample}_2 '{if(FNR==1){f++};if(f<=2){if(FNR%4==1){a[$1]=1}}else{if(f==3 || f==4){if(FNR%4==1){b[$1]=1}}else{if(f==5 || f==6){if(FNR%4==1){c[$1]=1}}else{if(FNR%4==1){if(a[$1]==1){x=1}else{x=0};if(b[$1]==1){y=1}else{y=0};if(c[$1]==1){z=1}else{z=0}};if(x==1){print $0 > pid ".nullomers.union.epitopeDB.fastq"};if(y==1){print $0 > pid ".nullomers.union.ChimerDB.fastq"};if(z==1){print $0 > pid ".nullomers.union.TE.fastq"}}}}}' ${sample}_*.nullomers_epitopeDB.fastq ${sample}_*.nullomers_ChimerDB.fastq ${sample}_*.nullomers_TE.fastq ${sample}_2.fastq
