@@ -1,5 +1,5 @@
 pathDS=$(pwd)
-Path1="" #specify install directory with full path
+Path1="" #specify full path of the install directory eg. /usr/bin/cfRNA-neoepitopes
 pathDB=${Path1}nullomer_lists/
 pathMI=${Path1}mapping_indices/
 cd ${pathDS}
