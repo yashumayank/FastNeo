@@ -2,9 +2,6 @@
 
 using DelimitedFiles, ArgParse, Random, Statistics, BioSequences, StatsBase;
 
-include("nullomerFunctions.jl")
-#include("makePlots.jl")
-
 function parse_commandline()
     s = ArgParseSettings()
     @add_arg_table s begin
@@ -207,6 +204,30 @@ function parseLogFile(filename, readsfile, fieldname)
     return value
 end
 
+function findReverseComplement(nullomersstrs, savefilename)
+    if typeof(nullomersstrs)==String
+        nullomersstrs = convert(Array{String, 1}, readdlm(nullomersstrs, comments=true)[:,1])
+    end
+    nullomers = LongDNASeq[];
+    indsfound = Bool[];
+    for n in nullomersstrs
+        push!(nullomers, LongDNASeq(n));
+        push!(indsfound, false);
+    end
+
+    savefilehandle = open(savefilename, "w")
+    for i in 1:length(nullomers)
+        if !indsfound[i]
+            ind = findfirst(nullomersstrs.==string(reverse(complement(nullomers[i]))))
+            if ind!=nothing
+                println(savefilehandle, string(i) * "\t" * string(ind));
+                indsfound[i] = true;
+                indsfound[ind] = true;
+            end
+        end
+    end
+    close(savefilehandle)
+end
 function main()
     parsed_args = parse_commandline();
     nullomerlen = parsed_args["nullomer_length"];
