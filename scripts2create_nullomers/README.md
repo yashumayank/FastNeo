@@ -1,5 +1,5 @@
-# neoepitope-nullomers
-Workflow to produce nullomers corresponding to neoepitopes from various sources. These scripts also create the alignment file for gene-fusion reads and the nullomer to neoepitope map files
+# neoepitope-to-nullomers
+Workflow to produce nullomers corresponding to neoepitopes from various sources. These scripts also create the alignment file for gene-fusion reads and the maps to convert nullomer to neoepitope
 
 ## Prerequisites
 - Python (Biopython, numpy)
