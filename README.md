@@ -13,12 +13,11 @@ x86-64 compatible processors
 contains detailed information about the latest major release CHANGES contains detailed information about all the changes in all releases
 
 # INSTALL AND SETUP (PRE-REQUISITES)
+'''
 git clone https://github.com/yashumayank/cfRNA-neoepitopes.git
-
 conda install -c bioconda bowtie2 samtools julia 
-
 julia pkginstall.jl
-
+'''
 Download mapping indices
 
 
