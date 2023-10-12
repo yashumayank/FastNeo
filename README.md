@@ -9,21 +9,16 @@ This tool has been developed to detect neoepitopes from published resources in t
 x86-64 compatible processors
 64 bit Linux or Mac OS X
 
-# PRE-REQUISITES
-- For Mac OSx:
-Install Xcode or to install only git: "brew install git"
-- For Windows:
-git for windows (https://gitforwindows.org/),
-- Common requirements fro linux, windows and OSx
-Julia (modules required: --- ), Python (Biopython), Bowtie2, samtools (bedtools if you run runAll-neoepitopes.sh)
-
-RELEASEnotes 
+# RELEASEnotes 
 contains detailed information about the latest major release CHANGES contains detailed information about all the changes in all releases
 
-# INSTALL AND SETUP
+# INSTALL AND SETUP (PRE-REQUISITES)
 git clone https://github.com/yashumayank/cfRNA-neoepitopes.git
+
 conda install -c bioconda bowtie2 samtools julia 
+
 julia pkginstall.jl
+
 Download mapping indices
 
 
