@@ -22,14 +22,10 @@ contains detailed information about the latest major release CHANGES contains de
 
 # INSTALL AND SETUP
 git clone https://github.com/yashumayank/cfRNA-neoepitopes.git
+conda install -c bioconda bowtie2 samtools julia 
+julia pkginstall.jl
 Download mapping indices
-julia using Pkg
-Pkg.add("ArgParse")
-Pkg.add("Statistics")
-Pkg.add("BioSequences")
-Pkg.add("GenomicFeatures")
-Pkg.add("BioAlignments")
-Pkg.add("StatsBase")
+
 
 # LIMITATIONS
 The neoepitopes found in plasma-cell-free RNA represents cells from the whole body and only a miniscule proportion of the RNA is from the tumour. Thus, even the most discriminative neoepitopes might not have originated in the tumour itself.
