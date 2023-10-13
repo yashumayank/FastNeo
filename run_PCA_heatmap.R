@@ -128,15 +128,15 @@ for (x in c(1,2,4,5,6)){ # start of function
 	# keep_cols <- c("stat",wilcox_df$X1[as.numeric(wilcox_df$X2)<=0.1])
 
 	pc <- prcomp(data_in[,-c("stat")], center = TRUE)
-	plots_all[[paste0(x,"_1")]] <- cbind(data_in, metadata_in[,"STAGE"]) %>% autoplot(pc, data= ., colour = 'STAGE') + theme_classic() + 
-	labs(title="PCA of all features") 
+	plots_all[[paste0(x,"_1")]] <- cbind(data_in, metadata_in[,"stat"]) %>% autoplot(pc, data= ., colour = 'stat') + theme_classic() + 
+	labs(title=paste0("PCA of all features in ",dataset[x])) 
 	
 	data_sub <- data_in[, ..keep_cols]
 
 	pc_sub <- prcomp(data_sub[,-c("stat")], center = TRUE)
 	plots_all[[paste0(x,"_2")]] <- cbind(data_sub, metadata_in[,"STAGE"]) %>% autoplot(pc_sub, x=1, y=2, data= ., colour = 'STAGE')+ theme_classic() +
-	labs(title=paste0("PCA of ",length(keep_cols)-1," selected features (mRMRe.filter)"))
-
+	labs(title=paste0("PCA of ",length(keep_cols)-1," selected features in ",dataset[x]))
+	
 	#Hierarchical Clustering
 	metadata_in$status<- factor(metadata_in$stat, labels = c("salmon","#00BFC4"))
 	distance_mat <- dist(data_sub[,-c("stat")], method = 'eJaccard')
