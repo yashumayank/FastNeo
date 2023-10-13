@@ -79,7 +79,6 @@ for (x in c(1,2,4,5,6)){ # start of function
 #	patient_inc <- which(patient_all < 3000)
 	data_in <- data_merged[] %>% select(c("sample_id","stat",names(neo_inc)))
 	metadata_in <- metadata[match(data_in$sample_id,metadata$Run),]
-	metadata_in$STAGE <- factor(sub(" .*", "", metadata_in$disease))
 #	metadata_in$STAGE[metadata_in$stat==] <- factor(sub(" .*", "", metadata_in$disease))
 #	metadata_in$stat <- as.integer(as.factor(metadata_in$STAGE))
 	data_in <- data_in[,-c("sample_id")]
