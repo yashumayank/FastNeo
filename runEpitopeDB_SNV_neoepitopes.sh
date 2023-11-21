@@ -13,11 +13,10 @@ julia ${path1}/cfRNAnullomers.v0.2.jl -f ${pathDS}${sample}_2.fastq -n ${pathDB}
 wait
 awk -v pid=${sample}_1 '{if(FNR==1){f++};if(f<=2){if(FNR%4==1){a[$1]=1}}else{if(FNR%4==1){if(a[$1]==1){x=1}else{x=0}};if(x==1){print $0 > pid ".nullomers.union.epitopeDB.fastq"}}}' ${sample}_*.nullomers_epitopeDB.fastq ${sample}_1.fastq &
 awk -v pid=${sample}_2 '{if(FNR==1){f++};if(f<=2){if(FNR%4==1){a[$1]=1}}else{if(FNR%4==1){if(a[$1]==1){x=1}else{x=0}};if(x==1){print $0 > pid ".nullomers.union.epitopeDB.fastq"}}}' ${sample}_*.nullomers_epitopeDB.fastq ${sample}_2.fastq
-
+wait
 #rm ${sample}_1.fastq ${sample}_2.fastq
 rm ${sample}_*.nullomers_epitopeDB.fastq ${sample}_*.nullomers_ChimerDB.fastq ${sample}_*.nullomers_TE.fastq
 rm ${sample}_1.nullomers.json ${sample}_1.nullomers.json
-wait
 
 #bowtie2
 bowtie2 -x ${pathMI}Homo_sapiens.GRCh38.cds.all -p $cores --very-sensitive-local -1 ${sample}_1.nullomers.union.epitopeDB.fastq -2 ${sample}_2.nullomers.union.epitopeDB.fastq -S ${sample}.nullomers.union.epitopeDB.sam
