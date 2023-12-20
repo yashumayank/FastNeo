@@ -27,6 +27,7 @@ from Bio.SeqRecord import SeqRecord
 import numpy
 import sys, csv, re
 import itertools
+import string
 
 d = {
     'A': ['GCA', 'GCC', 'GCG', 'GCT'],
@@ -51,6 +52,25 @@ d = {
     'Y': ['TAC', 'TAT'],
     '_': ['TAA', 'TAG', 'TGA'],
 }
+
+dd = {
+    'ATA':'I', 'ATC':'I', 'ATT':'I', 'ATG':'M',
+    'ACA':'T', 'ACC':'T', 'ACG':'T', 'ACT':'T',
+    'AAC':'N', 'AAT':'N', 'AAA':'K', 'AAG':'K',
+    'AGC':'S', 'AGT':'S', 'AGA':'R', 'AGG':'R',
+    'CTA':'L', 'CTC':'L', 'CTG':'L', 'CTT':'L',
+    'CCA':'P', 'CCC':'P', 'CCG':'P', 'CCT':'P',
+    'CAC':'H', 'CAT':'H', 'CAA':'Q', 'CAG':'Q',
+    'CGA':'R', 'CGC':'R', 'CGG':'R', 'CGT':'R',
+    'GTA':'V', 'GTC':'V', 'GTG':'V', 'GTT':'V',
+    'GCA':'A', 'GCC':'A', 'GCG':'A', 'GCT':'A',
+    'GAC':'D', 'GAT':'D', 'GAA':'E', 'GAG':'E',
+    'GGA':'G', 'GGC':'G', 'GGG':'G', 'GGT':'G',
+    'TCA':'S', 'TCC':'S', 'TCG':'S', 'TCT':'S',
+    'TTC':'F', 'TTT':'F', 'TTA':'L', 'TTG':'L',
+    'TAC':'Y', 'TAT':'Y', 'TAA':'_', 'TAG':'_',
+    'TGC':'C', 'TGT':'C', 'TGA':'_', 'TGG':'W',
+    }
 
 def generator(protein):
     l = [d[aa] for aa in protein]
@@ -112,6 +132,18 @@ kmerPep=set()
 wtEpi={}
 pepLen={}
 neoEpi={}
+mhcAff={}
+
+posGnomAD={}
+posAAGnomAD={}
+oCodonGnomAD={}
+nCodonGnomAD={}
+oAAGnomAD={}
+nAAGnomAD={}
+meta1GnomAD={}
+meta2GnomAD={}
+gnoDup=set()
+
 failA, failD, failI, failS, failS0 = 0, 0, 0, 0, 0
 null_len = 0
 padding = 6
@@ -140,11 +172,51 @@ with open(sys.argv[2]) as kmerCdna:
         kmerPep.add(kmerTok[0])
         null_len = len(kmerTok[0])
 
-nf = open(sys.argv[4] + "_neoepitopes-nullomers.tsv", "w")
+print("Reading netMHC affinities")
+with open(sys.argv[3]) as netMHCaffs:
+    for netMHC in netMHCaffs:
+        mhcTok = netMHC.split()
+        mhcAff[mhcTok[0]] = mhcTok[1]
+
+print("Reading gnomAD population variance")
+#rmLowChar = str.maketrans('', '', string.ascii_lowercase)
+with open(sys.argv[4]) as GnomADf:
+    for lines in GnomADf:
+        GnomADtok = lines.split()
+        try:
+            GnomADid = GnomADtok[0].split(".")[0]
+        except IndexError:
+            GnomADid = GnomADtok[0]
+        aaGnomAD = GnomADtok[3].split("/")
+        codGnomAD = GnomADtok[4].split("/")
+        if(not GnomADid + GnomADtok[5] in gnoDup):
+            gnoDup.add(GnomADid + GnomADtok[1] + codGnomAD[1])
+            if(GnomADid in posGnomAD):
+                posGnomAD[GnomADid] = posGnomAD[GnomADid] + "," + GnomADtok[1]
+                posAAGnomAD[GnomADid] = posAAGnomAD[GnomADid] + "," + GnomADtok[2]
+                oCodonGnomAD[GnomADid] = oCodonGnomAD[GnomADid] + "," + codGnomAD[0]
+                nCodonGnomAD[GnomADid] = nCodonGnomAD[GnomADid] + "," + codGnomAD[1].upper()
+                oAAGnomAD[GnomADid] = oAAGnomAD[GnomADid] + "," + aaGnomAD[0]
+                nAAGnomAD[GnomADid] = nAAGnomAD[GnomADid] + "," + aaGnomAD[1]
+                meta1GnomAD[GnomADid] = meta1GnomAD[GnomADid] + "," + GnomADtok[5]
+                meta2GnomAD[GnomADid] = meta2GnomAD[GnomADid] + "," + GnomADtok[6]
+#                print("inside wtEpi -if-: detected duplicate ENST")
+            else:
+                posGnomAD[GnomADid] = GnomADtok[1]
+                posAAGnomAD[GnomADid] = GnomADtok[2]
+                meta1GnomAD[GnomADid] = GnomADtok[5]
+                meta2GnomAD[GnomADid] = GnomADtok[6]
+                oCodonGnomAD[GnomADid] = codGnomAD[0]
+                nCodonGnomAD[GnomADid] =  codGnomAD[1].upper()
+                oAAGnomAD[GnomADid] = aaGnomAD[0]
+                nAAGnomAD[GnomADid] = aaGnomAD[1]
+#                nCodonGnomAD[GnomADid] =  codGnomAD[1].translate(rmLowChar)
+
+nf = open(sys.argv[6] + "_neoepitopes-nullomers.tsv", "w")
 
 #--------------- generic script to account for upto 2 SNVs per neoepitope. ----------------
 print("Searching cds for wt-epitopes and derive nullomers from the respective neoepitopes")
-for rec in SeqIO.parse(sys.argv[3], "fasta"):
+for rec in SeqIO.parse(sys.argv[5], "fasta"):
     recIDtok = rec.id.split(".")
     try:
         ann = rec.description.split("scription:")[1].split(" [")[0]
@@ -153,7 +225,8 @@ for rec in SeqIO.parse(sys.argv[3], "fasta"):
         ann = "Unannotated in Ensembl"
     if(recIDtok[0] in wtEpi):
 #        print(recIDtok[0] + "\t" + wtEpi[recIDtok[0]])
-        for frame in range(3):
+#        for frame in range(3):
+            frame=0
             aa_seq=(rec.seq[frame:].translate(to_stop=False))
             wtEpiTok= wtEpi[recIDtok[0]].split(";")
             neoEpiTok= neoEpi[recIDtok[0]].split(";")
@@ -199,6 +272,30 @@ for rec in SeqIO.parse(sys.argv[3], "fasta"):
                 if(sc>2):
                     continue
 
+                annGnomAD=""
+                if(recIDtok[0] in posGnomAD):
+                    gnoPos = posGnomAD[recIDtok[0]].split(",")
+                    gnoAAPos = posAAGnomAD[recIDtok[0]].split(",")
+                    m1 = meta1GnomAD[recIDtok[0]].split(",")
+                    m2 = meta2GnomAD[recIDtok[0]].split(",")
+                    oCod = oCodonGnomAD[recIDtok[0]].split(",")
+                    nCod = nCodonGnomAD[recIDtok[0]].split(",")
+                    oRes = oAAGnomAD[recIDtok[0]].split(",")
+                    nRes = nAAGnomAD[recIDtok[0]].split(",")
+
+                    for i in range(len(gnoPos)):
+                        if(sc==1 or sc==2):
+                            if(int(gnoPos[i])-1 >= snpPos[0] and int(gnoPos[i])-1 < snpPos[0]+3 and dd[nCod[i]] == snpaa[0]):
+#                                print(str(wtEpiTok[wti]) + " " + recIDtok[0] + " " + oCod[i] + " " + rec.seq[snpPos[0]:snpPos[0]+3] + "   " + dd[oCod[i].upper()] + " " + snpaa[0] + "   " + str(int(gnoPos[i])-1) + " " + str(snpPos[0]))
+#                                print(str(neoEpiTok[wti]))
+                                annGnomAD = annGnomAD + "SNV1," + m1[i] + ","  + m2[i] + ";"
+                        if(sc==2):
+                            if(int(gnoPos[i])-1 >= snpPos[1] and int(gnoPos[i])-1 < snpPos[1]+3 and dd[nCod[i]]==snpaa[1]):
+#                                print(str(wtEpiTok[wti]) + " " + recIDtok[0] + " " + oCod[i] + " " + rec.seq[snpPos[1]:snpPos[1]+3] + "   " + dd[nCod[i].upper()] + " " + snpaa[1] + "   " + str(int(gnoPos[i])-1) + " " + str(snpPos[1]))
+#                                print(str(neoEpiTok[wti]))
+                                annGnomAD = annGnomAD + "SNV2," + m1[i] + ","  + m2[i] + ";"
+#                    if(not annGnomAD == ""):{print(annGnomAD)}
+
                 sp1=wtStart - flank
                 st1=wtEnd + flank
                 if(sp1<0):
@@ -225,7 +322,11 @@ for rec in SeqIO.parse(sys.argv[3], "fasta"):
 #                            stt_str = str(wtStart+stt+1) + ";" + stt_str
 #                            stp_str = str(wtStart+stp) + ";" + stp_str
                     if(len(null_str) != 0):
-                        nf.write(null_str[:-1] + "\t"+ str(neocds) +"\t"+ str(wtEpiTok[wti])  +"->"+ str(neoEpiTok[wti]) + "\t" + str(recIDtok[0]) +  "\t" + ann + "\n")
+                        if(not wtEpiTok[wti] in mhcAff):
+                            mhcAff[wtEpiTok[wti]] = "-"
+                        if(not neoEpiTok[wti] in mhcAff):
+                            mhcAff[neoEpiTok[wti]] = "-"
+                        nf.write(null_str[:-1] + "\t"+ str(neocds) +"\t"+ str(wtEpiTok[wti])  +"->"+ str(neoEpiTok[wti]) + "\t" + str(recIDtok[0]) +  "\t" + ann + "\t" + mhcAff[wtEpiTok[wti]] + "\t" + mhcAff[neoEpiTok[wti]] + "\t" + annGnomAD + "\n")
 
 print("A:" + str(failA) + " D:" + str(failD) +" I:" + str(failI) +" S:" + str(failS) +" S0:" + str(failS0))
 nf.close()
