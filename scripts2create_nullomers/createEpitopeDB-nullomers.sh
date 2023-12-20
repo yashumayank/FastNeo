@@ -80,12 +80,12 @@ for i in $(seq 1 22) X Y ;do
   bcftools view gnomad.exomes.v4.0.sites.chr${1}.vcf.bgz | grep "missense" |  awk -F "\t" '{split($8,u,"[;]");split(u[3],v,"=");if(v[2] > 1e-07){split(u[499],w,",");for(i=1;i<=length(w);i++){split(w[i],x,"|");if(x[2]=="missense_variant" && x[8]=="protein_coding"){if(x[7]~/ENST/){pid=x[7]}else{next};print pid"\t"x[14]"\t"x[15]"\t"x[16]"\t"x[17]"\t"$1";"$2";"$4";"$5"\t"u[3]";"u[4]";"u[8]";"u[12]";"u[25]";"u[37]";"u[49]";"u[61]";"u[73]";"u[85]";"u[97]";"u[249]}}}}' > gnomad.exomes.v4.0.sites.chr${1}.vep2
   rm gnomad.exomes.v4.0.sites.chr${1}.vcf.bgz
 done
-cat gnomad.exomes.v4.0.sites.chr*.vep2 > gnomad.exomes_missense.1e-7.vep
+cat gnomad.exomes.v4.0.sites.chr*.vep2 > gnomad.exomes_all_missense.vep
 
 #--extract extract nullomers associated to neoepitopes in IEDB and TSNAdb
-python IEDB_TSNAdb2nullomer.py TSNAdb_frequent_ICGC_per_ENST3.tab Homo_sapiens_cds_16mers.tab ../Homo_sapiens.GRCh38.cds.all.fa gnomad.exomes_missense.1e-7.vep TSNAdb_ICGC
-python IEDB_TSNAdb2nullomer.py TSNAdb_frequent_TCGA_per_ENST3.tab Homo_sapiens_cds_16mers.tab ../Homo_sapiens.GRCh38.cds.all.fa gnomad.exomes_missense.1e-7.vep TSNAdb_TCGA
-python IEDB_TSNAdb2nullomer.py IEDB_neoepitopes_per_ENST2.tab Homo_sapiens_cds_16mers.tab ../Homo_sapiens.GRCh38.cds.all.fa gnomad.exomes_missense.1e-7.vep IEDB
+python IEDB_TSNAdb2nullomer.py IEDB_neoepitopes_per_ENST2.tab Homo_sapiens_cds_16mers.tab IEDB_neoepitope_bindingAffinity_netMHC.out gnomad.exomes_all_missense.vep ../Homo_sapiens.GRCh38.cds.all.fa IEDB
+python IEDB_TSNAdb2nullomer.py TSNAdb_frequent_ICGC_per_ENST3.tab Homo_sapiens_cds_16mers.tab IEDB_neoepitope_bindingAffinity_netMHC.out gnomad.exomes_all_missense.vep ../Homo_sapiens.GRCh38.cds.all.fa TSNAdb_ICGC
+python IEDB_TSNAdb2nullomer.py TSNAdb_frequent_TCGA_per_ENST3.tab Homo_sapiens_cds_16mers.tab IEDB_neoepitope_bindingAffinity_netMHC.out gnomad.exomes_all_missense.vep ../Homo_sapiens.GRCh38.cds.all.fa TSNAdb_TCGA
 
 #---Count the WT-neoepitope pairs extracted from each database
 echo "TSNAdb_ICGC"
