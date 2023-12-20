@@ -25,9 +25,48 @@ trpep[j[1]]=trpep[j[1]]";"$1;trlen[j[1]]=trlen[j[1]]";"plen;trWT[j[1]]=trWT[j[1]
 END{for(x in trpep)print x"\t"substr(trpep[x],2)"\t"substr(trlen[x],2)"\t"substr(trWT[x],2)}' \
 uniprot2ensembl_map2.tab IEDB_neoepitopes_sapien.tab > IEDB_neoepitopes_per_ENST2.tab
 #convert TSNAdb neoepitopes to the format required for downstream analysis
-awk '(FNR!=1 ){trpep[$4]=trpep[$4]";"$14;trlen[$4]=trlen[$4]";"length($14);trWT[$4]=trWT[$4]";"$10;}\
-END{for(x in trpep)print x"\t"substr(trpep[x],2)"\t"substr(trlen[x],2)"\t"substr(trWT[x],2)}' \
-TSNAdb_frequent_neoantigen_TCGA_4.0_adj.txt > TSNAdb_frequent_TCGA_per_ENST3.tab
+awk -F "\t" '(FNR!=1 ){trpep[$4]=trpep[$4]";"$14;trlen[$4]=trlen[$4]";"length($14);trWT[$4]=trWT[$4]";"$10;}\
+END{for(x in trpep)print x"\t"substr(trpep[x],2)"\t"substr(trlen[x],2)"\t"substr(trWT[x],2)}' TSNAdb_frequent_neoantigen_TCGA_4.0_adj.txt > TSNAdb_frequent_TCGA_per_ENST3.tab
+awk -F "\t" '(FNR!=1 ){trpep[$4]=trpep[$4]";"$14;trlen[$4]=trlen[$4]";"length($14);trWT[$4]=trWT[$4]";"$10;}\
+END{for(x in trpep)print x"\t"substr(trpep[x],2)"\t"substr(trlen[x],2)"\t"substr(trWT[x],2)}' TSNAdb_frequent_neoantigen_ICGC_4.0_adj.txt > TSNAdb_frequent_ICGC_per_ENST3.tab
+
+# Run netMHC I & II on the neoepitopes
+awk '{split($2,u,";");split($4,v,";"); for(i=1;i<=length(u);i++){if(length(u[i])!=length(v[i])){print u[i]"\n"v[i] > "IEDB_neoepitopes_per_ENST2.unequal.tab"}else{\
+if(length(u[i])<=11){a[u[i]]=length(u[i]);a[v[i]]=length(u[i])}else{a[u[i]]="12+";a[v[i]]="12+"}}}}END{for(x in a) print x > "IEDB_neoepitopes_per_ENST2."a[x]"mers.tab"}' IEDB_neoepitopes_per_ENST2.tab
+awk '{split($2,u,";");split($4,v,";"); for(i=1;i<=length(u);i++){if(length(u[i])!=length(v[i])){print u[i]"\n"v[i] > "TSNAdb_neoepitopes_per_ENST2.unequal.tab"}else{\
+if(length(u[i])<=11){a[u[i]]=length(u[i]);a[v[i]]=length(u[i])}else{a[u[i]]="12+";a[v[i]]="12+"}}}}END{for(x in a) print x > "TSNAdb_neoepitopes_per_ENST2."a[x]"mers.tab"}' TSNAdb_frequent_ICGC_per_ENST3.tab TSNAdb_frequent_TCGA_per_ENST3.tab
+
+netMHCpan -BA -s -l 8 \
+-a HLA-A01:01,HLA-A02:01,HLA-A03:01,HLA-A11:01,HLA-A24:02,HLA-B07:02,HLA-B35:01,HLA-B40:01,HLA-B51:01,HLA-C01:02,HLA-C03:03,HLA-C03:04,HLA-C04:01,HLA-C06:02,HLA-C07:01,HLA-C07:02,HLA-C08:01,HLA-A33:03,HLA-B08:01 \
+-p  IEDB_neoepitopes_per_ENST2.8mers.tab | awk '($18=="WB"||$18=="SB"){print $3"\t"$2"\t"$16}' > IEDB_neoantigen_candidate_8mers_netMHC.out
+netMHCpan -BA -s -l 9 \
+-a HLA-A01:01,HLA-A02:01,HLA-A03:01,HLA-A11:01,HLA-A24:02,HLA-B07:02,HLA-B35:01,HLA-B40:01,HLA-B51:01,HLA-C01:02,HLA-C03:03,HLA-C03:04,HLA-C04:01,HLA-C06:02,HLA-C07:01,HLA-C07:02,HLA-C08:01,HLA-A33:03,HLA-B08:01 \
+-p  IEDB_neoepitopes_per_ENST2.9mers.tab | awk '($18=="WB"||$18=="SB"){print $3"\t"$2"\t"$16}' > IEDB_neoantigen_candidate_9mers_netMHC.out
+netMHCpan -BA -s -l 10 \
+-a HLA-A01:01,HLA-A02:01,HLA-A03:01,HLA-A11:01,HLA-A24:02,HLA-B07:02,HLA-B35:01,HLA-B40:01,HLA-B51:01,HLA-C01:02,HLA-C03:03,HLA-C03:04,HLA-C04:01,HLA-C06:02,HLA-C07:01,HLA-C07:02,HLA-C08:01,HLA-A33:03,HLA-B08:01 \
+-p  IEDB_neoepitopes_per_ENST2.10mers.tab | awk '($18=="WB"||$18=="SB"){print $3"\t"$2"\t"$16}' > IEDB_neoantigen_candidate_10mers_netMHC.out
+netMHCpan -BA -s -l 11 \
+-a HLA-A01:01,HLA-A02:01,HLA-A03:01,HLA-A11:01,HLA-A24:02,HLA-B07:02,HLA-B35:01,HLA-B40:01,HLA-B51:01,HLA-C01:02,HLA-C03:03,HLA-C03:04,HLA-C04:01,HLA-C06:02,HLA-C07:01,HLA-C07:02,HLA-C08:01,HLA-A33:03,HLA-B08:01 \
+-p  IEDB_neoepitopes_per_ENST2.11mers.tab | awk '($18=="WB"||$18=="SB"){print $3"\t"$2"\t"$16}' > IEDB_neoantigen_candidate_11mers_netMHC.out
+netMHCIIpan -BA -s -inptype 1 \
+-a DRB1_0701,DRB1_1501,DRB1_0301,DRB1_1101,DRB1_0101,DRB1_1302,DRB1_1301,DRB1_1502,DRB1_0401,DRB1_1201,DRB1_0403,DRB4_0101,DRB3_0202,DRB3_0101,DRB5_0101,DRB3_0301,HLA-DQA10102-DQB10501,HLA-DQA10103-DQB10501,HLA-DQA10501-DQB10201,HLA-DPA10103-DPB10201,HLA-DPA10103-DPB10402 \
+-f IEDB_neoepitopes_per_ENST2.12+mers.tab | awk '($10<=10 && $1>0 && $1<61){print $3"\t"$2"\t"$14}' > IEDB_neoantigen_candidate_12+mers_netMHC.out
+
+netMHCpan -BA -s -l 8 \
+-a HLA-A01:01,HLA-A02:01,HLA-A03:01,HLA-A11:01,HLA-A24:02,HLA-B07:02,HLA-B35:01,HLA-B40:01,HLA-B51:01,HLA-C01:02,HLA-C03:03,HLA-C03:04,HLA-C04:01,HLA-C06:02,HLA-C07:01,HLA-C07:02,HLA-C08:01,HLA-A33:03,HLA-B08:01 \
+-p  TSNAdb_neoepitopes_per_ENST2.8mers.tab | awk '($18=="WB"||$18=="SB"){print $3"\t"$2"\t"$16}' > TSNAdb_neoantigen_candidate_8mers_netMHC.out
+netMHCpan -BA -s -l 9 \
+-a HLA-A01:01,HLA-A02:01,HLA-A03:01,HLA-A11:01,HLA-A24:02,HLA-B07:02,HLA-B35:01,HLA-B40:01,HLA-B51:01,HLA-C01:02,HLA-C03:03,HLA-C03:04,HLA-C04:01,HLA-C06:02,HLA-C07:01,HLA-C07:02,HLA-C08:01,HLA-A33:03,HLA-B08:01 \
+-p  TSNAdb_neoepitopes_per_ENST2.9mers.tab | awk '($18=="WB"||$18=="SB"){print $3"\t"$2"\t"$16}' > TSNAdb_neoantigen_candidate_9mers_netMHC.out
+netMHCpan -BA -s -l 10 \
+-a HLA-A01:01,HLA-A02:01,HLA-A03:01,HLA-A11:01,HLA-A24:02,HLA-B07:02,HLA-B35:01,HLA-B40:01,HLA-B51:01,HLA-C01:02,HLA-C03:03,HLA-C03:04,HLA-C04:01,HLA-C06:02,HLA-C07:01,HLA-C07:02,HLA-C08:01,HLA-A33:03,HLA-B08:01 \
+-p  TSNAdb_neoepitopes_per_ENST2.10mers.tab | awk '($18=="WB"||$18=="SB"){print $3"\t"$2"\t"$16}' > TSNAdb_neoantigen_candidate_10mers_netMHC.out
+netMHCpan -BA -s -l 11 \
+-a HLA-A01:01,HLA-A02:01,HLA-A03:01,HLA-A11:01,HLA-A24:02,HLA-B07:02,HLA-B35:01,HLA-B40:01,HLA-B51:01,HLA-C01:02,HLA-C03:03,HLA-C03:04,HLA-C04:01,HLA-C06:02,HLA-C07:01,HLA-C07:02,HLA-C08:01,HLA-A33:03,HLA-B08:01 \
+-p  TSNAdb_neoepitopes_per_ENST2.11mers.tab | awk '($18=="WB"||$18=="SB"){print $3"\t"$2"\t"$16}' > TSNAdb_neoantigen_candidate_11mers_netMHC.out
+
+awk '{if(b[$1"_"$2"_"$3]!=1){a[$1]=a[$1]","$2";"$3;b[$1"_"$2"_"$3]=1}}END{for(i in a){print i"\t"substr(a[i],2)}}' IEDB_neoantigen_candidate_*mers_netMHC.out > IEDB_neoepitope_bindingAffinity_netMHC.out
+awk '{if(b[$1"_"$2"_"$3]!=1){a[$1]=a[$1]","$2";"$3;b[$1"_"$2"_"$3]=1}}END{for(i in a){print i"\t"substr(a[i],2)}}' TSNAdb_neoantigen_candidate_*mers_netMHC.out > TSNAdb_neoepitope_bindingAffinity_netMHC.out
 
 #--extract Human cds 16mers
 if [ ! -e "Homo_sapiens_cds_16mers.tab" ] || [ ! -s "Homo_sapiens_cds_16mers.tab" ] ; then
