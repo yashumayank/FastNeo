@@ -19,5 +19,4 @@ Workflow to produce nullomers corresponding to neoepitopes from various sources.
 ```
 createEpitopeDB-nullomers.sh
 createFusion-nullomers.sh
-createTE-nullomers.sh
 ```
