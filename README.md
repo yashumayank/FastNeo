@@ -14,17 +14,22 @@ contains detailed information about the latest major release CHANGES contains de
 
 # INSTALL AND SETUP (PRE-REQUISITES)
 ```
-#Download
-git clone https://github.com/yashumayank/cfRNA-neoepitopes.git
-
-#install prerequisites bowtie2, samtools and julia. The following command can be used in case you conda
-conda install -c bioconda bowtie2 samtools julia
-
-#install required packages in Julia
-julia pkginstall.jl
-
-#update the install directory in  
+Download
 ```
+git clone https://github.com/yashumayank/cfRNA-neoepitopes.git
+```
+
+Install prerequisites bowtie2, samtools and julia. The following command can be used in case you conda
+```
+conda install -c bioconda bowtie2 samtools julia
+```
+
+Install required packages in Julia
+```
+julia pkginstall.jl
+```
+Open runAll-neoepitopes.sh and runEpitopeDB_SNV_neoepitopes.sh in a text editor and update path1="" with the full path of the 'cfRNA-neoepitopes' directory  
+
 
 Download mapping indices
 
