@@ -121,7 +121,7 @@ awk 'BEGIN{c["A"]="T";c["T"]="A";c["G"]="C";c["C"]="G";}{y="";for(j=16;j>=1;j--)
 
 #nulomers  DNA  epitope  ENST_id  annotation  HLA  wild_Affinity  mut_Affinity
 #sort TSNAdb_ICGC_neoepitopes-nullomers.tsv|uniq | awk -F "\t" '(NR==FNR){hla[$4"_"$10"->"$14]=$9; wt[$4"_"$10"->"$14]=$11; neo[$4"_"$10"->"$14]=$15;next}{OFS="\t";print $0"\t"hla[$4"_"$3] "\t" wt[$4"_"$3] "\t" neo[$4"_"$3]}' TSNAdb_frequent_neoantigen_ICGC_4.0_adj.txt - > TSNAdb_ICGC_neoepitopes-nullomers.filtered.tsv
-sort TSNAdb_ICGC_neoepitopes-nullomers.tsv|uniq > TSNAdb_ICGC_neoepitopes-nullomers.filtered.tsv 
-sort TSNAdb_TCGA_neoepitopes-nullomers.tsv|uniq > TSNAdb_TCGA_neoepitopes-nullomers.filtered.tsv
-sort IEDB_neoepitopes-nullomers.tsv|uniq > IEDB_neoepitopes-nullomers.filtered.tsv
+sort TSNAdb_ICGC_neoepitopes-nullomersEdge6.tsv|uniq > TSNAdb_ICGC_neoepitopes-nullomers.filtered.tsv 
+sort TSNAdb_TCGA_neoepitopes-nullomersEdge6.tsv|uniq > TSNAdb_TCGA_neoepitopes-nullomers.filtered.tsv
+sort IEDB_neoepitopes-nullomersEdge6.tsv|uniq > IEDB_neoepitopes-nullomers.filtered.tsv
 
