@@ -13,7 +13,7 @@ x86-64 compatible processors
 contains detailed information about the latest major release CHANGES contains detailed information about all the changes in all releases
 
 # INSTALL AND SETUP (PRE-REQUISITES)
-```
+
 Download
 ```
 git clone https://github.com/yashumayank/cfRNA-neoepitopes.git
@@ -28,6 +28,7 @@ Install required packages in Julia
 ```
 julia pkginstall.jl
 ```
+
 Open runAll-neoepitopes.sh and runEpitopeDB_SNV_neoepitopes.sh in a text editor and update path1="" with the full path of the 'cfRNA-neoepitopes' directory  
 
 
