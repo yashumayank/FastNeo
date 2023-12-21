@@ -30,7 +30,7 @@ END{for(x in trpep)print x"\t"substr(trpep[x],2)"\t"substr(trlen[x],2)"\t"substr
 awk -F "\t" '(FNR!=1 ){trpep[$4]=trpep[$4]";"$14;trlen[$4]=trlen[$4]";"length($14);trWT[$4]=trWT[$4]";"$10;}\
 END{for(x in trpep)print x"\t"substr(trpep[x],2)"\t"substr(trlen[x],2)"\t"substr(trWT[x],2)}' TSNAdb_frequent_neoantigen_ICGC_4.0_adj.txt > TSNAdb_frequent_ICGC_per_ENST3.tab
 
-# Run netMHC I & II on the neoepitopes
+# crete a list of all epitopes and run netMHC I (<=11 aa) & II (>=12 aa) on all epitopes 
 awk '{split($2,u,";");split($4,v,";"); for(i=1;i<=length(u);i++){if(length(u[i])!=length(v[i])){print u[i]"\n"v[i] > "IEDB_neoepitopes_per_ENST2.unequal.tab"}else{\
 if(length(u[i])<=11){a[u[i]]=length(u[i]);a[v[i]]=length(u[i])}else{a[u[i]]="12+";a[v[i]]="12+"}}}}END{for(x in a) print x > "IEDB_neoepitopes_per_ENST2."a[x]"mers.tab"}' IEDB_neoepitopes_per_ENST2.tab
 awk '{split($2,u,";");split($4,v,";"); for(i=1;i<=length(u);i++){if(length(u[i])!=length(v[i])){print u[i]"\n"v[i] > "TSNAdb_neoepitopes_per_ENST2.unequal.tab"}else{\
@@ -84,8 +84,8 @@ cat gnomad.exomes.v4.0.sites.chr*.vep2 > gnomad.exomes_all_missense.vep
 
 #--extract extract nullomers associated to neoepitopes in IEDB and TSNAdb
 python IEDB_TSNAdb2nullomer.py IEDB_neoepitopes_per_ENST2.tab Homo_sapiens_cds_16mers.tab IEDB_neoepitope_bindingAffinity_netMHC.out gnomad.exomes_all_missense.vep ../Homo_sapiens.GRCh38.cds.all.fa IEDB
-python IEDB_TSNAdb2nullomer.py TSNAdb_frequent_ICGC_per_ENST3.tab Homo_sapiens_cds_16mers.tab IEDB_neoepitope_bindingAffinity_netMHC.out gnomad.exomes_all_missense.vep ../Homo_sapiens.GRCh38.cds.all.fa TSNAdb_ICGC
-python IEDB_TSNAdb2nullomer.py TSNAdb_frequent_TCGA_per_ENST3.tab Homo_sapiens_cds_16mers.tab IEDB_neoepitope_bindingAffinity_netMHC.out gnomad.exomes_all_missense.vep ../Homo_sapiens.GRCh38.cds.all.fa TSNAdb_TCGA
+python IEDB_TSNAdb2nullomer.py TSNAdb_frequent_ICGC_per_ENST3.tab Homo_sapiens_cds_16mers.tab TSNAdb_neoepitope_bindingAffinity_netMHC.out gnomad.exomes_all_missense.vep ../Homo_sapiens.GRCh38.cds.all.fa TSNAdb_ICGC
+python IEDB_TSNAdb2nullomer.py TSNAdb_frequent_TCGA_per_ENST3.tab Homo_sapiens_cds_16mers.tab TSNAdb_neoepitope_bindingAffinity_netMHC.out gnomad.exomes_all_missense.vep ../Homo_sapiens.GRCh38.cds.all.fa TSNAdb_TCGA
 
 #---Count the WT-neoepitope pairs extracted from each database
 echo "TSNAdb_ICGC"
