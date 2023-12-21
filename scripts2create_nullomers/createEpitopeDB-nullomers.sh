@@ -120,7 +120,8 @@ awk -F "\t" '($1!=""){split($1,u,";");for(i in u){a[u[i]]=1}}END{for(i in a)prin
 awk 'BEGIN{c["A"]="T";c["T"]="A";c["G"]="C";c["C"]="G";}{y="";for(j=16;j>=1;j--){y=y c[substr($1,j,1)]};print y;}' epitopeDB_nullomers.tsv > epitopeDB_nullomersRevComp.tsv
 
 #nulomers  DNA  epitope  ENST_id  annotation  HLA  wild_Affinity  mut_Affinity
-sort TSNAdb_ICGC_neoepitopes-nullomers.tsv|uniq | awk -F "\t" '(NR==FNR){hla[$4"_"$10"->"$14]=$9; wt[$4"_"$10"->"$14]=$11; neo[$4"_"$10"->"$14]=$15;next}{OFS="\t";print $0"\t"hla[$4"_"$3] "\t" wt[$4"_"$3] "\t" neo[$4"_"$3]}' TSNAdb_frequent_neoantigen_ICGC_4.0_adj.txt - > TSNAdb_ICGC_neoepitopes-nullomers.filtered.tsv
-sort TSNAdb_TCGA_neoepitopes-nullomers.tsv|uniq | awk -F "\t" '(NR==FNR){hla[$4"_"$10"->"$14]=$9; wt[$4"_"$10"->"$14]=$11; neo[$4"_"$10"->"$14]=$15;next}{OFS="\t";print $0"\t"hla[$4"_"$3] "\t" wt[$4"_"$3] "\t" neo[$4"_"$3]}' TSNAdb_frequent_neoantigen_TCGA_4.0_adj.txt - > TSNAdb_TCGA_neoepitopes-nullomers.filtered.tsv
+#sort TSNAdb_ICGC_neoepitopes-nullomers.tsv|uniq | awk -F "\t" '(NR==FNR){hla[$4"_"$10"->"$14]=$9; wt[$4"_"$10"->"$14]=$11; neo[$4"_"$10"->"$14]=$15;next}{OFS="\t";print $0"\t"hla[$4"_"$3] "\t" wt[$4"_"$3] "\t" neo[$4"_"$3]}' TSNAdb_frequent_neoantigen_ICGC_4.0_adj.txt - > TSNAdb_ICGC_neoepitopes-nullomers.filtered.tsv
+sort TSNAdb_ICGC_neoepitopes-nullomers.tsv|uniq > TSNAdb_ICGC_neoepitopes-nullomers.filtered.tsv 
+sort TSNAdb_TCGA_neoepitopes-nullomers.tsv|uniq > TSNAdb_TCGA_neoepitopes-nullomers.filtered.tsv
 sort IEDB_neoepitopes-nullomers.tsv|uniq > IEDB_neoepitopes-nullomers.filtered.tsv
 
