@@ -89,11 +89,14 @@ python IEDB_TSNAdb2nullomer.py TSNAdb_frequent_TCGA_per_ENST3.tab Homo_sapiens_c
 
 #---Count the WT-neoepitope pairs extracted from each database
 echo "TSNAdb_ICGC"
-awk 'NF==4' TSNAdb_ICGC_neoepitopes-nullomers.tsv |cut -f3 |sort|uniq -c|sort|wc -l
+awk '{split($2,u,";");split($4,v,";"); for(i=1;i<=length(u);i++){a[u[i]"_"v[i]]=1}}END{for(x in a){print x} }'  TSNAdb_frequent_ICGC_per_ENST3.tab|wc -l
+cut -f3 TSNAdb_ICGC_neoepitopes-nullomers.tsv |sort|uniq -c|sort -gk1,1 |wc -l
 echo "TSNAdb_TCGA"
-awk 'NF==4' TSNAdb_TCGA_neoepitopes-nullomers.tsv |cut -f3 |sort|uniq -c|sort|wc -l
+awk '{split($2,u,";");split($4,v,";"); for(i=1;i<=length(u);i++){a[u[i]"_"v[i]]=1}}END{for(x in a){print x} }'  TSNAdb_frequent_TCGA_per_ENST3.tab|wc -l
+cut -f3 TSNAdb_TCGA_neoepitopes-nullomers.tsv |sort|uniq -c|sort -gk1,1 |wc -l
 echo "IEDB"
-awk 'NF==4' IEDB_neoepitopes-nullomers.tsv |cut -f3 |sort|uniq -c|sort|wc -l
+awk '{split($2,u,";");split($4,v,";"); for(i=1;i<=length(u);i++){a[u[i]"_"v[i]]=1}}END{for(x in a){print x} }' IEDB_neoepitopes_per_ENST2.tab|wc -l
+cut -f3 IEDB_neoepitopes-nullomers.tsv |sort|uniq -c|sort -gk1,1 |wc -l
 
 #--merge the nullomers associated to all the above neoepitopes
 awk -F "\t" '{split($1,u,";");for(i in u){a[u[i]]=1}}END{for(i in a)print i}' IEDB_neoepitopes-nullomers.tsv TSNAdb_TCGA_neoepitopes-nullomers.tsv TSNAdb_ICGC_neoepitopes-nullomers.tsv > epitopeDB_nullomers.all.tsv
