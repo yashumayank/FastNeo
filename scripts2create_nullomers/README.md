@@ -15,7 +15,7 @@ Workflow to produce nullomers corresponding to neoepitopes from various sources.
 
 ## Create nullomer lists, mapping indices and associated files
 
-The following two shell scripts contain the workflow to create nullomer and mapping files that are required to run this pipeline.
+The following two shell scripts contain the workflow to create nullomers and mapping files that are required to run this pipeline.
 
 ```
 createEpitopeDB-nullomers.sh
