@@ -19,7 +19,7 @@ rm ${sample}_*.nullomers_epitopeDB.fastq ${sample}_*.nullomers_ChimerDB.fastq ${
 rm ${sample}_1.nullomers.json ${sample}_1.nullomers.json
 
 #bowtie2
-bowtie2 -x ${pathMI}Homo_sapiens.GRCh38.cds.all -p $cores --very-sensitive-local -1 ${sample}_1.nullomers.union.epitopeDB.fastq -2 ${sample}_2.nullomers.union.epitopeDB.fastq -S ${sample}.nullomers.union.epitopeDB.sam
+bowtie2 -x ${pathMI}Homo_sapiens.GRCh38.cds.all -p $cores  --no-unal --omit-sec-seq --very-sensitive-local -1 ${sample}_1.nullomers.union.epitopeDB.fastq -2 ${sample}_2.nullomers.union.epitopeDB.fastq -S ${sample}.nullomers.union.epitopeDB.sam
 rm ${sample}_*.nullomers.union.epitopeDB.fastq
 
 #samtools
