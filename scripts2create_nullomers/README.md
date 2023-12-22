@@ -13,7 +13,7 @@ Workflow to produce nullomers corresponding to neoepitopes from various sources.
 - Genome fasta and gtf file from hg19 (https://hgdownload.cse.ucsc.edu/goldenpath/hg19/bigZips/)
 - protein ID to transcript id mapiing files from uniprot and gencode HUMAN_9606_idmapping_selected.tab, gencode.v40.metadata.TrEMBL, gencode.v40.metadata.SwissProt  (downloaded on June-27-2022)
 
-## Create nullomer lists and associated files
+## Create nullomer lists, mapping indices and associated files
 
 The following two shell scripts contain the workflow to create nullomer and mapping files that are required to run this pipeline.
 
