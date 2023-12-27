@@ -230,10 +230,13 @@ for rec in SeqIO.parse(sys.argv[5], "fasta"):
             aa_seq=(rec.seq[frame:].translate(to_stop=False))
             wtEpiTok= wtEpi[recIDtok[0]].split(";")
             neoEpiTok= neoEpi[recIDtok[0]].split(";")
+            wtEpi[recIDtok[0]]="P"
+
             for wti in range(len(wtEpiTok)):
                 try:
                     wtStart = (aa_seq.index(wtEpiTok[wti]) * 3)  + frame
                 except ValueError:
+                    failB=failB+1
                     continue
 
                 wtEnd = (len(wtEpiTok[wti]) * 3) + wtStart
@@ -328,5 +331,12 @@ for rec in SeqIO.parse(sys.argv[5], "fasta"):
                             mhcAff[neoEpiTok[wti]] = "-"
                         nf.write(null_str[:-1] + "\t"+ str(neocds) +"\t"+ str(wtEpiTok[wti])  +"->"+ str(neoEpiTok[wti]) + "\t" + str(recIDtok[0]) +  "\t" + ann + "\t" + mhcAff[wtEpiTok[wti]] + "\t" + mhcAff[neoEpiTok[wti]] + "\t" + annGnomAD + "\n")
 
-print("A:" + str(failA) + " nC:" + str(failC) + " D:" + str(failD) +" I:" + str(failI) +" S3+:" + str(failS) +" FS:" + str(failS0))
 nf.close()
+
+mf = open(sys.argv[6] + "_missing_CDS.tsv", "w")
+for cdsId in wtEpi:
+    if(wtEpi[cdsId]!="P"):
+        mf.write(str(cdsId) + "\t" + str(wtEpi[cdsId])  + "->" + str(neoEpi[cdsId]) + "\n")
+mf.close()
+
+print("A:" + str(failA) + " nC:" + str(failC) + " D:" + str(failD) +" I:" + str(failI) +" S3+:" + str(failS) +" FS:" + str(failS0))
