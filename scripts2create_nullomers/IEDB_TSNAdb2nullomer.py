@@ -144,7 +144,7 @@ meta1GnomAD={}
 meta2GnomAD={}
 gnoDup=set()
 
-failA, failD, failI, failS, failS0 = 0, 0, 0, 0, 0
+failA, failC, failD, failI, failS, failS0 = 0, 0, 0, 0, 0, 0
 null_len = 0
 padding = 6
 flank = 15
@@ -328,5 +328,5 @@ for rec in SeqIO.parse(sys.argv[5], "fasta"):
                             mhcAff[neoEpiTok[wti]] = "-"
                         nf.write(null_str[:-1] + "\t"+ str(neocds) +"\t"+ str(wtEpiTok[wti])  +"->"+ str(neoEpiTok[wti]) + "\t" + str(recIDtok[0]) +  "\t" + ann + "\t" + mhcAff[wtEpiTok[wti]] + "\t" + mhcAff[neoEpiTok[wti]] + "\t" + annGnomAD + "\n")
 
-print("A:" + str(failA) + " D:" + str(failD) +" I:" + str(failI) +" S:" + str(failS) +" S0:" + str(failS0))
+print("A:" + str(failA) + " nC:" + str(failC) + " D:" + str(failD) +" I:" + str(failI) +" S3+:" + str(failS) +" FS:" + str(failS0))
 nf.close()
