@@ -16,7 +16,7 @@ awk -v pid=${sample}_2 '{if(FNR==1){f++};if(f<=2){if(FNR%4==1){a[$1]=1}}else{if(
 wait
 #rm ${sample}_1.fastq ${sample}_2.fastq
 rm ${sample}_*.nullomers_epitopeDB.fastq ${sample}_*.nullomers_ChimerDB.fastq ${sample}_*.nullomers_TE.fastq
-rm ${sample}_1.nullomers.json ${sample}_1.nullomers.json
+rm ${sample}_1.nullomers.json ${sample}_2.nullomers.json
 
 #bowtie2
 bowtie2 -x ${pathMI}Homo_sapiens.GRCh38.cds.all -p $cores  --no-unal --omit-sec-seq --very-sensitive-local -1 ${sample}_1.nullomers.union.epitopeDB.fastq -2 ${sample}_2.nullomers.union.epitopeDB.fastq -S ${sample}.nullomers.union.epitopeDB.sam
