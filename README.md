@@ -1,5 +1,5 @@
 # RNA-neoepitopes
-This tool has been developed to detect neoepitopes from published resources in the cell free RNA. It supports detection of neoepitopes from IEDB, TSNAdb, neoepitopes produced via the gene fusion events described in ChimerKB and ChimerPub (YE Jang et al. 2020: https://doi.org/10.1093/nar/gkz1013), and neoepitopes produced transcription of Transposable elements (NM Shah et al. 2023: https://doi.org/10.1038/s41588-023-01349-3). Cancer specific neoepitopes: TSNAdb and Transposable elements
+This tool has been developed to detect neoepitopes from published resources in the cell free RNA. It supports detection of neoepitopes from IEDB, TSNAdb, and neoepitopes produced via the gene fusion events described in ChimerKB and ChimerPub (YE Jang et al. 2020: https://doi.org/10.1093/nar/gkz1013). Cancer specific neoepitopes: TSNAdb
 
 # REFERENCES/AUTHOR
 
