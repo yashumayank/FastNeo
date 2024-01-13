@@ -29,10 +29,51 @@ Use the following code to install the required packages in Julia.
 julia pkginstall.jl
 ```
 
-Open 'runAll-neoepitopes.sh' and 'runEpitopeDB_SNV_neoepitopes.sh' in a text editor and update path1 variable with the full path of the 'cfRNA-neoepitopes' directory  
+# RUN the pipelines 
+
+The paired-end RNAseq data must be in the 2 file fastq format and the files must be named as {sample_name}_1.fastq and {sample_name}_2.fastq
+
+The IEDB/TSNAdb neoepitope detection can be run together using the following command :- 
+```
+sh runEpitopeDB_SNV_neoepitopes.sh {sample}
+```
+
+The gene fusion detection can be run together using the following command:- 
+```
+sh runFusion-neoepitopes.sh {sample}
+```
+Both IEDB/TSNAdb neoepitope and gene fusion detection can be run together using the following command
+```
+sh runAll-neoepitopes.sh {sample}
+```
 
 
-Download mapping indices
+# OUTPUT format
+
+For IEDB/TSNEdb neoepitopes, the output file shows 
+1) fastq file name
+2) transcript ID
+3) most covered nullomer per mutation/mutations
+4) neoepitopes associated to the nullomer
+5) number of mapped reads
+6) number of nullomers on the read with most nullomers
+7) database name
+8) gene function
+9) HLA binding affinities of wildtype epitopes
+10) HLA binding affinities of neoepitope
+11) frequency of the neoepitope producing mutations in healthy individuals of various genetic ancestry groups.
+
+For the gene fusions, the output file shows 
+1) fastq file name
+2) ChimerKB ID
+3) most covered nullomer per gene fusion
+4) neoepitopes associated with the gene fusion
+5) number of mapped reads
+6) number of nullomers on the read with most nullomers
+7) gene function
+8) genomic loci of 5’ junction
+9) genomic loci of 3’ junction.
+10) mapping bases (upstream-downstream: to be added)
 
 
 # LIMITATIONS
