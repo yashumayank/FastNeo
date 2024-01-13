@@ -63,17 +63,17 @@ For IEDB/TSNEdb neoepitopes, the output file shows
 10) HLA binding affinities of neoepitope
 11) frequency of the neoepitope producing mutations in healthy individuals of various genetic ancestry groups.
 
-For the gene fusions, the output file shows 
-1) fastq file name
-2) ChimerKB ID
-3) most covered nullomer per gene fusion
-4) neoepitopes associated with the gene fusion
-5) number of mapped reads
-6) number of nullomers on the read with most nullomers
-7) gene function
-8) genomic loci of 5’ junction
-9) genomic loci of 3’ junction.
-10) mapping bases (upstream-downstream: to be added)
+For the gene fusions, the output file shows:-
+1) sample_id: fastq file name
+2) ChimerKB_id: ChimerKB ID
+3) top_nullomer: most covered nullomer per gene fusion
+4) neoepitopes: neoepitopes associated with the gene fusion
+5) #reads: number of mapped reads
+6) #nullomers: number of nullomers on the read with most nullomers
+7) annotation: gene names
+8) junction5: genomic loci of 5’ junction
+9) junction3: genomic loci of 3’ junction.
+10) (to be added) bases_mapped: bases mapped upstream and downstream of the fusion junction
 
 
 # LIMITATIONS
