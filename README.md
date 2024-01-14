@@ -57,7 +57,7 @@ For IEDB/TSNEdb neoepitopes, the output file shows:
 3) top_nullomer: most covered nullomer per mutation/mutations
 4) neoepitopes: all wildtype-neoepitopes pairs associated to the top nullomer for the mutation:
 
-   [{Wildtype epitope}->{Noepitope}] ...
+   [{Wildtype epitope}->{Noepitope};] ...
 6) #reads: number of mapped reads
 7) #nullomers: number of nullomers on the read with most nullomers
 8) db_name: database name
