@@ -55,12 +55,14 @@ For IEDB/TSNEdb neoepitopes, the output file shows:
 1) sample_id: fastq file name
 2) ENST_id: transcript ensembl ID 
 3) top_nullomer: most covered nullomer per mutation/mutations
-4) neoepitopes: all wildtype-neoepitopes pairs associated to the top nullomer for the mutation
-5) #reads: number of mapped reads
-6) #nullomers: number of nullomers on the read with most nullomers
-7) db_name: database name
-8) annotation: known function of the protein that contains the epitopes
-9) wildTypeHLA: HLA binding affinities of wildtype epitopes:
+4) neoepitopes: all wildtype-neoepitopes pairs associated to the top nullomer for the mutation:
+
+   [{Wildtype epitope}->{Noepitope}] ...
+6) #reads: number of mapped reads
+7) #nullomers: number of nullomers on the read with most nullomers
+8) db_name: database name
+9) annotation: known function of the protein that contains the epitopes
+10) wildTypeHLA: HLA binding affinities of wildtype epitopes:
 
     [Epitope{count}:{HLA allele};{binding affinity},] ... 
 11) neoEpitopeHLA: HLA binding affinities of neoepitope
