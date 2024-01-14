@@ -56,23 +56,24 @@ For IEDB/TSNEdb neoepitopes, the output file shows:
 2) ENST_id: transcript ensembl ID 
 3) top_nullomer: most covered nullomer per mutation/mutations
 4) neoepitopes: all wildtype-neoepitopes pairs associated to the top nullomer for the mutation:
-
+   
    [{Wildtype epitope}->{Noepitope};] ...
-6) #reads: number of mapped reads
-7) #nullomers: number of nullomers on the read with most nullomers
-8) db_name: database name
-9) annotation: known function of the protein that contains the epitopes
-10) wildTypeHLA: HLA binding affinities of wildtype epitopes:
+5) #reads: number of mapped reads
+6) #nullomers: number of nullomers on the read with most nullomers
+7) db_name: database name
+8) annotation: known function of the protein that contains the epitopes
+9) wildTypeHLA: HLA binding affinities of wildtype epitopes:
+ 
+    [Epitope{count}:{HLA allele};{binding affinity},] ... 
+10) neoEpitopeHLA: HLA binding affinities of neoepitope:
 
     [Epitope{count}:{HLA allele};{binding affinity},] ... 
-11) neoEpitopeHLA: HLA binding affinities of neoepitope
-
-    [Epitope{count}:{HLA allele};{binding affinity},] ... 
-13) GeneticAncestry: frequency of the neoepitope producing mutations in healthy individuals of various genetic ancestry groups. column format:
+11) GeneticAncestry: frequency of the neoepitope producing mutations in healthy individuals of various genetic ancestry groups. column format:
     
     [SNV[1|2],{chromosome};{position};{old base};{new base},AF={AF};grpmax={group with highest frequency};AF_XX={AF_XX};AF_XY={AF_XY};AF_afr={AF_afr};AF_amr={AF_amr};AF_asj={asj};AF_eas={eas};AF_fin={fin};AF_mid={mid};AF_nfe={nfe};AF_sas={sas};]
 
-For the gene fusions, the output file shows:
+
+Output file format for the gene fusions:
 
 1) sample_id: fastq file name
 2) ChimerKB_id: ChimerKB ID
