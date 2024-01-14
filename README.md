@@ -50,20 +50,22 @@ sh runAll-neoepitopes.sh {sample}
 
 # OUTPUT format
 
-For IEDB/TSNEdb neoepitopes, the output file shows 
-1) fastq file name
-2) transcript ID
-3) most covered nullomer per mutation/mutations
-4) neoepitopes associated to the nullomer
-5) number of mapped reads
-6) number of nullomers on the read with most nullomers
-7) database name
-8) gene function
-9) HLA binding affinities of wildtype epitopes
-10) HLA binding affinities of neoepitope
-11) frequency of the neoepitope producing mutations in healthy individuals of various genetic ancestry groups.
+For IEDB/TSNEdb neoepitopes, the output file shows:
 
-For the gene fusions, the output file shows:-
+1) sample_id: fastq file name
+2) ENST_id: transcript ensembl ID 
+3) top_nullomer: most covered nullomer per mutation/mutations
+4) neoepitopes: all wildtype-neoepitopes pairs associated to the top nullomer for the mutation
+5) #reads: number of mapped reads
+6) #nullomers: number of nullomers on the read with most nullomers
+7) db_name: database name
+8) annotation: known function of the protein that contains the epitopes
+9) wildTypeHLA: HLA binding affinities of wildtype epitopes are 
+10) neoEpitopeHLA: HLA binding affinities of neoepitope
+11) GeneticAncestry: frequency of the neoepitope producing mutations in healthy individuals of various genetic ancestry groups. column format: [SNV[1],[chromosome];[position];[old base];[new base],AF=[AF];grpmax=[group with highest frequency];AF_XX=[AF_XX];AF_XY=[AF_XY];AF_afr=[AF_afr];AF_amr=[AF_amr];AF_asj=[asj];AF_eas=[eas];AF_fin=[fin];AF_mid=[mid];AF_nfe=[nfe];AF_sas=[sas];][same information for SNV2 if neoepitopes have 2 SNVs]
+
+For the gene fusions, the output file shows:
+
 1) sample_id: fastq file name
 2) ChimerKB_id: ChimerKB ID
 3) top_nullomer: most covered nullomer per gene fusion
@@ -74,7 +76,6 @@ For the gene fusions, the output file shows:-
 8) junction5: genomic loci of 5’ junction
 9) junction3: genomic loci of 3’ junction.
 10) (to be added) bases_mapped: bases mapped upstream and downstream of the fusion junction
-
 
 # LIMITATIONS
 The neoepitopes found in plasma-cell-free RNA represents cells from the whole body and only a miniscule proportion of the RNA is from the tumour. Thus, even the most discriminative neoepitopes might not have originated in the tumour itself.
