@@ -64,10 +64,10 @@ For IEDB/TSNEdb neoepitopes, the output file shows:
 8) annotation: known function of the protein that contains the epitopes
 9) wildTypeHLA: HLA binding affinities of wildtype epitopes:
  
-    [Epitope:{wildtype epitope};{HLA allele};{binding affinity},] ... 
+    [Epitope:{wildtype epitope};[{HLA allele};{binding affinity},] ...] ... 
 10) neoEpitopeHLA: HLA binding affinities of neoepitope:
 
-    [Epitope:{neoepitope};{HLA allele};{binding affinity},] ... 
+    [Epitope:{neoepitope};[{HLA allele};{binding affinity},] ...] ... 
 11) GeneticAncestry: frequency of the neoepitope producing mutations in healthy individuals of various genetic ancestry groups. column format:
     
     [SNV[1|2],{chromosome};{position};{old base};{new base},AF={AF};grpmax={group with highest frequency};AF_XX={AF_XX};AF_XY={AF_XY};AF_afr={AF_afr};AF_amr={AF_amr};AF_asj={asj};AF_eas={eas};AF_fin={fin};AF_mid={mid};AF_nfe={nfe};AF_sas={sas};] ...
@@ -84,7 +84,7 @@ Output file format for the gene fusions:
 7) annotation: gene names
 8) junction5: genomic loci of 5’ junction
 9) junction3: genomic loci of 3’ junction.
-10) (to be added) bases_mapped: bases mapped upstream and downstream of the fusion junction
+10) (to be added) bases_mapped: number of bases mapped upstream and downstream of the fusion junction
 
 # LIMITATIONS
 The neoepitopes found in plasma-cell-free RNA represents cells from the whole body and only a miniscule proportion of the RNA is from the tumour. Thus, even the most discriminative neoepitopes might not have originated in the tumour itself.
