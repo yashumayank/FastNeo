@@ -60,12 +60,12 @@ For IEDB/TSNEdb neoepitopes, the output file shows:
    [{Wildtype epitope}->{Noepitope};] ...
 5) #reads: number of mapped reads
 6) #nullomers: number of nullomers on the read with most nullomers
-7) db_name: database name
+7) db_name: Name of the database/databases that contain these neoepitopes.
 8) annotation: known function of the protein that contains the epitopes
-9) wildTypeHLA: HLA binding affinities of wildtype epitopes:
+9) wildTypeHLA: binding affinities of all HLA alleles predicted to bind to each wildtype epitope. column output format:
  
     [Epitope:{wildtype epitope};[{HLA allele};{binding affinity},] ...] ... 
-10) neoEpitopeHLA: HLA binding affinities of neoepitope:
+10) neoEpitopeHLA: binding affinities of all HLA alleles predicted to bind to each neoepitope column output format:
 
     [Epitope:{neoepitope};[{HLA allele};{binding affinity},] ...] ... 
 11) GeneticAncestry: frequency of the neoepitope producing mutations in healthy individuals of various genetic ancestry groups. column format:
