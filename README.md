@@ -54,11 +54,11 @@ For IEDB/TSNEdb neoepitopes, the output file shows:
 
 1) sample_id: fastq file name
 2) ENST_id: transcript ensembl ID 
-3) top_nullomer: most covered nullomer per mutation/mutations
+3) top_nullomer: nullomer with most read covergage among the nullomers that are associated to the mutation/mutations that produce these neoepitopes
 4) neoepitopes: all wildtype-neoepitopes pairs associated to the top nullomer for the mutation:
    
    [{Wildtype epitope}->{Noepitope};] ...
-5) #reads: number of mapped reads
+5) #reads: number of mapped reads 
 6) #nullomers: number of nullomers on the read with most nullomers
 7) db_name: Name of the database/databases that contain these neoepitopes.
 8) annotation: known function of the protein that contains the epitopes
