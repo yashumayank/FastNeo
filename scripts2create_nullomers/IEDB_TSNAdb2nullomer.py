@@ -213,6 +213,7 @@ with open(sys.argv[4]) as GnomADf:
 #                nCodonGnomAD[GnomADid] =  codGnomAD[1].translate(rmLowChar)
 
 nf = open(sys.argv[6] + "_neoepitopes-nullomers.tsv", "w")
+errf = open(sys.argv[6] + "_excluded.tsv", "w")
 
 #--------------- generic script to account for upto 2 SNVs per neoepitope. ----------------
 print("Searching cds for wt-epitopes and derive nullomers from the respective neoepitopes")
@@ -237,6 +238,7 @@ for rec in SeqIO.parse(sys.argv[5], "fasta"):
                     wtStart = (aa_seq.index(wtEpiTok[wti]) * 3)  + frame
                 except ValueError:
                     failB=failB+1
+                    errf.write(recIDtok[0] + "\t" + str(wtEpiTok[wti])  + "->" + str(neoEpiTok[wti]) + "\tnf\n")
                     continue
 
                 wtEnd = (len(wtEpiTok[wti]) * 3) + wtStart
@@ -255,12 +257,14 @@ for rec in SeqIO.parse(sys.argv[5], "fasta"):
 #                        print("i " + str(wtidx))
 #                        print(wtEpiTok[wti]  +"->"+ neoEpiTok[wti])
                         failI=failI+1
+                        errf.write(recIDtok[0] + "\t" + str(wtEpiTok[wti])  + "->" + str(neoEpiTok[wti]) + "\tindel\n")
                         sc=3
                         break
                     elif(neo[wtidx]=='-'):
 #                        print("d " + str(wtidx))
 #                        print(wtEpiTok[wti]  +"->"+ neoEpiTok[wti])
                         failD=failD+1
+                        errf.write(recIDtok[0] + "\t" + str(wtEpiTok[wti])  + "->" + str(neoEpiTok[wti]) + "\tindel\n")
                         sc=3
                         break
                     elif(wt[wtidx]!=neo[wtidx]):
@@ -270,7 +274,7 @@ for rec in SeqIO.parse(sys.argv[5], "fasta"):
                         sc=sc+1
                         if(sc>2):
                             failS=failS+1
-                            print(wtEpiTok[wti]  +"->"+ str(neoEpiTok[wti]))
+                            errf.write(recIDtok[0] + "\t" + str(wtEpiTok[wti])  + "->" + str(neoEpiTok[wti]) + "\t3+subs\n")
                             break
                 if(sc>2):
                     continue
@@ -313,9 +317,11 @@ for rec in SeqIO.parse(sys.argv[5], "fasta"):
                 else:
                     print(wtEpiTok[wti]  +"->"+ str(neoEpiTok[wti]) + "\t" + ';'.join(str(snpPos)))
                     failS0=failS0+1
+                    errf.write(recIDtok[0] + "\t" + str(wtEpiTok[wti])  + "->" + str(neoEpiTok[wti]) + "\tfs\n")
                     continue
                 for neocds in neoCds_list:
-                    laststt=len(neocds)-null_len
+#                   range function removes an extra nucleotide from the end; hence adding an extra here
+                    laststt=len(neocds) - null_len + 1
                     null_str = ""
 #                    stt_str, stp_str = "", ""
                     for stt in range(laststt):
@@ -332,6 +338,7 @@ for rec in SeqIO.parse(sys.argv[5], "fasta"):
                         nf.write(null_str[:-1] + "\t"+ str(neocds) +"\t"+ str(wtEpiTok[wti])  +"->"+ str(neoEpiTok[wti]) + "\t" + str(recIDtok[0]) +  "\t" + ann + "\t" + mhcAff[wtEpiTok[wti]] + "\t" + mhcAff[neoEpiTok[wti]] + "\t" + annGnomAD + "\n")
 
 nf.close()
+errf.close()
 
 mf = open(sys.argv[6] + "_missing_CDS.tsv", "w")
 for cdsId in wtEpi:
