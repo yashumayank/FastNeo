@@ -73,6 +73,9 @@ if [ ! -e "Homo_sapiens_cds_16mers.tab" ] || [ ! -s "Homo_sapiens_cds_16mers.tab
   awk '{if($0~/^>.*/){ln=length(x);for(i=1;i+15<=ln;i++){a[substr(x,i,16)]+=1};x=""}else{x=x $1}}END{for(j in a){print j "\t" a[j]}}' ../Homo_sapiens.GRCh38.cds.all.fa > Homo_sapiens_cds_16mers.tab
 fi
 
+grep ">" ../Homo_sapiens.GRCh38.cds.all.fa|awk '{gn=" ";en=" ";split($0,u,"[ :>]");for(i=1;i<=length(u);i++){if(u[i]~/ENST/){split(u[i],v,".");en=v[1]};if(u[i]~/ENSG/){split(u[i],w,".");gn=w[1]}};print en"\t"gn}' > ENST2ENSG.map
+awk -F "\t" '(FNR==NR){gn[substr($8,1,15)]=$2; etn[substr($7,1,15)]=$2;next}{if(gn[$2]!=""){print $1"\t"$2"\t"gn[$2]}else{print $1"\t"$2"\t"etn[$2]}}' HGNCnames.tab ENST2ENSG.map > ENST_ENSG_HGNC.map
+
 #extract population variants from gnomad database ('AF' field > 1e-07 and 'vep' field must have Consequence == missense_variant, BIOTYPE == protein_coding, Feature ~ /ENST/)
 module load bcftools
 for i in $(seq 1 22) X Y ;do
@@ -124,4 +127,5 @@ awk 'BEGIN{c["A"]="T";c["T"]="A";c["G"]="C";c["C"]="G";}{y="";for(j=16;j>=1;j--)
 sort TSNAdb_ICGC_neoepitopes-nullomersEdge6.tsv|uniq > TSNAdb_ICGC_neoepitopes-nullomers.filtered.tsv 
 sort TSNAdb_TCGA_neoepitopes-nullomersEdge6.tsv|uniq > TSNAdb_TCGA_neoepitopes-nullomers.filtered.tsv
 sort IEDB_neoepitopes-nullomersEdge6.tsv|uniq > IEDB_neoepitopes-nullomers.filtered.tsv
+
 
