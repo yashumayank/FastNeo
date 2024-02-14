@@ -31,20 +31,20 @@ julia pkginstall.jl
 
 # RUN the pipelines 
 
-The paired-end RNAseq data must be in the 2 file fastq format and the files must be named as {sample_name}_1.fastq and {sample_name}_2.fastq
+The paired-end RNAseq data must be in the 2-file fastq format and the files must be named as {sample_name}_1.fastq and {sample_name}_2.fastq
 
 The IEDB/TSNAdb neoepitope detection can be run together using the following command :- 
 ```
-sh runEpitopeDB_SNV_neoepitopes.sh {sample}
+sh runEpitopeDB-neoepitopes.sh {sample_name}
 ```
 
 The gene fusion detection can be run together using the following command:- 
 ```
-sh runFusion-neoepitopes.sh {sample}
+sh runFusion-neoepitopes.sh {sample_name}
 ```
 Both IEDB/TSNAdb neoepitope and gene fusion detection can be run together using the following command
 ```
-sh runAll-neoepitopes.sh {sample}
+sh runAll-neoepitopes.sh {sample_name}
 ```
 
 
