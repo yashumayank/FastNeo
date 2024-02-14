@@ -35,16 +35,16 @@ The paired-end RNAseq data must be in the 2-file fastq format and the files must
 
 The IEDB/TSNAdb neoepitope detection can be run together using the following command :- 
 ```
-sh runEpitopeDB-neoepitopes.sh {sample_name}
+sh runEpitopeDB_neoepitopes.sh {sample_name}
 ```
 
 The gene fusion detection can be run together using the following command:- 
 ```
-sh runFusion-neoepitopes.sh {sample_name}
+sh runFusion_neoepitopes.sh {sample_name}
 ```
 Both IEDB/TSNAdb neoepitope and gene fusion detection can be run together using the following command
 ```
-sh runAll-neoepitopes.sh {sample_name}
+sh run_neoepitopes.sh {sample_name}
 ```
 
 
