@@ -1,10 +1,10 @@
 #!/usr/bin/python
 # encoding: utf-8
-#Sample input header: >ENST00000390237:1:SRR10822565:HCC:104:m:35
-#Produces a single file with peptides of various lengths The header consists of transcript_ID, peptide_ID, #Cancer/#control samples
-#peptide IDs generated for each transcript as follows: first,last,mutated peptide wrt. original inpuut peptide
+#Sample header fo input fasta: >ENST00000390237:1:ENSG00000110338:104:m:35
+#Produces a single file with neoepitopes from IEDB and TSNAdb that appear in a list of mutated codon sequences.
+#peptide IDs generated for each transcript as follows: first,last,mutated peptide wrt. original input
 #Usage:
-#python3 cds2peptides.py <IEDB_neoepitopes.tab> <sample_neoepitopes.fasta>  > <sampleUIEDB_neoepitopes.fasta>
+#python3 cds2peptides.py <IEDB_neoepitopes.tab> <TSNAdb_TCGA_neoepitopes.tab> <TSNAdb_TCGA_neoepitopes.tab> <codon_sequences_with mutations.fasta>  > <neoepitopes_found.tsv>
 
 '''
 @author:     Mayank Mahajan
