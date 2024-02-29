@@ -1,10 +1,11 @@
 #!/usr/bin/python
 # encoding: utf-8
-#Sample header fo input fasta: >ENST00000390237:1:ENSG00000110338:104:m:35
-#Produces a single file with neoepitopes from IEDB and TSNAdb that appear in a list of mutated codon sequences.
-#peptide IDs generated for each transcript as follows: first,last,mutated peptide wrt. original input
 #Usage:
 #python3 cds2peptides.py <IEDB_neoepitopes.tab> <TSNAdb_TCGA_neoepitopes.tab> <TSNAdb_TCGA_neoepitopes.tab> <codon_sequences_with mutations.fasta>  > <neoepitopes_found.tsv>
+#<codon_sequences_with mutations.fasta> is a single file with neoepitopes from IEDB and TSNAdb that appear in a list of mutated codon sequences.
+#Sample header for input fasta: >ENST00000390237:1:ENSG00000110338:104:m:35
+#<neoepitope_found.tsv> is a list of: neoepitope     wildtype_epitope     transcript_ID     gene_ID     mutation_ID     epitope_DBs
+#mutation_ID is generated for each transcript as follows: first,last,mutated peptide wrt. original input
 
 '''
 @author:     Mayank Mahajan
