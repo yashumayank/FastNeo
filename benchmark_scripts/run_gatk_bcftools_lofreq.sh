@@ -1,7 +1,7 @@
 path1='/data/hemberg/nullomers/IEDB/HCC2/'
 cd $path1
 cores=2
-overhang=149
+overhang=149  #99
 path_prefix="/data/hemberg/shared_resources/genomes/human/GRCh38.p13.107."
 path_to_indices=$path_prefix"STARindices"$overhang
 genome_fasta=$path_prefix"genome.fa"
@@ -18,20 +18,25 @@ STAR --runThreadN $cores --genomeDir $path_to_indices --readFilesIn _1.fastq _2.
 
 rm ${n}_1.fastq ${n}_2.fastq
 
-#samtools sort --threads $cores $n.bam > $n.sorted.bam
-#rm $n.bam
 ##java gatk --java-options "-XX:+PrintFlagsFinal -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:gc_log.log -Xms10000m"
 
 gatk MarkDuplicates --INPUT ${n}.bam --OUTPUT ${n}.dedup.bam --METRICS_FILE ${n}.dedup.metrics --REMOVE_DUPLICATES true --CREATE_INDEX true --VALIDATION_STRINGENCY SILENT
-gatk AddOrReplaceReadGroups -I ${n}.dedup.bam -O ${n}.dedupRG.bam -RGID 4 -RGLB lib1 -RGPL ILLUMINA -RGPU unit1 -RGSM 20
+rm $n.bam
 
-#--------- HaplotypeCaller ----------
+#--------- bcftools ----------
+bcftools mpileup -q 20 -Q 30 -g 0 -f $genome_fasta $n.dedup.bam | bcftools call -mv -Ov -o $n.bcftools.vcf &
+
+#--------- both haplotypeCaller and Lofreq ----------
+gatk AddOrReplaceReadGroups -I ${n}.dedup.bam -O ${n}.dedupRG.bam -RGID 4 -RGLB lib1 -RGPL ILLUMINA -RGPU unit1 -RGSM 20
 gatk SplitNCigarReads -R ${genome_fasta} -I ${n}.dedupRG.bam -O ${n}.split.bam
-rm ${n}.dedupRG.bam
+rm ${n}.dedupRG.bam 
+#rm ${n}.dedup.metrics ${n}.dedup.bam ${n}.dedup.bai
 
 gatk BaseRecalibrator --use-original-qualities -known-sites ${dbSNP_vcf} -R ${genome_fasta} -I ${n}.split.bam -O ${n}.recal.out
 gatk ApplyBQSR --add-output-sam-program-record --use-original-qualities --bqsr-recal-file ${n}.recal.out -R ${genome_fasta} -I ${n}.split.bam -O ${n}.bsqr.bam 
 rm ${n}.recal.out ${n}.split.bam ${n}.split.bai
+
+#--------- haplotypeCaller ----------
 
 gatk HaplotypeCaller -dont-use-soft-clipped-bases -R ${genome_fasta} --dbsnp ${dbSNP_vcf} -I ${n}.bsqr.bam -O ${n}.hc.vcf.gz
 gatk VariantFiltration --window 35 --cluster 3 --filter-name "FS" --filter "FS > 30.0" --filter-name "QD" --filter "QD < 2.0" --R ${genome_fasta} --V ${n}.hc.vcf.gz -O ${n}.hc.filtered.vcf
@@ -43,9 +48,7 @@ rm  ${n}.hc.filtered.vcf ${n}.hc.vcf.gz
 #/PHShome/mm1169/usr/bin/lofreq_star-2.1.5/lofreq call-parallel --pp-threads 8 -f ref.fa -o vars.vcf aln.bam
 rm ${n}.bsqr.bam ${n}.bsqr.bai
 
-#--------- bcftools ----------
-bcftools mpileup -q 20 -Q 30 -g 0 --threads $cores -f $genome_fasta $n.dedup.bam | bcftools call -mv -Ov -o $n.bcftools.vcf
-rm ${n}.dedup.metrics ${n}.dedup.bam ${n}.dedup.bai
+wait
 
 module purge
 module load perl gcc htslib python bcftools samtools
