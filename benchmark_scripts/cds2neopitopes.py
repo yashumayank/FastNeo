@@ -32,9 +32,6 @@ __updated__ = '2022-07-06'
 trscptID={}
 pepID={}
 pepDB={}
-patient={}
-cancerC={}
-controlC={}
 IEDBpep={}
 TICGCpep={}
 TTCGApep={}
@@ -78,7 +75,7 @@ def scanEpi(pList,pLens,dbName,pepI,mutR,pepWT, mFlag, mPos):
                     if mFlag != "f":
                         WTpeps[pep]=pepWT[j:j+i]        #create an dictionary of WT peptides
                     else:
-                        WTpeps[pep]="-"
+                        WTpeps[pep]=pepWT
 
 #Read the geneIDs, neopeptides/gene & their lengths from IEDB
 print("Reading IEDB neoepitopes")
@@ -117,7 +114,9 @@ for seq_record in SeqIO.parse(sys.argv[4], "fasta"):     #read one fasta record 
         except:
             print("Token4: " + token[4])
         pepWT=str(seq_WT.translate(to_stop=True))        #get the full WT peptide
-
+    else:
+        pepWT="-"
+     
     #Transcript ID, start, type_of_variant for each input peptide cds
     tmpTrID = token[0] + "," + token[3] + "," + token[4]
     ##Check if this gene is in IEDB and length of the neo-peptides in this gene
