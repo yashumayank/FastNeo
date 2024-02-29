@@ -27,7 +27,7 @@ import sys, csv
 __all__ = []
 __version__ = 0.1
 __date__ = '2022-07-06'
-__updated__ = '2022-07-06'
+__updated__ = '2024-02-06'
 
 trscptID={}
 pepID={}
