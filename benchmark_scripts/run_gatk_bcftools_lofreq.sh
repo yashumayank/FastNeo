@@ -1,3 +1,5 @@
+#!/bin/bash
+
 path1='/data/hemberg/nullomers/IEDB/HCC2/'
 cd $path1
 cores=2
