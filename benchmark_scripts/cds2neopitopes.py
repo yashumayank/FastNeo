@@ -5,6 +5,7 @@
 #<codon_sequences_with mutations.fasta> is a single file with neoepitopes from IEDB and TSNAdb that appear in a list of mutated codon sequences.
 #Sample header for input fasta: >ENST00000390237:1:ENSG00000110338:104:m:35
 #<neoepitope_found.tsv> is a list of: neoepitope     wildtype_epitope     transcript_ID     gene_ID     mutation_ID     epitope_DBs
+#transcript_ID is ENSTxx,position_of_first_mutation,[m_WTbase|f] m and f symbolize missene mutation and frameshift mutation respectively 
 #mutation_ID is generated for each transcript as follows: first,last,mutated peptide wrt. original input
 
 '''
