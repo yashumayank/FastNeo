@@ -44,7 +44,7 @@ WTpeps={}
 gid={}
 #fick = sys.stdout
 # 2. use ENST_pep as id to account for same neoepitopes in multiple genes
-def scanEpi(pList,pLens,dbName,pepI,mutR,pepWT, mFlag, mPos):
+def scanEpi(pList,pLens,dbName,pepI,mutR,pepWT, TrID, mFlag, mPos):
      # print(pList)
      # print(pLens)
      # create peptide of lengths that occur in the list of IEDB peptides for this gene
@@ -62,16 +62,16 @@ def scanEpi(pList,pLens,dbName,pepI,mutR,pepWT, mFlag, mPos):
             #peptideID is count within trscpt, first, last and muitated peptide wrt. input peptide
             tmpPepID = mPos + "," + str(j+1) + "," + str(j+i)  + "," + str(mutR)
 
-        #Check if the sample neoepitope is among the IEDB neoepitopes
+        #Check if the sample neoepitope is among the epitopeDB neoepitopes
             if(pep in pList):
                 if pep in trscptID:                     #Is pep already in dict
-                    if not (tmpTrID in trscptID[pep]):  #exclude if duplicate occurances
-                        trscptID[pep] = trscptID[pep] + ":" + tmpTrID
-                        pepID[pep] = pepID[pep] + ":" + tmpPepID
+                    if not (TrID in trscptID[pep]):  #exclude if duplicate occurances in the same transcript
+                        trscptID[pep] = trscptID[pep] + ";" + TrID
+                        pepID[pep] = pepID[pep] + ";" + tmpPepID
                     if not (dbName in pepDB[pep]):
-                        pepDB[pep] = pepDB[pep] + ":" + dbName
+                        pepDB[pep] = pepDB[pep] + ";" + dbName
                 else:
-                    trscptID[pep] = tmpTrID
+                    trscptID[pep] = TrID
                     pepID[pep] = tmpPepID
                     pepDB[pep] = dbName
                     if mFlag != "f":
@@ -126,15 +126,15 @@ for seq_record in SeqIO.parse(sys.argv[4], "fasta"):     #read one fasta record 
     if token[0] in IEDBpep:
         pepList=IEDBpep[token[0]].split(';')
         pepLens=list(map(int,IEDBlen[token[0]].split(';')))
-        scanEpi(pepList, pepLens, "IEDB", pepI, mutR, pepWT, token[4], token[2])
+        scanEpi(pepList, pepLens, "IEDB", pepI, mutR, pepWT, tmpTrID, token[4], token[2])
     if token[0] in TICGCpep:
         pepList=TICGCpep[token[0]].split(';')
         pepLens=list(map(int,TICGClen[token[0]].split(';')))
-        scanEpi(pepList, pepLens, "ICGC", pepI, mutR, pepWT, token[4], token[2])
+        scanEpi(pepList, pepLens, "ICGC", pepI, mutR, pepWT, tmpTrID, token[4], token[2])
     if token[0] in TTCGApep:
         pepList=TTCGApep[token[0]].split(';')
         pepLens=list(map(int,TTCGAlen[token[0]].split(';')))
-        scanEpi(pepList, pepLens, "TCGA", pepI, mutR, pepWT, token[4], token[2])
+        scanEpi(pepList, pepLens, "TCGA", pepI, mutR, pepWT, tmpTrID, token[4], token[2])
 
 neoF = open(sys.argv[5] + "_neoepitopes.tsv", "w")
 for p in pepID:
