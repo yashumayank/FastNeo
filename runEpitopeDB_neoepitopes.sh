@@ -24,7 +24,7 @@ rm ${sample}_*.nullomers.union.epitopeDB.fastq
 
 #samtools
 samtools sort ${sample}.nullomers.union.epitopeDB.sam | samtools rmdup - ${sample}.nullomers.union.epitopeDB.bam 2>test1
-rm test test1 test2 ${sample}.nullomers.union.epitopeDB.sam
+rm test1 ${sample}.nullomers.union.epitopeDB.sam
 
 #find coverage for each nullomer correspoding to specific neoepitope ; filter reads with (MAPQ < 10 AND (read_length <= (clipped_length*3) OR alignment_score <= expected_score)
 #expected score calculated using linear equation (218 * aligned_length + 75)/115) allows 1 high quality mismatch (penalty=3) for mapped_length=35 and ~4 lower quality mismatches (penalty=15) for mapped_length=150
