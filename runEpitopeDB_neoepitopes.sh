@@ -15,7 +15,7 @@ awk -v pid=${sample}_1 '{if(FNR==1){f++};if(f<=2){if(FNR%4==1){a[$1]=1}}else{if(
 awk -v pid=${sample}_2 '{if(FNR==1){f++};if(f<=2){if(FNR%4==1){a[$1]=1}}else{if(FNR%4==1){if(a[$1]==1){x=1}else{x=0}};if(x==1){print $0 > pid ".nullomers.union.epitopeDB.fastq"}}}' ${sample}_*.nullomers_epitopeDB.fastq ${sample}_2.fastq
 wait
 #rm ${sample}_1.fastq ${sample}_2.fastq
-rm ${sample}_*.nullomers_epitopeDB.fastq ${sample}_*.nullomers_ChimerDB.fastq ${sample}_*.nullomers_TE.fastq
+rm ${sample}_*.nullomers_epitopeDB.fastq
 rm ${sample}_1.nullomers.json ${sample}_2.nullomers.json
 
 #bowtie2
