@@ -10,7 +10,7 @@ sample=$1
 #/data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 ${sample}
 
 #bowtie2
-bowtie2 -x ${pathMI}Homo_sapiens.GRCh38.cds.all -p $cores  --no-unal --omit-sec-seq --very-sensitive-local -1 ${sample}_1.fastq -2 ${sample}_2.fastq -S ${sample}.all.sam
+bowtie2 -x ${pathMI}Homo_sapiens.GRCh38.cds.all -p $cores  --no-unal --omit-sec-seq --local -1 ${sample}_1.fastq -2 ${sample}_2.fastq -S ${sample}.all.sam
 rm ${sample}_1.fastq ${sample}_2.fastq
 
 #samtools
