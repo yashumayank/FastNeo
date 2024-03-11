@@ -67,9 +67,10 @@ splo1=$(date +%s)
 wait
 
 module purge
+#--------- VEP and cds2neopitopes ----------
 module load perl gcc htslib python bcftools samtools
-#awk '{if($0!~/^#.*/){if($4~/[ATGC]/){if(substr($5,length($5)-3)==",<*>"){$5=substr($5,1,length($5)-4)};print "chr"$1"\t"$2"\t.\t"$4"\t"$5}}}' $1.vcf 
 sthap1=$(date +%s)
+#awk '{if($0!~/^#.*/){if($4~/[ATGC]/){if(substr($5,length($5)-3)==",<*>"){$5=substr($5,1,length($5)-4)};print "chr"$1"\t"$2"\t.\t"$4"\t"$5}}}' $1.vcf
 ~/ensembl-vep/vep -af_gnomade --no_stats --biotype --buffer_size 20000 --distance 5000 --polyphen b --regulatory --sift b \
 --species homo_sapiens --symbol --transcript_version --plugin NMD --cache --offline --use_given_ref --merged --fork $cores \
 -i ${n}.hapCall.vcf -o STDOUT --format vcf --force_overwrite --tab| awk '{\
@@ -79,9 +80,11 @@ if($7~/frameshift/ || $7~/missense/)print $2"\t"z[1]"\t"v[1]"\t"$7"\t"u[1]"\t"u[
 
 awk '(FNR==NR){if($3~/^ENS/ && ($4~/frameshift/ || $4~/missense/)){trCnt[$3]++;conseq[$3"_"trCnt[$3]]=$4;start[$3"_"trCnt[$3]]=$5;end[$3"_"trCnt[$3]]=$6;gene[$3]=$2;gsub(/[a-z]/,"",$7);split($7,u,"/");org[$3"_"trCnt[$3]]=u[1];var[$3"_"trCnt[$3]]=u[2];next}}{if($0~/^>.*/){if(p!=""){for(i=1;i<=p;i++){neoSeq="";e1=end[pid[2]"_"i];if(conseq[pid[2]"_"i]~/frameshift_variant/){c1="f"}else{c1="m"};if(c1=="m"){c1=c1 "_" substr(cdsSeq,start[pid[2]"_"i],1)}printf(">%s:%s:%d:%d:%s",pid[2],gene[pid[2]],i,start[pid[2]"_"i],c1);if(start[pid[2]"_"i]>1){neoSeqStart=start[pid[2]"_"i]-148;if(neoSeqStart<1){neoSeqStart=1};neoSeqStart=int(neoSeqStart/3)*3+1;neoSeq = substr(cdsSeq,neoSeqStart,start[pid[2]"_"i]-neoSeqStart);}else{start[pid[2]"_"i]=1;neoSeqStart=0};printf(":%s\t%s\n",start[pid[2]"_"i]-neoSeqStart+1,cdsDesc);if(org[pid[2]"_"i]=="-" || org[pid[2]"_"i]==""){neoSeq=neoSeq substr(cdsSeq,start[pid[2]"_"i],1) var[pid[2]"_"i] substr(cdsSeq,e1,1);}else{neoSeq=neoSeq var[pid[2]"_"i]};if(e1<length(cdsSeq)){if(c1=="f"){neoSeqEnd=length(cdsSeq);}else{neoSeqEnd=e1+149;if(neoSeqEnd>length(cdsSeq)){neoSeqEnd=length(cdsSeq)}};neoSeq = neoSeq substr(cdsSeq,e1+1,neoSeqEnd-e1)};print neoSeq}};split($1,pid,"[>.]");p=trCnt[pid[2]];if(p!=""){$1="";cdsDesc=$0;cdsSeq=""};}else{if(p!=""){gsub(/\s/,"",$0);cdsSeq=cdsSeq $0}}}' ${n}.hapCall.vep ../Homo_sapiens.GRCh38.cds.all.fa > ${n}.hapCall.neoCDS.fasta
 
+module purge
 python ../cds2neopitopes.py ../epitope_DBs/IEDB_neoepitopes_per_ENST2.tab ../epitope_DBs/TSNAdb_frequent_ICGC_per_ENST3.tab ../epitope_DBs/TSNAdb_frequent_TCGA_per_ENST3.tab ${n}.hapCall.neoCDS.fasta ${n}_hapCall
 sphap1=$(date +%s)
 
+module load perl gcc htslib python bcftools samtools
 stlo2=$(date +%s)
 ~/ensembl-vep/vep  -af_gnomade --no_stats --biotype --buffer_size 20000 --distance 5000 --polyphen b --regulatory --sift b \
 --species homo_sapiens --symbol --transcript_version --plugin NMD --cache --offline --use_given_ref --merged --fork $cores \
@@ -89,11 +92,14 @@ stlo2=$(date +%s)
 if($1~/^#.*/){next};if($9~/-/){split($9,u,"-")}else{u[1]=$9;u[2]=$9;};\
 split($5,v,".");split($4,z,".");split($25,w,"[()]");if(w[1]=="-")w[2]=0;if($27=="-")$27=0;\
 if($7~/frameshift/ || $7~/missense/)print $2"\t"z[1]"\t"v[1]"\t"$7"\t"u[1]"\t"u[2]"\t"$12"\t"w[2]"\t"$26"\t"$27"\t"$45}' >  ${n}.lofreq.vep
+
 awk '(FNR==NR){if($3~/^ENS/ && ($4~/frameshift/ || $4~/missense/)){trCnt[$3]++;conseq[$3"_"trCnt[$3]]=$4;start[$3"_"trCnt[$3]]=$5;end[$3"_"trCnt[$3]]=$6;gene[$3]=$2;gsub(/[a-z]/,"",$7);split($7,u,"/");org[$3"_"trCnt[$3]]=u[1];var[$3"_"trCnt[$3]]=u[2];next}}{if($0~/^>.*/){if(p!=""){for(i=1;i<=p;i++){neoSeq="";e1=end[pid[2]"_"i];if(conseq[pid[2]"_"i]~/frameshift_variant/){c1="f"}else{c1="m"};if(c1=="m"){c1=c1 "_" substr(cdsSeq,start[pid[2]"_"i],1)}printf(">%s:%s:%d:%d:%s",pid[2],gene[pid[2]],i,start[pid[2]"_"i],c1);if(start[pid[2]"_"i]>1){neoSeqStart=start[pid[2]"_"i]-148;if(neoSeqStart<1){neoSeqStart=1};neoSeqStart=int(neoSeqStart/3)*3+1;neoSeq = substr(cdsSeq,neoSeqStart,start[pid[2]"_"i]-neoSeqStart);}else{start[pid[2]"_"i]=1;neoSeqStart=0};printf(":%s\t%s\n",start[pid[2]"_"i]-neoSeqStart+1,cdsDesc);if(org[pid[2]"_"i]=="-" || org[pid[2]"_"i]==""){neoSeq=neoSeq substr(cdsSeq,start[pid[2]"_"i],1) var[pid[2]"_"i] substr(cdsSeq,e1,1);}else{neoSeq=neoSeq var[pid[2]"_"i]};if(e1<length(cdsSeq)){if(c1=="f"){neoSeqEnd=length(cdsSeq);}else{neoSeqEnd=e1+149;if(neoSeqEnd>length(cdsSeq)){neoSeqEnd=length(cdsSeq)}};neoSeq = neoSeq substr(cdsSeq,e1+1,neoSeqEnd-e1)};print neoSeq}};split($1,pid,"[>.]");p=trCnt[pid[2]];if(p!=""){$1="";cdsDesc=$0;cdsSeq=""};}else{if(p!=""){gsub(/\s/,"",$0);cdsSeq=cdsSeq $0}}}' ${n}.lofreq.vep ../Homo_sapiens.GRCh38.cds.all.fa > ${n}.lofreq.neoCDS.fasta
 
+module purge
 python ../cds2neopitopes.py ../epitope_DBs/IEDB_neoepitopes_per_ENST2.tab ../epitope_DBs/TSNAdb_frequent_ICGC_per_ENST3.tab ../epitope_DBs/TSNAdb_frequent_TCGA_per_ENST3.tab ${n}.lofreq.neoCDS.fasta ${n}_lofreq
-splo2=$(date +%s)
+#splo2=$(date +%s)
 
+module load perl gcc htslib python bcftools samtools
 stbcf1=$(date +%s)
 ~/ensembl-vep/vep -af_gnomade --no_stats --biotype --buffer_size 20000 --distance 5000 --polyphen b --regulatory --sift b \
 --species homo_sapiens --symbol --transcript_version --plugin NMD --cache --offline --use_given_ref --merged --fork $cores \
@@ -104,6 +110,7 @@ if($7~/frameshift/ || $7~/missense/)print $2"\t"z[1]"\t"v[1]"\t"$7"\t"u[1]"\t"u[
 
 awk '(FNR==NR){if($3~/^ENS/ && ($4~/frameshift/ || $4~/missense/)){trCnt[$3]++;conseq[$3"_"trCnt[$3]]=$4;start[$3"_"trCnt[$3]]=$5;end[$3"_"trCnt[$3]]=$6;gene[$3]=$2;gsub(/[a-z]/,"",$7);split($7,u,"/");org[$3"_"trCnt[$3]]=u[1];var[$3"_"trCnt[$3]]=u[2];next}}{if($0~/^>.*/){if(p!=""){for(i=1;i<=p;i++){neoSeq="";e1=end[pid[2]"_"i];if(conseq[pid[2]"_"i]~/frameshift_variant/){c1="f"}else{c1="m"};if(c1=="m"){c1=c1 "_" substr(cdsSeq,start[pid[2]"_"i],1)}printf(">%s:%s:%d:%d:%s",pid[2],gene[pid[2]],i,start[pid[2]"_"i],c1);if(start[pid[2]"_"i]>1){neoSeqStart=start[pid[2]"_"i]-148;if(neoSeqStart<1){neoSeqStart=1};neoSeqStart=int(neoSeqStart/3)*3+1;neoSeq = substr(cdsSeq,neoSeqStart,start[pid[2]"_"i]-neoSeqStart);}else{start[pid[2]"_"i]=1;neoSeqStart=0};printf(":%s\t%s\n",start[pid[2]"_"i]-neoSeqStart+1,cdsDesc);if(org[pid[2]"_"i]=="-" || org[pid[2]"_"i]==""){neoSeq=neoSeq substr(cdsSeq,start[pid[2]"_"i],1) var[pid[2]"_"i] substr(cdsSeq,e1,1);}else{neoSeq=neoSeq var[pid[2]"_"i]};if(e1<length(cdsSeq)){if(c1=="f"){neoSeqEnd=length(cdsSeq);}else{neoSeqEnd=e1+149;if(neoSeqEnd>length(cdsSeq)){neoSeqEnd=length(cdsSeq)}};neoSeq = neoSeq substr(cdsSeq,e1+1,neoSeqEnd-e1)};print neoSeq}};split($1,pid,"[>.]");p=trCnt[pid[2]];if(p!=""){$1="";cdsDesc=$0;cdsSeq=""};}else{if(p!=""){gsub(/\s/,"",$0);cdsSeq=cdsSeq $0}}}' ${n}.bcftools.vep ../Homo_sapiens.GRCh38.cds.all.fa > ${n}.bcftools.neoCDS.fasta
 
+module purge
 python ../cds2neopitopes.py ../epitope_DBs/IEDB_neoepitopes_per_ENST2.tab ../epitope_DBs/TSNAdb_frequent_ICGC_per_ENST3.tab ../epitope_DBs/TSNAdb_frequent_TCGA_per_ENST3.tab ${n}.bcftools.neoCDS.fasta ${n}_bcftools
 spbcf1=$(date +%s)
 
