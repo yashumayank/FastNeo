@@ -1,5 +1,5 @@
 #!/bin/bash
-path1=''
+path1='$(pwd)/'
 
 cores=2
 overhang=99
@@ -31,9 +31,9 @@ tidSTAR=$(( $spSTAR - $stSTAR ))
 
 #--------- bcftools ----------
 stbcf=$(date +%s)
-bcftools mpileup -q 20 -Q 30 -g 0 -f $genome_fasta $n.dedup.bam | bcftools call -mv -Ov -o $n.bcftools.vcf
-#DP4 altFr+altRv > 3
-awk -F "\t" '{split($8,v,";");for(i=1;i<=length(v);i++){if(v[i]~/^DP4/){split(v[i],u,"[,=]");if(u[4]+u[5]>2){print};next}}}' ${n}.bcftools.vcf > ${n}.bcftools.vcf1
+bcftools mpileup -q 10 -Q 30 -g 0 -f $genome_fasta $n.dedup.bam | bcftools call -mv -Ov -o $n.bcftools.vcf
+#DP4 altFr+altRv >= 3
+awk -F "\t" '{split($8,v,";");for(i=1;i<=length(v);i++){if(v[i]~/^DP4/){split(v[i],u,"[,=]");if(u[4]+u[5]>=3){print};next}}}' ${n}.bcftools.vcf > ${n}.bcftools.vcf1
 mv ${n}.bcftools.vcf1 ${n}.bcftools.vcf
 spbcf=$(date +%s)
 
@@ -52,9 +52,9 @@ splo=$(date +%s)
 
 #--------- haplotypeCaller ----------
 gatk HaplotypeCaller -dont-use-soft-clipped-bases -R ${genome_fasta} --dbsnp ${dbSNP_vcf} -I ${n}.bsqr.bam -O ${n}.hc.vcf.gz
-gatk VariantFiltration --window 35 --cluster 3 --filter-name "FS" --filter "FS > 30.0" --filter-name "QD" --filter "QD < 2.0" --R ${genome_fasta} --V ${n}.hc.vcf.gz -O ${n}.hc.filtered.vcf
-#AD > 2
-awk -F "\t" '($7=="PASS"){split($10,v,":");split(v[2],u,",");for(i=2;i<=length(u);i++){if(u[i]>2){print;next}}}' ${n}.hc.filtered.vcf > ${n}.hapCall.vcf
+gatk VariantFiltration --window 35 --cluster 3 --filter-name "FS" --filter "FS > 30.0" --filter-name "QD" --filter "QD < 3.0" --R ${genome_fasta} --V ${n}.hc.vcf.gz -O ${n}.hc.filtered.vcf
+#AD >= 3
+awk -F "\t" '($7=="PASS"){split($10,v,":");split(v[2],u,",");for(i=2;i<=length(u);i++){if(u[i]>=3){print;next}}}' ${n}.hc.filtered.vcf > ${n}.hapCall.vcf
 rm  ${n}.hc.filtered.vcf ${n}.hc.vcf.gz
 sphap=$(date +%s)
 
