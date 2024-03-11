@@ -8,8 +8,8 @@ path_to_indices=$path_prefix"STARindices"$overhang
 genome_fasta=$path_prefix"genome.fa"
 dbSNP_vcf=/data/hemberg/shared_resources/genomes/human/"1000GENOMES-phase_3.vcf.gz"
 
-for x in $(seq $1 $2 $3);do n="SRR"$x
-/data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 $n
+n=$1
+#/data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 $n
 sleep 3
 stSTAR=$(date +%s)
 cspeed=$(lscpu|grep 'Model name'|awk -F ":" '{gsub(/^ */,"",$2);print $2}')
