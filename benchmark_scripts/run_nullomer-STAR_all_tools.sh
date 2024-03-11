@@ -10,19 +10,28 @@ dbSNP_vcf=/data/hemberg/shared_resources/genomes/human/"1000GENOMES-phase_3.vcf.
 
 for x in $(seq $1 $2 $3);do n="SRR"$x
 /data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 $n
-sleep 5
-
+sleep 3
 stSTAR=$(date +%s)
 cspeed=$(lscpu|grep 'Model name'|awk -F ":" '{gsub(/^ */,"",$2);print $2}')
 
+julia ${path1}/cfRNAnullomers.v0.2.jl -f ${pathDS}${n}_1.fastq -n ${pathDB}epitopeDB_nullomers.tsv -l 16 -S ${pathDS}${n}_1.nullomers -p 0.0 -q 0 --logfile ${pathDS}${n}_1.nullomers.json -N / &
+julia ${path1}/cfRNAnullomers.v0.2.jl -f ${pathDS}${n}_2.fastq -n ${pathDB}epitopeDB_nullomersRevComp.tsv -l 16 -S ${pathDS}${n}_2.nullomers -p 0.0 -q 0 --logfile ${pathDS}${n}_2.nullomers.json -N /
+wait
+awk -v pid=${n}_1 '{if(FNR==1){f++};if(f<=2){if(FNR%4==1){a[$1]=1}}else{if(FNR%4==1){if(a[$1]==1){x=1}else{x=0}};if(x==1){print $0 > pid ".nullomers.union.epitopeDB.fastq"}}}' ${n}_*.nullomers_epitopeDB.fastq ${n}_1.fastq &
+awk -v pid=${n}_2 '{if(FNR==1){f++};if(f<=2){if(FNR%4==1){a[$1]=1}}else{if(FNR%4==1){if(a[$1]==1){x=1}else{x=0}};if(x==1){print $0 > pid ".nullomers.union.epitopeDB.fastq"}}}' ${n}_*.nullomers_epitopeDB.fastq ${n}_2.fastq
+wait
+rm ${n}_1.fastq ${n}_2.fastq
+rm ${n}_*.nullomers_epitopeDB.fastq
+rm ${n}_1.nullomers.json ${n}_2.nullomers.json
+
 module load STAR samtools bcftools htslib bzip2 gatk
 rm -r ${n}_mapped
-STAR --runThreadN $cores --genomeDir $path_to_indices --readFilesIn _1.fastq _2.fastq --readFilesPrefix $n --outStd BAM_SortedByCoordinate \
+STAR --runThreadN $cores --genomeDir $path_to_indices --readFilesIn _1.nullomers.union.epitopeDB.fastq _2.nullomers.union.epitopeDB.fastq --readFilesPrefix $n --outStd BAM_SortedByCoordinate \
 --outSAMtype BAM SortedByCoordinate --outSAMmultNmax 3 \
 --outFilterMultimapNmax 20 --outFilterMismatchNmax 15 --alignSJDBoverhangMin 2 --alignIntronMax 1000000 \
 --outFileNamePrefix ./${n}_mapped/ --twopassMode None  --peOverlapNbasesMin 10 > $n.bam
-
 rm -r ${n}_mapped ${n}_1.fastq ${n}_2.fastq
+
 ##java gatk --java-options "-XX:+PrintFlagsFinal -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:gc_log.log -Xms10000m"
 gatk MarkDuplicates --INPUT ${n}.bam --OUTPUT ${n}.dedup.bam --METRICS_FILE ${n}.dedup.metrics --REMOVE_DUPLICATES true --CREATE_INDEX true --VALIDATION_STRINGENCY SILENT
 rm $n.bam
@@ -117,6 +126,6 @@ spbcf1=$(date +%s)
 tidhap=$(( $sphap1 - $sthap1 + $sphap - $sthap + $spSTAR - $stSTAR))
 tidlo=$(( $splo2 - $stlo2 + $splo1 - $stlo1 + $splo - $stlo + $spSTAR - $stSTAR))
 tidbcf=$(( $spbcf1 - $stbcf1 + $spbcf - $stbcf + $spSTAR - $stSTAR))
-echo "${n},${tidhap},${tidlo},${tidbcf},${cspeed}" >> runtime.log
+echo "${n},${tidhap},${tidlo},${tidbcf},${cspeed}" >> runtime.nullomer_alltools.log
 
 done
