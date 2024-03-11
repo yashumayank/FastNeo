@@ -9,7 +9,7 @@ sample=$1
 #julia
 #/data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 ${sample}
 
-stSTAR=$(date +%s)
+st=$(date +%s)
 cspeed=$(lscpu|grep 'Model name'|awk -F ":" '{gsub(/^ */,"",$2);print $2}')
 
 module load bowtie2
@@ -27,3 +27,7 @@ samtools view ${sample}.all.bam | awk -v "sid=${sample}" -F "\t" '{if(FNR==1){fn
 sort -k1,1 -k7,7 -k3,3 -k4n -t$'\t' ${sample}_epitopeDB_neoepitopes_counts_raw_all.tsv | awk -F "\t" 'BEGIN{print "sample_id\tgene_id\tHGNC_symbol\ttop_nullomer\tneoepitopes\t#reads\t#nullomers\tdb_name\tannotation\twildTypeHLA\tneoEpitopeHLA\tGeneticAncestry"}{if(neo_list!=$3 || symbol!=$7){if(FNR!=1 && rcount>1){print pid"\t"et"\t"symbol"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"dbName"\t"ann"\t"wtHLA"\t"neoHLA"\t"popVar}; pid=$1; neo_list=$3; et=$6; symbol=$7; dbName=$8; ann=$9; wtHLA=$10; neoHLA=$11; popVar=$12; ncount=0}; ncount++;rcount=$4; null=$2}END{if(rcount>1){print pid"\t"et"\t"symbol"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"dbName"\t"ann"\t"wtHLA"\t"neoHLA"\t"popVar}}' > ${sample}_epitopeDB_neoepitopes_readCounts_all.tsv
 
 #rm ${sample}.all.bam
+sp=$(date +%s)
+
+tid=$(( $sp - $st))
+echo "${sample},${tid}" >> runtime.nullomer_alltools.log
