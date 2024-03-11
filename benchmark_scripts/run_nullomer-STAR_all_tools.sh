@@ -14,6 +14,7 @@ sleep 3
 stSTAR=$(date +%s)
 cspeed=$(lscpu|grep 'Model name'|awk -F ":" '{gsub(/^ */,"",$2);print $2}')
 
+module load julia
 julia ${path1}/cfRNAnullomers.v0.2.jl -f ${pathDS}${n}_1.fastq -n ${pathDB}epitopeDB_nullomers.tsv -l 16 -S ${pathDS}${n}_1.nullomers -p 0.0 -q 0 --logfile ${pathDS}${n}_1.nullomers.json -N / &
 julia ${path1}/cfRNAnullomers.v0.2.jl -f ${pathDS}${n}_2.fastq -n ${pathDB}epitopeDB_nullomersRevComp.tsv -l 16 -S ${pathDS}${n}_2.nullomers -p 0.0 -q 0 --logfile ${pathDS}${n}_2.nullomers.json -N /
 wait
@@ -30,7 +31,8 @@ STAR --runThreadN $cores --genomeDir $path_to_indices --readFilesIn _1.nullomers
 --outSAMtype BAM SortedByCoordinate --outSAMmultNmax 3 \
 --outFilterMultimapNmax 20 --outFilterMismatchNmax 15 --alignSJDBoverhangMin 2 --alignIntronMax 1000000 \
 --outFileNamePrefix ./${n}_mapped/ --twopassMode None  --peOverlapNbasesMin 10 > $n.bam
-rm -r ${n}_mapped ${n}_1.fastq ${n}_2.fastq
+rm -r ${n}_mapped 
+#rm ${n}_*.nullomers.union.epitopeDB.fastq
 
 ##java gatk --java-options "-XX:+PrintFlagsFinal -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:gc_log.log -Xms10000m"
 gatk MarkDuplicates --INPUT ${n}.bam --OUTPUT ${n}.dedup.bam --METRICS_FILE ${n}.dedup.metrics --REMOVE_DUPLICATES true --CREATE_INDEX true --VALIDATION_STRINGENCY SILENT
