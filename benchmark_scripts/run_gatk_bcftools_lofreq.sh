@@ -67,7 +67,7 @@ splo1=$(date +%s)
 wait
 
 module purge
-#--------- VEP and cds2neopitopes ----------
+#--------- all tools: VEP and cds2neopitopes ----------
 module load perl gcc htslib python bcftools samtools
 sthap1=$(date +%s)
 #awk '{if($0!~/^#.*/){if($4~/[ATGC]/){if(substr($5,length($5)-3)==",<*>"){$5=substr($5,1,length($5)-4)};print "chr"$1"\t"$2"\t.\t"$4"\t"$5}}}' $1.vcf
