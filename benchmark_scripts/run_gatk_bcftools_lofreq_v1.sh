@@ -2,7 +2,7 @@
 path1='$(pwd)/'
 
 cores=2
-overhang=99
+overhang=99 #149
 path_prefix="/data/hemberg/shared_resources/genomes/human/GRCh38.p13.107."
 path_to_indices=$path_prefix"STARindices"$overhang
 genome_fasta=$path_prefix"genome.fa"
