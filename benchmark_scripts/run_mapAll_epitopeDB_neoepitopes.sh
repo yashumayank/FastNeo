@@ -30,4 +30,4 @@ sort -k1,1 -k7,7 -k3,3 -k4n -t$'\t' ${sample}_epitopeDB_neoepitopes_counts_raw_a
 sp=$(date +%s)
 
 tid=$(( $sp - $st))
-echo "${sample},${tid}" >> runtime.nullomer_alltools.log
+echo "${sample},${tid}" >> runtime.nullomer_mapAllreads.log
