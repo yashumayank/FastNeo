@@ -1,3 +1,4 @@
+#!/bin/bash
 pathDS=$(pwd)/
 path1="" #specify full path of the install directory eg. /usr/bin/cfRNA-neoepitopes
 pathDB=${path1}/nullomer_lists/
@@ -6,7 +7,6 @@ cd ${pathDS}
 cores=2
 
 sample=$1
-#julia
 #/data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 ${sample}
 
 st=$(date +%s)
