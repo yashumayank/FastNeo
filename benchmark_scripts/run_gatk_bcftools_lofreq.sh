@@ -60,6 +60,7 @@ sphap=$(date +%s)
 
 #--------- Lofreq ----------
 stlo1=$(date +%s)
+rm ${n}.lofreq.vcf
 /PHShome/mm1169/usr/bin/lofreq_star-2.1.5/bin/lofreq call -f ${genome_fasta} -o ${n}.lofreq.vcf ${n}.bsqr.bam
 #/PHShome/mm1169/usr/bin/lofreq_star-2.1.5/lofreq call-parallel --pp-threads 8 -f ref.fa -o vars.vcf aln.bam
 rm ${n}.bsqr.bam ${n}.bsqr.bai
@@ -97,7 +98,7 @@ awk '(FNR==NR){if($3~/^ENS/ && ($4~/frameshift/ || $4~/missense/)){trCnt[$3]++;c
 
 module purge
 python ../cds2neopitopes.py ../epitope_DBs/IEDB_neoepitopes_per_ENST2.tab ../epitope_DBs/TSNAdb_frequent_ICGC_per_ENST3.tab ../epitope_DBs/TSNAdb_frequent_TCGA_per_ENST3.tab ${n}.lofreq.neoCDS.fasta ${n}_lofreq
-#splo2=$(date +%s)
+splo2=$(date +%s)
 
 module load perl gcc htslib python bcftools samtools
 stbcf1=$(date +%s)
