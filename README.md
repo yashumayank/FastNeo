@@ -84,7 +84,6 @@ Output file format for the gene fusions:
 7) annotation: gene names
 8) junction5: genomic loci of 5’ junction
 9) junction3: genomic loci of 3’ junction.
-10) (to be added) bases_mapped: number of bases mapped upstream and downstream of the fusion junction
 
 # LIMITATIONS
 The neoepitopes found in plasma-cell-free RNA represents cells from the whole body and only a miniscule proportion of the RNA is from the tumour. Thus, even the most discriminative neoepitopes might not have originated in the tumour itself.
