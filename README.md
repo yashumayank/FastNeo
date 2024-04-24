@@ -29,6 +29,12 @@ Use the following code to install the required packages in Julia.
 julia pkginstall.jl
 ```
 
+Open the run scripts in an editor and update the 'install_path' variable. 
+You can add the scripts to your environment PATH variable for convenience. This can be done temporarily using:
+```
+export PATH=`pwd`/target/release/:$PATH
+```
+
 # RUN the pipelines 
 
 The paired-end RNAseq data must be in the 2-file fastq format and the files must be named as {sample_name}_1.fastq and {sample_name}_2.fastq
