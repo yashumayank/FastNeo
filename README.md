@@ -29,7 +29,7 @@ Use the following code to install the required packages in Julia.
 julia pkginstall.jl
 ```
 
-Open the run scripts in an editor and update the 'install_path' variable. 
+Open the run scripts in an editor and update the 'path1' variable install_path. 
 You can add the scripts to your environment PATH variable for convenience. This can be done temporarily using:
 ```
 export PATH=`pwd`/target/release/:$PATH
