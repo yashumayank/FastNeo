@@ -4,6 +4,10 @@ pathDB=${path1}/nullomer_lists/
 pathMI=${path1}/mapping_indices/
 cd ${pathDS}
 cores=2
+overhang=99 #149
+path_prefix="/data/hemberg/shared_resources/genomes/human/GRCh38.p13.107."
+path_to_indices=$path_prefix"STARindices"$overhang
+genome_fasta=$path_prefix"genome.fa"
 
 sample=$1
 
