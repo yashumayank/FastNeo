@@ -18,14 +18,20 @@ wait
 rm ${sample}_*.nullomers_epitopeDB.fastq
 rm ${sample}_1.nullomers.json ${sample}_2.nullomers.json
 
-#bowtie2
-bowtie2 -x ${pathMI}Homo_sapiens.GRCh38.cds.all -p $cores  --no-unal --omit-sec-seq --very-sensitive-local -1 ${sample}_1.nullomers.union.epitopeDB.fastq -2 ${sample}_2.nullomers.union.epitopeDB.fastq -S ${sample}.nullomers.union.epitopeDB.sam
+module load STAR samtools bcftools htslib bzip2 gatk
+rm -r ${sample}_mapped
+STAR --runThreadN $cores --genomeDir $path_to_indices --readFilesIn _1.nullomers.union.epitopeDB.fastq _2.nullomers.union.epitopeDB.fastq --readFilesPrefix $sample --outStd BAM_SortedByCoordinate \
+--outSAMtype BAM SortedByCoordinate --outSAMmultNmax 3 \
+--outFilterMultimapNmax 20 --outFilterMismatchNmax 15 --alignSJDBoverhangMin 2 --alignIntronMax 1000000 \
+--outFileNamePrefix ./${sample}_mapped/ --twopassMode None  --peOverlapNbasesMin 10 > $sample.ns.bam
+rm -r ${sample}_mapped 
 rm ${sample}_*.nullomers.union.epitopeDB.fastq
 
-#samtools
-samtools sort ${sample}.nullomers.union.epitopeDB.sam | samtools rmdup - ${sample}.nullomers.union.epitopeDB.bam 2>test1
-rm test1 ${sample}.nullomers.union.epitopeDB.sam
-mudskipper bulk --alignment ${sample}.nullomers.union.epitopeDB.bam --index /data/hemberg/shared_resources/genomes/human/GRCh38.p13.107.mskdb -l --out ${sample}.STAR2CDS.bam
+##java gatk --java-options "-XX:+PrintFlagsFinal -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:gc_log.log -Xms10000m"
+gatk MarkDuplicates --INPUT ${sample}.ns.bam --OUTPUT ${sample}.dedup.null.bam --METRICS_FILE ${sample}.dedup.metrics --REMOVE_DUPLICATES true --CREATE_INDEX true --VALIDATION_STRINGENCY SILENT
+
+rm test1 ${sample}.ns.bam ${sample}.dedup.metrics
+mudskipper bulk --alignment ${sample}.dedup.null.bam --index /data/hemberg/shared_resources/genomes/human/GRCh38.p13.107.mskdb -l --out ${sample}.STAR2CDS.bam
 
 #find coverage for each nullomer correspoding to specific neoepitope ; filter reads with (MAPQ < 10 AND (read_length <= (clipped_length*3) OR alignment_score <= expected_score)
 #expected score calculated using linear equation (218 * aligned_length + 75)/115) allows 1 high quality mismatch (penalty=3) for mapped_length=35 and ~4 lower quality mismatches (penalty=15) for mapped_length=150
