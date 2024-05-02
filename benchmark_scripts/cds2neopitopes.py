@@ -44,7 +44,7 @@ WTpeps={}
 gid={}
 #fick = sys.stdout
 # 2. use ENST_pep as id to account for same neoepitopes in multiple genes
-def scanEpi(pList,pLens,dbName,pepI,mutR,pepWT, TrID, mFlag, mPos):
+def scanEpi(pList, pLens, dbName, pepI, mutR, pepWT, TrID, mFlag, mPos):
      # print(pList)
      # print(pLens)
      # create peptide of lengths that occur in the list of IEDB peptides for this gene
