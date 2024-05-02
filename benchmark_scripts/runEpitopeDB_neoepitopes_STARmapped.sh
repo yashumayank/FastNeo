@@ -1,3 +1,4 @@
+#!/bin/bash
 pathDS=$(pwd)/
 path1="" #specify full path of the install directory eg. /usr/bin/cfRNA-neoepitopes
 pathDB=${path1}/nullomer_lists/
