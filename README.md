@@ -1,5 +1,5 @@
 # RNA-neoepitopes
-This tool has been developed to detect neoepitopes from published resources in the cell free RNA. It supports detection of neoepitopes from IEDB, TSNAdb, and neoepitopes produced via the gene fusion events described in ChimerKB and ChimerPub (YE Jang et al. 2020: https://doi.org/10.1093/nar/gkz1013). Cancer specific neoepitopes: TSNAdb
+This tool has been developed to detect known human neoepitopes in the cell free RNA. It supports detection of neoepitopes from IEDB, TSNAdb, and neoepitopes produced via gene fusion events described in ChimerKB and ChimerPub (YE Jang et al. 2020: https://doi.org/10.1093/nar/gkz1013).
 
 # REFERENCES/AUTHOR
 
@@ -7,10 +7,10 @@ This tool has been developed to detect neoepitopes from published resources in t
 
 # HARDWARE/SOFTWARE REQUIREMENTS
 x86-64 compatible processors
-64 bit Linux or Mac OS X
+64 bit Linux
 
 # RELEASEnotes 
-contains detailed information about the latest major release CHANGES contains detailed information about all the changes in all releases
+Release 0.1: Neo
 
 # INSTALL AND SETUP (PRE-REQUISITES)
 
@@ -52,7 +52,6 @@ Both IEDB/TSNAdb neoepitope and gene fusion detection can be run together using 
 ```
 sh run_neoepitopes.sh {sample_name}
 ```
-
 
 # OUTPUT format
 
