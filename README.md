@@ -5,13 +5,13 @@ This tool has been developed to detect known human neoepitopes in the cell free 
 Release 0.1: Neo
 
 # SYSTEM REQUIREMENTS
-x86-64 compatible processors and 64-bit Linux
+x86-64 compatible processors, 4GB RAM and 64-bit Linux. The whole workflow runs on 2 cores and processes 10^10 bases (two 10GB fastq files) in ~15 minutes
 
 # INSTALL AND SETUP (PRE-REQUISITES)
 
 Download the tool
 ```
-git clone https://github.com/yashumayank/cfRNA-neoepitopes.git
+git clone https://github.com/yashumayank/FastNeo.git
 ```
 
 Download and install bowtie2, samtools and julia, which are required to run this tool. The following command can be used to install through conda :-
