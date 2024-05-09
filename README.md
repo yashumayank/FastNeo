@@ -4,9 +4,8 @@ This tool has been developed to detect known human neoepitopes in the cell free 
 # RELEASEnotes 
 Release 0.1: Neo
 
-# HARDWARE/SOFTWARE REQUIREMENTS
-x86-64 compatible processors
-64 bit Linux
+# SYSTEM REQUIREMENTS
+x86-64 compatible processors and 64-bit Linux
 
 # INSTALL AND SETUP (PRE-REQUISITES)
 
