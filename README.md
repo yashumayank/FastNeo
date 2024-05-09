@@ -1,16 +1,12 @@
 # RNA-neoepitopes
 This tool has been developed to detect known human neoepitopes in the cell free RNA. It supports detection of neoepitopes from IEDB, TSNAdb, and neoepitopes produced via gene fusion events described in ChimerKB and ChimerPub (YE Jang et al. 2020: https://doi.org/10.1093/nar/gkz1013).
 
-# REFERENCES/AUTHOR
-
-# SUPPORT/REQUESTS
+# RELEASEnotes 
+Release 0.1: Neo
 
 # HARDWARE/SOFTWARE REQUIREMENTS
 x86-64 compatible processors
 64 bit Linux
-
-# RELEASEnotes 
-Release 0.1: Neo
 
 # INSTALL AND SETUP (PRE-REQUISITES)
 
@@ -92,6 +88,10 @@ Output file format for the gene fusions:
 
 # LIMITATIONS
 The neoepitopes found in plasma-cell-free RNA represents cells from the whole body and only a miniscule proportion of the RNA is from the tumour. Thus, even the most discriminative neoepitopes might not have originated in the tumour itself.
+
+# REFERENCES/AUTHOR
+
+# SUPPORT/REQUESTS
 
 # FUNDING
 
