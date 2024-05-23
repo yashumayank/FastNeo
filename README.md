@@ -23,7 +23,7 @@ Download the tool
 ```
 git clone https://github.com/yashumayank/FastNeo.git
 cd FastNeo
-sh INSTALL
+bash INSTALL
 ```
 
 Open _runEpitopeDB_neoepitopes.sh_ and _run_neoepitopes.sh_ in an editor and update the 'path1' variable with full path of the install directory. 
