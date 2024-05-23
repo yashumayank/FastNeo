@@ -1,12 +1,12 @@
-#!/usr/bin/bash
+#!/bin/bash
 #add paths to run file
-cat #!/usr/bin/bash > temp
-cat path1=`pwd` >> temp
+echo \#\!/bin/bash > temp
+echo path1=\"`pwd`\" >> temp
 cat runEpitopeDB_neoepitopes.sh >>temp
 mv temp runEpitopeDB_neoepitopes.sh
 
-cat #!/usr/bin/bash > temp
-cat path1=`pwd` >> temp
+echo \#\!/bin/bash > temp
+echo path1=\"`pwd`\" >> temp
 cat run_neoepitopes.sh >>temp
 mv temp run_neoepitopes.sh
 
