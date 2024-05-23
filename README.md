@@ -9,11 +9,6 @@ x86-64 compatible processors, 4GB RAM and 64-bit Linux. The whole workflow runs 
 
 # INSTALL AND SETUP (PRE-REQUISITES)
 
-Download the tool
-```
-git clone https://github.com/yashumayank/FastNeo.git
-```
-
 Download and install bowtie2, samtools and julia, which are required to run this tool. The following command can be used to install through conda :-
 ```
 conda install -c bioconda bowtie2 samtools julia
@@ -24,9 +19,18 @@ Use the following code to install the required packages in Julia.
 julia pkginstall.jl
 ```
 
-Open _runEpitopeDB_neoepitopes.sh_ and _run_neoepitopes.sh_ in an editor and update the 'path1' variable with full path of the install directory. 
-You can add these scripts to you path using following command (not required): -
+Download the tool
 ```
+git clone https://github.com/yashumayank/FastNeo.git
+cd FastNeo
+sh INSTALL
+```
+
+Open _runEpitopeDB_neoepitopes.sh_ and _run_neoepitopes.sh_ in an editor and update the 'path1' variable with full path of the install directory. 
+
+Give permissions and add these scripts to you path using following command : -
+```
+chmod +x runEpitopeDB_neoepitopes.sh
 export PATH={path1}:$PATH
 ```
 
