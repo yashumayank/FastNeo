@@ -7,17 +7,19 @@ Release 0.1: Neo
 # SYSTEM REQUIREMENTS
 x86-64 compatible processors, 4GB RAM and 64-bit Linux. The whole workflow runs on 2 cores and processes 10^10 bases (two 10GB fastq files) in ~15 minutes
 
-# INSTALL AND SETUP (PRE-REQUISITES)
+# INSTALL PRE-REQUISITES
 
-Download and install bowtie2, samtools and julia, which are required to run this tool. The following command can be used to install through conda :-
+Download and install bowtie2, samtools and julia, which are required to run this tool. The following command can be used to install through conda
 ```
 conda install -c bioconda bowtie2 samtools julia
 ```
 
-Use the following code to install the required packages in Julia.
+Use the following code to install the required packages in Julia
 ```
 julia pkginstall.jl
 ```
+
+# INSTALL AND RUN
 
 Download the tool
 ```
@@ -26,40 +28,24 @@ cd FastNeo
 bash INSTALL
 ```
 
-Open _runEpitopeDB_neoepitopes.sh_ and _run_neoepitopes.sh_ in an editor and update the 'path1' variable with full path of the install directory. 
-
-Give permissions and add these scripts to you path using following command : -
+The IEDB/TSNAdb neoepitope detection can be run using the following command
 ```
-chmod +x runEpitopeDB_neoepitopes.sh
-export PATH={path1}:$PATH
-```
-
-The IEDB/TSNAdb neoepitope detection can be run using the following command :- 
-```
-sh {install_path}/runEpitopeDB_neoepitopes.sh {sample_name}
+runEpitopeDB_neoepitopes.sh {sample_name}
 ```
 
 The IEDB/TSNAdb neoepitope and gene fusion detection can be run together using the following command
 ```
-sh {install_path}/run_neoepitopes.sh {sample_name}
+run_neoepitopes.sh {sample_name}
 ```
 
 # TEST RUN 
 
-The tool can be run on a paired-end RNAseq data that is in p fastq format. The files must be named as {sample_name}_1.fastq and {sample_name}_2.fastq
-
-curl -O https://trace.ncbi.nlm.nih.gov/Traces/sra-reads-be/fastq?acc=SRR25143496
-
-
-The IEDB/TSNAdb neoepitope detection can be run together using the following command :- 
+Search for neoepitopes in the sample dataset
 ```
-sh runEpitopeDB_neoepitopes.sh {sample_name}
+run_neoepitopes.sh {sample_name}
 ```
+The expected output files are in the test_run folder
 
-The IEDB/TSNAdb neoepitope and gene fusion detection can be run together using the following command
-```
-sh run_neoepitopes.sh {sample_name}
-```
 
 # OUTPUT format
 
