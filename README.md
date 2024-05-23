@@ -24,26 +24,35 @@ Use the following code to install the required packages in Julia.
 julia pkginstall.jl
 ```
 
-Open the run scripts in an editor and update the 'path1' variable install_path. 
+Open the runEpitopeDB_neoepitopes.sh and run_neoepitopes.sh in an editor and update the 'path1' variable with full path of the install directory. 
 You can add the scripts to your environment PATH variable for convenience. This can be done temporarily using:
 ```
 export PATH=`pwd`/target/release/:$PATH
 ```
-
-# RUN the pipelines 
-
-The paired-end RNAseq data must be in the 2-file fastq format and the files must be named as {sample_name}_1.fastq and {sample_name}_2.fastq
 
 The IEDB/TSNAdb neoepitope detection can be run together using the following command :- 
 ```
 sh runEpitopeDB_neoepitopes.sh {sample_name}
 ```
 
-The gene fusion detection can be run together using the following command:- 
+The IEDB/TSNAdb neoepitope and gene fusion detection can be run together using the following command
 ```
-sh runFusion_neoepitopes.sh {sample_name}
+sh run_neoepitopes.sh {sample_name}
 ```
-Both IEDB/TSNAdb neoepitope and gene fusion detection can be run together using the following command
+
+# TEST RUN 
+
+The tool can be run on a paired-end RNAseq data that is in p fastq format. The files must be named as {sample_name}_1.fastq and {sample_name}_2.fastq
+
+curl -O https://trace.ncbi.nlm.nih.gov/Traces/sra-reads-be/fastq?acc=SRR25143496
+
+
+The IEDB/TSNAdb neoepitope detection can be run together using the following command :- 
+```
+sh runEpitopeDB_neoepitopes.sh {sample_name}
+```
+
+The IEDB/TSNAdb neoepitope and gene fusion detection can be run together using the following command
 ```
 sh run_neoepitopes.sh {sample_name}
 ```
