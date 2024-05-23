@@ -12,5 +12,5 @@ mv temp run_neoepitopes.sh
 
 #change permissions and add to path
 chmod +x runEpitopeDB_neoepitopes.sh run_neoepitopes.sh
-export PATH=`pwd`:$PATH
+export PATH=$(pwd):$PATH
 echo "PATH=\"`pwd`:\$PATH\"" >> ~/.bash_profile
