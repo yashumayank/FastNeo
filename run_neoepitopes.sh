@@ -45,3 +45,4 @@ sort -k1,1 -k7,7 -k3,3 -k4n -t$'\t' ${sample}_epitopeDB_neoepitopes_counts_raw.t
 sort -k1,1 -k4,4 -k6n -t$'\t' ${sample}_fusion_neoepitopes_counts_raw.tsv | awk -F "\t" 'BEGIN{print "sample_id\tChimerKB_id\ttop_nullomer\tneoepitopes\t#reads\t#nullomers\tannotation\tjunction5\tjunction3"}{if(et!=$4){if(FNR!=1 && rcount>1){print pid"\t"et"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"ann"\t"junc5"\t"junc3}; pid=$1; neo_list=$3; et=$4; ann=$5; junc5=$7; junc3=$8; ncount=0}; ncount++; rcount=$6; null=$2}END{if(rcount>1){print pid"\t"et"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"ann"\t"junc5"\t"junc3}}' > ${sample}_fusion_neoepitopes_readCounts.tsv
 wait
 rm ${sample}.nullomers.union.epitopeDB.bam ${sample}.nullomers.union.ChimerDB.bam 
+rm ${sample}_epitopeDB_neoepitopes_counts_raw.tsv ${sample}_fusion_neoepitopes_counts_raw.tsv
