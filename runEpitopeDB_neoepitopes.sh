@@ -35,4 +35,4 @@ samtools view ${sample}.nullomers.union.epitopeDB.bam | awk -v "sid=${sample}" -
 #Calculate coverage of the each neoepitope as the coverage of most covered corresponding nullomer; read coverage and nullomers discovered on the read are reported
 sort -k1,1 -k7,7 -k3,3 -k4n -t$'\t' ${sample}_epitopeDB_neoepitopes_counts_raw.tsv | awk -F "\t" 'BEGIN{print "sample_id\tgene_id\tHGNC_symbol\ttop_nullomer\tneoepitopes\t#reads\t#nullomers\tdb_name\tannotation\twildTypeHLA\tneoEpitopeHLA\tGeneticAncestry"}{if(neo_list!=$3 || symbol!=$7){if(FNR!=1 && rcount>1){print pid"\t"et"\t"symbol"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"dbName"\t"ann"\t"wtHLA"\t"neoHLA"\t"popVar}; pid=$1; neo_list=$3; et=$6; symbol=$7; dbName=$8; ann=$9; wtHLA=$10; neoHLA=$11; popVar=$12; ncount=0}; ncount++;rcount=$4; null=$2}END{if(rcount>1){print pid"\t"et"\t"symbol"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"dbName"\t"ann"\t"wtHLA"\t"neoHLA"\t"popVar}}' > ${sample}_epitopeDB_neoepitopes_readCounts.tsv
 
-rm ${sample}.nullomers.union.epitopeDB.bam
+rm ${sample}.nullomers.union.epitopeDB.bam ${sample}_epitopeDB_neoepitopes_counts_raw.tsv
