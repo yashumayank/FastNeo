@@ -30,8 +30,7 @@ You can add these scripts to you path using following command (not required): -
 export PATH={path1}:$PATH
 ```
 
-
-The IEDB/TSNAdb neoepitope detection can be run together using the following command :- 
+The IEDB/TSNAdb neoepitope detection can be run using the following command :- 
 ```
 sh {install_path}/runEpitopeDB_neoepitopes.sh {sample_name}
 ```
