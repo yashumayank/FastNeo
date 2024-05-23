@@ -24,7 +24,7 @@ Use the following code to install the required packages in Julia.
 julia pkginstall.jl
 ```
 
-Open _ _runEpitopeDB_neoepitopes.sh_ _ and _ _run_neoepitopes.sh_ _ in an editor and update the 'path1' variable with full path of the install directory. 
+Open _runEpitopeDB_neoepitopes.sh_ and _run_neoepitopes.sh_ in an editor and update the 'path1' variable with full path of the install directory. 
 You can add the scripts to your environment PATH variable for convenience. This can be done temporarily using:
 ```
 export PATH=`pwd`/target/release/:$PATH
