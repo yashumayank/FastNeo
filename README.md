@@ -52,22 +52,23 @@ The expected output files are in the test_run folder
 For IEDB/TSNEdb neoepitopes, the output file shows:
 
 1) sample_id: fastq file name
-2) ENST_id: transcript ensembl ID 
-3) top_nullomer: nullomer with most read covergage among the nullomers that are associated to the mutation/mutations that produce these neoepitopes
-4) neoepitopes: all wildtype-neoepitopes pairs associated to the top nullomer for the mutation:
+2) gene_id: ENSG ID
+3) HGNC_symbol: Gene symbol
+4) top_nullomer: nullomer with most read covergage among the nullomers that are associated to the mutation/mutations that produce these neoepitopes
+5) neoepitopes: all wildtype-neoepitopes pairs associated to the top nullomer for the mutation:
    
    [{Wildtype epitope}->{Noepitope};] ...
-5) #reads: number of mapped reads 
-6) #nullomers: number of nullomers on the read with most nullomers
-7) db_name: Name of the database/databases that contain these neoepitopes.
-8) annotation: known function of the protein that contains the epitopes
-9) wildTypeHLA: binding affinities of all HLA alleles predicted to bind to each wildtype epitope. column output format:
+6) #reads: number of mapped reads 
+7) #nullomers: number of nullomers on the read with most nullomers
+8) db_name: Name of the database/databases that contain these neoepitopes.
+9) annotation: known function of the protein that contains the epitopes
+10) wildTypeHLA: binding affinities of all HLA alleles predicted to bind to each wildtype epitope. column output format:
  
     [Epitope:{wildtype epitope};[{HLA allele};{binding affinity},] ...] ... 
-10) neoEpitopeHLA: binding affinities of all HLA alleles predicted to bind to each neoepitope column output format:
+11) neoEpitopeHLA: binding affinities of all HLA alleles predicted to bind to each neoepitope column output format:
 
     [Epitope:{neoepitope};[{HLA allele};{binding affinity},] ...] ... 
-11) GeneticAncestry: frequency of the neoepitope producing mutations in healthy individuals of various genetic ancestry groups. column format:
+12) GeneticAncestry: frequency of the neoepitope producing mutations in healthy individuals of various genetic ancestry groups. column format:
     
     [SNV[1|2],{chromosome};{position};{old base};{new base},AF={AF};grpmax={group with highest frequency};AF_XX={AF_XX};AF_XY={AF_XY};AF_afr={AF_afr};AF_amr={AF_amr};AF_asj={asj};AF_eas={eas};AF_fin={fin};AF_mid={mid};AF_nfe={nfe};AF_sas={sas};] ...
 
@@ -86,7 +87,4 @@ Output file format for the gene fusions:
 
 # REFERENCES/AUTHOR
 
-# SUPPORT/REQUESTS
-
-# FUNDING
 
