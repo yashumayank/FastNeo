@@ -1,0 +1,5 @@
+cat path1=`pwd` >> temp
+mv temp runEpitopeDB_neoepitopes.sh
+chmod +x runEpitopeDB_neoepitopes.sh run_neoepitopes.sh
+export PATH=`pwd`:$PATH
+echo "PATH=\"`pwd`:\$PATH\"" >> ~/.bash_profile
