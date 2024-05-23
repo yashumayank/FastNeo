@@ -1,7 +1,8 @@
 pathDS=$(pwd)/
-path1="" #specify full path of the install directory eg. /usr/bin/cfRNA-neoepitopes
 pathDB=${path1}/nullomer_lists/
 pathMI=${path1}/mapping_indices/
+#path1 must have full path of the install directory eg. /usr/bin/cfRNA-neoepitopes
+
 cd ${pathDS}
 cores=2
 
