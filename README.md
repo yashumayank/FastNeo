@@ -25,19 +25,20 @@ julia pkginstall.jl
 ```
 
 Open _runEpitopeDB_neoepitopes.sh_ and _run_neoepitopes.sh_ in an editor and update the 'path1' variable with full path of the install directory. 
-You can add the scripts to your environment PATH variable for convenience. This can be done temporarily using:
+You can add these scripts to you path using following command (not required): -
 ```
-export PATH=`pwd`/target/release/:$PATH
+export PATH={path1}:$PATH
 ```
+
 
 The IEDB/TSNAdb neoepitope detection can be run together using the following command :- 
 ```
-sh runEpitopeDB_neoepitopes.sh {sample_name}
+sh {install_path}/runEpitopeDB_neoepitopes.sh {sample_name}
 ```
 
 The IEDB/TSNAdb neoepitope and gene fusion detection can be run together using the following command
 ```
-sh run_neoepitopes.sh {sample_name}
+sh {install_path}/run_neoepitopes.sh {sample_name}
 ```
 
 # TEST RUN 
