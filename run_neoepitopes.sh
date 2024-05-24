@@ -18,7 +18,7 @@ AS1=65
 AS2=277
 AB1=35
 AB2=150
-SLOPE=$(echo "scale=4;(${AS2}-${AS1})/(${AB2}-${AB1})"|bc)
+SLOPE=$(echo "scale=2;(${AS2}-${AS1})/(${AB2}-${AB1})"|bc)
 
 sample=$1
 #julia
