@@ -54,7 +54,7 @@ The expected output files are in the test_run folder
 For IEDB/TSNEdb neoepitopes, the output file shows:
 
 1) sample_id: fastq file name
-2) gene_id: ENSG ID
+2) gene_id: Gene ID with ENSG prefix
 3) HGNC_symbol: Gene symbol
 4) top_nullomer: nullomer with most read covergage among the nullomers that are associated to the mutation/mutations that produce these neoepitopes
 5) neoepitopes: all wildtype-neoepitopes pairs associated to the top nullomer for the mutation:
