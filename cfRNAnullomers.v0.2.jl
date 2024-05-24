@@ -8,15 +8,11 @@ function parse_commandline()
         "--nullomer_length", "-l"
         help = "nullomer length"
         arg_type = Int
-        default = 12
-        "--maxgnomadprob", "-p"
-        help = "maximum probability for finding in the germline to allow for if we are going to retain the nullomer"
-        arg_type = Float64
-        default = 0.05
+        default = 14
         "--minqual", "-q"
-        help = "minimum quality per base for reads"
+        help = "minimum quality for all bases in nullomers"
         arg_type = Int
-        default = 30
+        default = 20
         "--readssavefilename", "-S"
         help = "where the reads files are saved, useful for snakemake"
         arg_type = String
