@@ -15,12 +15,7 @@ AS1=65
 AS2=277
 AB1=35
 AB2=150
-
 SLOPE=$(echo "scale=4;(${AS2}-${AS1})/(${AB2}-${AB1})"|bc)
-
-y= slope*(trulen-B1) + S1))
-=(212/115)*(150-35) +65
-
 
 sample=$1
 #julia
