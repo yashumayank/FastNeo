@@ -26,6 +26,7 @@ Download the tool
 git clone https://github.com/yashumayank/FastNeo.git
 cd FastNeo
 bash INSTALL
+export PATH=`pwd`:$PATH
 ```
 
 The IEDB/TSNAdb neoepitope detection can be run using the following command
