@@ -43,7 +43,8 @@ run_neoepitopes.sh {sample_name}
 
 Search for neoepitopes in the sample dataset
 ```
-run_neoepitopes.sh {sample_name}
+cd test_run
+run_neoepitopes.sh test_sample
 ```
 The expected output files are in the test_run folder
 
