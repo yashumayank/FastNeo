@@ -228,7 +228,7 @@ function main()
     parsed_args = parse_commandline();
     nullomerlen = parsed_args["nullomer_length"];
     maxbps = Inf
-    maxgnomadprob = parsed_args["maxgnomadprob"];
+    maxgnomadprob = 0.0
     tissue = parsed_args["tissue"];
     patient = parsed_args["patient"];
     minqual = parsed_args["minqual"]
