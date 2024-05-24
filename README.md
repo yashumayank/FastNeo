@@ -41,6 +41,7 @@ The IEDB/TSNAdb neoepitope and gene fusion detection can be run together using t
 run_neoepitopes.sh {sample_name}
 ```
 
+The output is saved in the folder from where the command was run and is written to files with name {sample_name}_*_readCounts.tsv
 
 # TEST RUN 
 
