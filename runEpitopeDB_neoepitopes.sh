@@ -5,10 +5,18 @@ pathMI=${path1}/mapping_indices/
 
 cd ${pathDS}
 cores=2
-MINMQ=10
-MAXCLIP=3
 MINQUAL=0
 NULLOMERLEN=16
+
+MINMQ=10
+MAXCLIP=3
+AS1=65
+AS2=277
+AL1=35
+AL2=150
+
+Xdiff=x2-x1=115
+Ydiff=y2-y1=212
 
 sample=$1
 #julia
