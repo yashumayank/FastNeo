@@ -7,6 +7,18 @@ pathMI=${path1}/mapping_indices/
 cd ${pathDS}
 cores=2
 
+MINQUAL=0
+NULLOMERLEN=16
+
+MINMQ=10
+MAXCLIP=3
+#alignments scores and aligned bases
+AS1=65
+AS2=277
+AB1=35
+AB2=150
+SLOPE=$(echo "scale=4;(${AS2}-${AS1})/(${AB2}-${AB1})"|bc)
+
 sample=$1
 #julia
 #/data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 ${sample}
