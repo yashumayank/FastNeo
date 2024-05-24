@@ -58,8 +58,9 @@ while [[ $# -gt 0 ]]; do
       shift
       shift
     -*|--*|-h)
-      echo "run command: run_neoepitopes.sh [options] [input_filename_prefix]"
-      echo "available options:"
+      echo "run command: run_neoepitopes.sh [options] {input_filename_prefix}"
+      echo "paired end data must be in 2 fastq files named as {input_filename_prefix}_1.fastq and {input_filename_prefix}_2.fastq"
+      echo "other options:"
       echo "-m|--mapq [INT] 10"
       echo "-q|--clippedbases [INT] 3"
       echo "-o|--alignscore35 [INT] 65"
@@ -84,8 +85,9 @@ if [[ -n $1 ]]; then
     OUTNAME=$1
   fi
 else
-  echo ""
-  exit;
+  echo "Check help text to run the command"
+  echo "run_neoepitopes.sh -h"
+  exit 1
 fi
 
 SLOPE=$(echo "scale=2;(${AS2}-${AS1})/(${AB2}-${AB1})"|bc)
