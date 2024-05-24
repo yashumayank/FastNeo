@@ -18,6 +18,76 @@ AS1=65
 AS2=277
 AB1=35
 AB2=150
+OUTNAME="-"
+#parse options
+POSITIONAL_ARGS=()
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -m|--mapq)
+      MINMQ="$2"
+      shift
+      shift 
+      ;;
+    -c|--clippedbases)
+      MAXCLIP="$2"
+      shift
+      shift 
+      ;;
+    -x|--alignscore35)
+      AS1="$2"
+      shift
+      shift 
+      ;;
+    -y|--alignscore150)
+      AS2="$2"
+      shift
+      shift 
+      ;;
+    -q|--basequality)
+      MINQUAL="$2"
+      shift 
+      shift 
+      ;;
+    -f|--mapqf)
+      MINMQf="$2"
+      shift
+      shift 
+    -o|--outprefix)
+      OUTNAME="$2"
+      shift
+      shift
+    -*|--*|-h)
+      echo "run command: run_neoepitopes.sh [options] [input_filename_prefix]"
+      echo "available options:"
+      echo "-m|--mapq [INT] 10"
+      echo "-q|--clippedbases [INT] 3"
+      echo "-o|--alignscore35 [INT] 65"
+      echo "-m|--alignscore150 [INT] 277"
+      echo "-q|--basequality [INT] 0"
+      echo "-o|--mapqf [INT] 40"
+      echo "-o|--outprefix [INT] [input_filename_prefix]"
+      exit 1
+      ;;
+    *)
+      POSITIONAL_ARGS+=("$1") # save positional arg
+      shift # past argument
+      ;;
+  esac
+done
+
+set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
+
+if [[ -n $1 ]]; then
+  sample=$1
+  if [[OUTNAME -e "-"]] then
+    OUTNAME=$1
+  fi
+else
+  echo ""
+  exit;
+fi
+
 SLOPE=$(echo "scale=2;(${AS2}-${AS1})/(${AB2}-${AB1})"|bc)
 
 sample=$1
