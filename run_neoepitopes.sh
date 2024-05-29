@@ -85,7 +85,7 @@ set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 
 if [[ -n $1 ]]; then
   sample=$1
-  if [["$OUTFILE" == "-"]]; then
+  if [[ "$OUTFILE" == "-" ]]; then
     OUTNAME=$1
   fi
 else
