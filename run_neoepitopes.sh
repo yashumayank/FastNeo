@@ -60,14 +60,14 @@ while [[ $# -gt 0 ]]; do
     -*|--*|-h)
       echo "run command: run_neoepitopes.sh [options] {input_filename_prefix}"
       echo "paired end data must be in 2 fastq files named as {input_filename_prefix}_1.fastq and {input_filename_prefix}_2.fastq"
-      echo "other options:"
-      echo "-m|--mapq [INT] 10"
-      echo "-q|--clippedbases [INT] 3"
-      echo "-o|--alignscore35 [INT] 65"
-      echo "-m|--alignscore150 [INT] 277"
-      echo "-q|--basequality [INT] 0"
-      echo "-o|--mapqf [INT] 40"
-      echo "-o|--outprefix [INT] [input_filename_prefix]"
+      echo "other options (default value):"
+      echo "-m|--mapq [INT] Expected alignment score filter is used if MAPQ is less than this value (10)"
+      echo "-o|--alignscore35 [INT] Minumum expected alignment score if read leangth = 35 nucleotides (65)"
+      echo "-m|--alignscore150 [INT] Minumum expected alignment score if read leangth = 150 nucleotides(277)"
+      echo "-q|--clippedbases [INT] minimum value of (read length) / (clipped length) (3)"
+      echo "-q|--basequality [INT] 0 minimum bases quality of all the bases in the nullomer"
+#      echo "-o|--mapqf [INT] Expected alignment score filter is used if MAPQ is less than this value (40)"
+      echo "-o|--outprefix [INT] path an prefix onthe output files (input_filename_prefix])"
       exit 1
       ;;
     *)
@@ -85,7 +85,7 @@ if [[ -n $1 ]]; then
     OUTNAME=$1
   fi
 else
-  echo "Check help text to run the command"
+  echo "Input file required. Check help to run the command"
   echo "run_neoepitopes.sh -h"
   exit 1
 fi
