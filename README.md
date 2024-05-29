@@ -57,7 +57,7 @@ The expected output files are in the test_run folder. Here is an example that do
 
 ```
 fasterq-dump --split-3 SRR25143498
-run_neoepitopes.sh -o outtie -q 15 -m 5 -c 2.6 -x 60 -y 260 SRR25143498
+run_neoepitopes.sh -o outtie -q 10 -m 5 -c 2.7 -x 60 -y 260 SRR25143498
 ```
 
 # OUTPUT format
