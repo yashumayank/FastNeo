@@ -53,10 +53,12 @@ while [[ $# -gt 0 ]]; do
       MINMQf="$2"
       shift
       shift 
+      ;;
     -o|--outprefix)
       OUTNAME="$2"
       shift
       shift
+      ;;
     -*|--*|-h)
       echo "run command: run_neoepitopes.sh [options] {input_filename_prefix}"
       echo "paired end data must be in 2 fastq files named as {input_filename_prefix}_1.fastq and {input_filename_prefix}_2.fastq"
@@ -81,7 +83,7 @@ set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 
 if [[ -n $1 ]]; then
   sample=$1
-  if [[OUTNAME -e "-"]] then
+  if [["$OUTNAME" == "-"]]; then
     OUTNAME=$1
   fi
 else
