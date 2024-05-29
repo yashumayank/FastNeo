@@ -2,7 +2,7 @@
 This tool has been developed to detect known human neoepitopes in the cell free RNA. It supports detection of neoepitopes from IEDB, TSNAdb, and neoepitopes produced via gene fusion events described in ChimerKB and ChimerPub (YE Jang et al. 2020: https://doi.org/10.1093/nar/gkz1013).
 
 # RELEASEnotes 
-Release 0.1: Neo
+Release 0.1: First release as documented in the manuscript
 
 # SYSTEM REQUIREMENTS
 x86-64 compatible processors, 4GB RAM and 64-bit Linux. The whole workflow runs on 2 cores and processes 10^10 bases (two 10GB fastq files) in ~15 minutes
@@ -97,7 +97,4 @@ Output file format for the gene fusions:
 7) annotation: gene names
 8) junction5: genomic loci of 5’ junction
 9) junction3: genomic loci of 3’ junction.
-
-# REFERENCES/AUTHOR
-
 
