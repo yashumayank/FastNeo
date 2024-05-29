@@ -13,7 +13,10 @@ Download and install bowtie2, samtools and julia, which are required to run this
 ```
 conda install -c bioconda bowtie2 samtools julia
 ```
-
+Or if this tools are already installed on your HPC cluster you could just load tham using
+```
+module load bowtie2 samtools julia
+```
 Use the following code to install the required packages in Julia
 ```
 julia pkginstall.jl
