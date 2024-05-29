@@ -5,19 +5,91 @@ pathMI=${path1}/mapping_indices/
 
 cd ${pathDS}
 cores=2
-MINQUAL=0
+
+MINQUAL=20
 NULLOMERLEN=16
 
 MINMQ=10
+MINMQf=30
 MAXCLIP=3
-#alignments scores and aligned bases
+#alignments scores and aligned bases to calculate expected_score (2 * #matches - [3-6] * #mismatches)
 AS1=65
 AS2=277
 AB1=35
 AB2=150
-SLOPE=$(echo "scale=4;(${AS2}-${AS1})/(${AB2}-${AB1})"|bc)
+OVERLAP=5
+OUTFILE="-"
+#parse options
+POSITIONAL_ARGS=()
 
-sample=$1
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -m|--mapq)
+      MINMQ="$2"
+      shift
+      shift 
+      ;;
+    -c|--clippedbases)
+      MAXCLIP="$2"
+      shift
+      shift 
+      ;;
+    -x|--alignscore35)
+      AS1="$2"
+      shift
+      shift 
+      ;;
+    -y|--alignscore150)
+      AS2="$2"
+      shift
+      shift 
+      ;;
+    -q|--basequality)
+      MINQUAL="$2"
+      shift 
+      shift 
+      ;;
+    -o|--outprefix)
+      OUTFILE="$2"
+      shift
+      shift
+      ;;
+    -*|--*|-h)
+      echo "FsatNeo v0.1 by Hemberg Lab (https://hemberg-lab.github.io)"
+      echo "Usage:"
+      echo "  run_neoepitopes.sh [options] {input_filename_prefix}"
+      echo "  paired end data must be in 2 fastq files named as {input_filename_prefix}_1.fastq and {input_filename_prefix}_2.fastq"
+      echo "  other options (default value):"
+      echo "    -m|--mapq [INT] Expected alignment score filter is used if MAPQ is less than this value (10)"
+      echo "    -x|--alignscore35 [INT] Minumum expected alignment score if read leangth = 35 nucleotides (65)"
+      echo "    -y|--alignscore150 [INT] Minumum expected alignment score if read leangth = 150 nucleotides(277)"
+      echo "    -c|--clippedbases [INT] Minimum value of (read length) / (clipped length) (3)"
+      echo "    -q|--basequality [INT] Minimum squencing quality of all the bases in the nullomer (20)"
+      echo "    -o|--outprefix [INT] Prefix for the output files (input_filename_prefix])"
+      exit 1
+      ;;
+    *)
+      POSITIONAL_ARGS+=("$1") # save positional arg
+      shift # past argument
+      ;;
+  esac
+done
+
+set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
+
+if [[ -n $1 ]]; then
+  sample=$1
+  if [[ "$OUTFILE" == "-" ]]; then
+    OUTFILE=$1
+  fi
+else
+  echo "Input file required. Check help to run the command"
+  echo "run_neoepitopes.sh -h"
+  exit 1
+fi
+
+SLOPE=$(echo "scale=2;(${AS2}-${AS1})/(${AB2}-${AB1})"|bc)
+
 #julia
 #/data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 ${sample}
 julia ${path1}/cfRNAnullomers.v0.2.jl -f ${pathDS}${sample}_1.fastq -n ${pathDB}epitopeDB_nullomers.tsv -l ${NULLOMERLEN} -S ${pathDS}${sample}_1.nullomers -q ${MINQUAL} --logfile ${pathDS}${sample}_1.nullomers.json -N / &
