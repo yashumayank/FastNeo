@@ -7,7 +7,7 @@ pathMI=${path1}/mapping_indices/
 cd ${pathDS}
 cores=2
 
-MINQUAL=0
+MINQUAL=20
 NULLOMERLEN=16
 
 MINMQ=10
@@ -69,7 +69,7 @@ while [[ $# -gt 0 ]]; do
       echo "    -x|--alignscore35 [INT] Minumum expected alignment score if read leangth = 35 nucleotides (65)"
       echo "    -y|--alignscore150 [INT] Minumum expected alignment score if read leangth = 150 nucleotides(277)"
       echo "    -c|--clippedbases [INT] Minimum value of (read length) / (clipped length) (3)"
-      echo "    -q|--basequality [INT] 0 Minimum bases quality of all the bases in the nullomer"
+      echo "    -q|--basequality [INT] Minimum squencing quality of all the bases in the nullomer (20)"
 #      echo "    -f|--mapqf [INT] Expected alignment score filter for fusions is used if MAPQ is less than this value (40)"
       echo "    -o|--outprefix [INT] Prefix for the output files (input_filename_prefix])"
       exit 1
