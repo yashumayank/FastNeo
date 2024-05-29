@@ -13,7 +13,7 @@ MINMQ=10
 MINMQf=30
 MAXCLIP=3
 #alignments scores and aligned bases to calculate expected_score (2 * #matches - [3-6] * #mismatches)
-AS1=65
+AS1=64
 AS2=277
 AB1=35
 AB2=150
@@ -60,9 +60,9 @@ while [[ $# -gt 0 ]]; do
       echo "  run_neoepitopes.sh [options] {input_filename_prefix}"
       echo "  paired end data must be in 2 fastq files named as {input_filename_prefix}_1.fastq and {input_filename_prefix}_2.fastq"
       echo "  other options (default value):"
-      echo "    -m|--mapq [INT] Expected alignment score filter is used if MAPQ is less than this value (10)"
-      echo "    -x|--alignscore35 [INT] Minumum expected alignment score if read leangth = 35 nucleotides (65)"
-      echo "    -y|--alignscore150 [INT] Minumum expected alignment score if read leangth = 150 nucleotides(277)"
+      echo "    -m|--mapq [INT] Expected alignment score filter (MES) is used if MAPQ is less than this value (10)"
+      echo "    -x|--alignscore35 [INT] Minumum expected alignment score if read length = 35 nucleotides (64)"
+      echo "    -y|--alignscore150 [INT] Minumum expected alignment score if read length = 150 nucleotides(277)"
       echo "    -c|--clippedbases [INT] Minimum value of (read length) / (clipped length) (3)"
       echo "    -q|--basequality [INT] Minimum squencing quality of all the bases in the nullomer (20)"
       echo "    -o|--outprefix [INT] Prefix for the output files (input_filename_prefix])"
