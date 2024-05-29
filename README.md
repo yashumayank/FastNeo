@@ -71,8 +71,8 @@ For IEDB/TSNEdb neoepitopes, the output file shows:
 5) neoepitopes: all wildtype-neoepitopes pairs associated to the top nullomer for the mutation:
    
    [{Wildtype epitope}->{Noepitope};] ...
-6) #reads: number of mapped reads 
-7) #nullomers: number of nullomers on the read with most nullomers
+6) read_count: number of mapped reads 
+7) nullomer_count: number of nullomers on the read with most nullomers
 8) db_name: Name of the database/databases that contain these neoepitopes.
 9) annotation: known function of the protein that contains the epitopes
 10) wildTypeHLA: binding affinities of all HLA alleles predicted to bind to each wildtype epitope. column output format:
