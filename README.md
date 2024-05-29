@@ -53,7 +53,7 @@ Search for neoepitopes in the sample dataset
 cd test_run
 run_neoepitopes.sh test_sample
 ```
-The expected output files are in the test_run folder. Published data can be downloaded and tested using custom options:
+The expected output files are in the test_run folder. Here is an example that downloads published cfRNA data using SRA toolkit and runs the tool using custom options:
 
 ```
 fasterq-dump --split-3 SRR25143498
