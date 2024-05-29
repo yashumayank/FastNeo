@@ -55,7 +55,7 @@ while [[ $# -gt 0 ]]; do
       shift
       shift 
       ;;
-    -f|--overlap)
+    -v|--overlap)
       OVERLAP="$2"
       shift
       shift 
