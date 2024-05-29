@@ -18,6 +18,7 @@ AS1=65
 AS2=277
 AB1=35
 AB2=150
+OVERLAP=5
 OUTFILE="-"
 #parse options
 POSITIONAL_ARGS=()
@@ -54,6 +55,11 @@ while [[ $# -gt 0 ]]; do
       shift
       shift 
       ;;
+    -f|--overlap)
+      OVERLAP="$2"
+      shift
+      shift 
+      ;;
     -o|--outprefix)
       OUTFILE="$2"
       shift
@@ -70,7 +76,8 @@ while [[ $# -gt 0 ]]; do
       echo "    -y|--alignscore150 [INT] Minumum expected alignment score if read leangth = 150 nucleotides(277)"
       echo "    -c|--clippedbases [INT] Minimum value of (read length) / (clipped length) (3)"
       echo "    -q|--basequality [INT] Minimum squencing quality of all the bases in the nullomer (20)"
-#      echo "    -f|--mapqf [INT] Expected alignment score filter for fusions is used if MAPQ is less than this value (40)"
+#      echo "    -f|--mapqf [INT] Expected alignment score filter  is used for fusions if MAPQ is less than this value (40)"
+      echo "    -v|--overlap [INT] Minimum number of nucleotides a read must map to on both side of the junction (5)"
       echo "    -o|--outprefix [INT] Prefix for the output files (input_filename_prefix])"
       exit 1
       ;;
