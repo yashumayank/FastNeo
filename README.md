@@ -53,8 +53,12 @@ Search for neoepitopes in the sample dataset
 cd test_run
 run_neoepitopes.sh test_sample
 ```
-The expected output files are in the test_run folder
+The expected output files are in the test_run folder. Published data can be downloaded and tested using custom options:
 
+```
+fasterq-dump --split-3 SRR25143498
+run_neoepitopes.sh -o outtie -q 20 -m 5 -c 2.6 -x 60 -y 260 SRR25143498
+```
 
 # OUTPUT format
 
