@@ -92,8 +92,8 @@ Output file format for the gene fusions:
 2) ChimerKB_id: ChimerKB ID
 3) top_nullomer: most covered nullomer per gene fusion
 4) neoepitopes: neoepitopes associated with the gene fusion
-5) #reads: number of mapped reads
-6) #nullomers: number of nullomers on the read with most nullomers
+5) read_count: number of mapped reads
+6) nullomer_count: number of nullomers on the read with most nullomers
 7) annotation: gene names
 8) junction5: genomic loci of 5’ junction
 9) junction3: genomic loci of 3’ junction.
