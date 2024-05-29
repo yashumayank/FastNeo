@@ -71,7 +71,7 @@ while [[ $# -gt 0 ]]; do
       echo "    -c|--clippedbases [INT] Minimum value of (read length) / (clipped length) (3)"
       echo "    -q|--basequality [INT] 0 Minimum bases quality of all the bases in the nullomer"
 #      echo "    -f|--mapqf [INT] Expected alignment score filter for fusions is used if MAPQ is less than this value (40)"
-      echo "    -o|--outprefix [INT] Prefix of the output files (input_filename_prefix])"
+      echo "    -o|--outprefix [INT] Prefix for the output files (input_filename_prefix])"
       exit 1
       ;;
     *)
