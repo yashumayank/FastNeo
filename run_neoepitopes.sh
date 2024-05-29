@@ -86,7 +86,7 @@ set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 if [[ -n $1 ]]; then
   sample=$1
   if [[ "$OUTFILE" == "-" ]]; then
-    OUTNAME=$1
+    OUTFILE=$1
   fi
 else
   echo "Input file required. Check help to run the command"
@@ -127,8 +127,8 @@ samtools view ${sample}.nullomers.union.ChimerDB.bam | awk -v "sid=${sample}" -v
 wait
 
 #Calculate coverage of the each neoepitope or gene fusion junction as the coverage of most covered corresponding nullomer; read coverage and nullomers discovered on the read are reported
-sort -k1,1 -k7,7 -k3,3 -k4n -t$'\t' ${sample}_epitopeDB_neoepitopes_counts_raw.tsv | awk -F "\t" 'BEGIN{print "sample_id\tgene_id\tHGNC_symbol\ttop_nullomer\tneoepitopes\t#reads\t#nullomers\tdb_name\tannotation\twildTypeHLA\tneoEpitopeHLA\tGeneticAncestry"}{if(neo_list!=$3 || symbol!=$7){if(FNR!=1 && rcount>1){print pid"\t"et"\t"symbol"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"dbName"\t"ann"\t"wtHLA"\t"neoHLA"\t"popVar}; pid=$1; neo_list=$3; et=$6; symbol=$7; dbName=$8; ann=$9; wtHLA=$10; neoHLA=$11; popVar=$12; ncount=0}; ncount++;rcount=$4; null=$2}END{if(rcount>1){print pid"\t"et"\t"symbol"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"dbName"\t"ann"\t"wtHLA"\t"neoHLA"\t"popVar}}' > ${$OUTFILE}_neoepitopes.tsv &
-sort -k1,1 -k4,4 -k6n -t$'\t' ${sample}_fusion_neoepitopes_counts_raw.tsv | awk -F "\t" 'BEGIN{print "sample_id\tChimerKB_id\ttop_nullomer\tneoepitopes\t#reads\t#nullomers\tannotation\tjunction5\tjunction3"}{if(et!=$4){if(FNR!=1 && rcount>1){print pid"\t"et"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"ann"\t"junc5"\t"junc3}; pid=$1; neo_list=$3; et=$4; ann=$5; junc5=$7; junc3=$8; ncount=0}; ncount++; rcount=$6; null=$2}END{if(rcount>1){print pid"\t"et"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"ann"\t"junc5"\t"junc3}}' > ${$OUTFILE}_fusions.tsv
+sort -k1,1 -k7,7 -k3,3 -k4n -t$'\t' ${sample}_epitopeDB_neoepitopes_counts_raw.tsv | awk -F "\t" 'BEGIN{print "sample_id\tgene_id\tHGNC_symbol\ttop_nullomer\tneoepitopes\t#reads\t#nullomers\tdb_name\tannotation\twildTypeHLA\tneoEpitopeHLA\tGeneticAncestry"}{if(neo_list!=$3 || symbol!=$7){if(FNR!=1 && rcount>1){print pid"\t"et"\t"symbol"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"dbName"\t"ann"\t"wtHLA"\t"neoHLA"\t"popVar}; pid=$1; neo_list=$3; et=$6; symbol=$7; dbName=$8; ann=$9; wtHLA=$10; neoHLA=$11; popVar=$12; ncount=0}; ncount++;rcount=$4; null=$2}END{if(rcount>1){print pid"\t"et"\t"symbol"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"dbName"\t"ann"\t"wtHLA"\t"neoHLA"\t"popVar}}' > ${OUTFILE}_neoepitopes.tsv &
+sort -k1,1 -k4,4 -k6n -t$'\t' ${sample}_fusion_neoepitopes_counts_raw.tsv | awk -F "\t" 'BEGIN{print "sample_id\tChimerKB_id\ttop_nullomer\tneoepitopes\t#reads\t#nullomers\tannotation\tjunction5\tjunction3"}{if(et!=$4){if(FNR!=1 && rcount>1){print pid"\t"et"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"ann"\t"junc5"\t"junc3}; pid=$1; neo_list=$3; et=$4; ann=$5; junc5=$7; junc3=$8; ncount=0}; ncount++; rcount=$6; null=$2}END{if(rcount>1){print pid"\t"et"\t"null"\t"neo_list"\t"rcount"\t"ncount"\t"ann"\t"junc5"\t"junc3}}' > ${OUTFILE}_fusions.tsv
 wait
 rm ${sample}.nullomers.union.epitopeDB.bam ${sample}.nullomers.union.ChimerDB.bam 
 rm ${sample}_epitopeDB_neoepitopes_counts_raw.tsv ${sample}_fusion_neoepitopes_counts_raw.tsv
