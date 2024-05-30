@@ -1,4 +1,4 @@
-# RNA-neoepitopes
+# FastNeo
 This tool has been developed to detect known human neoepitopes in the cell free RNA. It supports detection of neoepitopes from IEDB, TSNAdb, and neoepitopes produced via gene fusion events described in ChimerKB and ChimerPub (YE Jang et al. 2020: https://doi.org/10.1093/nar/gkz1013).
 
 # RELEASEnotes 
