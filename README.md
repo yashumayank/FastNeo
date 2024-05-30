@@ -24,7 +24,7 @@ julia pkginstall.jl
 
 # INSTALL AND RUN
 
-Download the tool
+Download and install the tool
 ```
 git clone https://github.com/yashumayank/FastNeo.git
 cd FastNeo
