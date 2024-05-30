@@ -34,12 +34,12 @@ export PATH=`pwd`:$PATH
 
 FastNeo uses paired-end RNAseq data. The read 1 and read 2 must be is seperate fastq files must be named as {sample_name}_1.fastq and {sample_name}_2.fastq
 
-The IEDB/TSNAdb neoepitope detection can be run using the following command
+Detect IEDB/TSNAdb neoepitopes in your sample using the following command:
 ```
 runEpitopeDB_neoepitopes.sh {sample_name}
 ```
 
-The IEDB/TSNAdb neoepitope and gene fusion detection can be run together using the following command
+Detect both IEDB/TSNAdb neoepitopes and gene fusions in your sample using the following command
 ```
 run_neoepitopes.sh {sample_name}
 ```
@@ -53,7 +53,8 @@ Search for neoepitopes in the sample dataset
 cd test_run
 run_neoepitopes.sh test_sample
 ```
-The expected output files are in the test_run folder. Here is an example that downloads published cfRNA data using SRA toolkit and runs the tool using custom options:
+Crosscheck the outp with the expected output files that are in the test_run folder. 
+Below is an example that downloads published cfRNA data using SRA toolkit and runs the tool using custom options:
 
 ```
 fasterq-dump --split-3 SRR25143498
