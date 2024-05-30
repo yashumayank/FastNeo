@@ -9,11 +9,11 @@ x86-64 compatible processors, 4GB RAM and 64-bit Linux. The whole workflow runs 
 
 # INSTALL PRE-REQUISITES
 
-Download and install bowtie2, samtools and julia, which are required to run this tool. The following command can be used to install through conda
+This tool requires bowtie2, samtools and julia. Use the following command to download and install through conda
 ```
 conda install -c bioconda bowtie2 samtools julia
 ```
-Or if this tools are already installed on your high performance cluster, load tham using
+Or if this tools are already installed on your high performance cluster, use the following command to load them
 ```
 module load bowtie2 samtools julia
 ```
@@ -34,7 +34,7 @@ export PATH=`pwd`:$PATH
 
 FastNeo uses paired-end RNAseq data. The read 1 and read 2 must be is seperate fastq files must be named as {sample_name}_1.fastq and {sample_name}_2.fastq
 
-Detect IEDB/TSNAdb neoepitopes in your sample using the following command:
+Detect IEDB/TSNAdb neoepitopes in your sample using the following command
 ```
 runEpitopeDB_neoepitopes.sh {sample_name}
 ```
@@ -63,7 +63,7 @@ run_neoepitopes.sh -o outpie -q 10 -m 5 -c 2.7 -x 60 -y 260 SRR25143498
 
 # OUTPUT format
 
-For IEDB/TSNEdb neoepitopes, the output file shows:
+For IEDB/TSNEdb neoepitopes, the output file shows:-
 
 1) sample_id: fastq file name
 2) gene_id: Gene ID with ENSG prefix
@@ -87,7 +87,7 @@ For IEDB/TSNEdb neoepitopes, the output file shows:
     [SNV[1|2],{chromosome};{position};{old base};{new base},AF={AF};grpmax={group with highest frequency};AF_XX={AF_XX};AF_XY={AF_XY};AF_afr={AF_afr};AF_amr={AF_amr};AF_asj={asj};AF_eas={eas};AF_fin={fin};AF_mid={mid};AF_nfe={nfe};AF_sas={sas};] ...
 
 
-Output file format for the gene fusions:
+Output file format for the gene fusions:-
 
 1) sample_id: fastq file name
 2) ChimerKB_id: ChimerKB ID
