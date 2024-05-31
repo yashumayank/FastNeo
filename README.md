@@ -53,7 +53,7 @@ Search for neoepitopes in the sample dataset
 cd test_run
 run_neoepitopes.sh test_sample
 ```
-Crosscheck the outp with the expected output files that are in the test_run folder. 
+Crosscheck the output with the expected output files that are in the test_run folder. 
 Below is an example that downloads published cfRNA data using SRA toolkit and runs the tool using custom options:
 
 ```
