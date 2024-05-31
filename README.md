@@ -17,7 +17,7 @@ Some or all of these tools might already be installed on your high performance c
 ```
 module load bowtie2 samtools julia
 ```
-After julia is installed or loaded, use the following code to install the required Julia packages
+After julia is installed or loaded, use the following code to install the required julia packages
 ```
 julia pkginstall.jl
 ```
