@@ -32,7 +32,7 @@ bash INSTALL
 export PATH=`pwd`:$PATH
 ```
 
-FastNeo uses paired-end RNAseq data. The read 1 and read 2 must be is seperate fastq files must be named as {sample_name}_1.fastq and {sample_name}_2.fastq
+FastNeo uses paired-end RNAseq data. The read 1 and read 2 must be in separate fastq files must be named as {sample_name}_1.fastq and {sample_name}_2.fastq
 
 Detect IEDB/TSNAdb neoepitopes in your sample using the following command
 ```
