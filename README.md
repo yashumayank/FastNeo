@@ -1,13 +1,13 @@
 # FastNeo
 This tool has been developed to detect known human neoepitopes and gene fusions in the cell-free RNA. It supports detection of neoepitopes from IEDB, TSNAdb, and neoepitopes produced via gene fusion events described in ChimerKB and ChimerPub (YE Jang et al. 2020: https://doi.org/10.1093/nar/gkz1013).
 
-# RELEASEnotes 
+## RELEASEnotes 
 Release 0.1: First release as documented in the manuscript
 
-# SYSTEM REQUIREMENTS
+## SYSTEM REQUIREMENTS
 x86-64 compatible processors, 4GB RAM and 64-bit Linux. The whole workflow runs on 2 cores and processes 10^10 bases (two 10GB fastq files) in ~15 minutes
 
-# INSTALL PRE-REQUISITES
+## INSTALL PRE-REQUISITES
 
 This tool requires bowtie2 (https://bowtie-bio.sourceforge.net/bowtie2/), samtools (http://www.htslib.org) and julia (https://julialang.org/downloads/). Use the following command to download and install through conda
 ```
@@ -22,7 +22,7 @@ After julia is installed or loaded, use the following code to install the requir
 julia pkginstall.jl
 ```
 
-# INSTALL AND RUN
+## INSTALL AND RUN
 
 Download and install the FastNeo tool
 ```
@@ -46,7 +46,7 @@ run_neoepitopes.sh {sample_name}
 
 The output is saved in the folder from where the command was run and is written to files with name {sample_name}_*_readCounts.tsv
 
-# TEST RUN 
+## TEST RUN 
 
 Search for neoepitopes in the sample dataset
 ```
@@ -61,7 +61,7 @@ fasterq-dump --split-3 SRR25143498
 run_neoepitopes.sh -o outpie -q 10 -m 5 -c 2.7 -x 60 -y 260 SRR25143498
 ```
 
-# OUTPUT format
+## OUTPUT format
 
 For IEDB/TSNEdb neoepitopes, the output file shows:-
 
