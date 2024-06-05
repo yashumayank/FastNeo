@@ -1,13 +1,13 @@
-List of files in this directory:-
+## List of files in this directory:-
 
-ChimerDB-nullomersEdge6.tsv : 
-List of fusions and associated nullomers in the following column format
+### ChimerDB-nullomersEdge6.tsv : 
+Contains a list of fusions and associated nullomers in the following column format
 1. List of 6 nullomers 
 2. List of neoepitopes
 3. 4
-4. chr22:23632600:+:31
+4. genomic loci of 5’ junction
 5. Names of the fused genes
-6. chr9:133729451:+:32
+6. genomic loci of 3’ junction.
 
 IEDB_neoepitopes-nullomers.filtered.tsv
 
