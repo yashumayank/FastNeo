@@ -1,5 +1,6 @@
 List of files in this directory:-
-ChimerDB-nullomersEdge6.tsv
+
+ChimerDB-nullomersEdge6.tsv : List of fusions and associated nullomers 
 
 ChimerDB_nullomers.all.tsv
 
