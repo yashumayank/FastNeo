@@ -1,14 +1,13 @@
 List of files in this directory:-
 
-ChimerDB-nullomersEdge6.tsv : List of fusions and associated nullomers 
-
-ChimerDB_nullomers.all.tsv
-
-ChimerDB_nullomers.tsv
-
-ChimerDB_nullomersRevComp.tsv
-
-ENST_ENSG_HGNC.map
+ChimerDB-nullomersEdge6.tsv : 
+List of fusions and associated nullomers in the following column format
+1. List of 6 nullomers 
+2. List of neoepitopes
+3. 4
+4. chr22:23632600:+:31
+5. Names of the fused genes
+6. chr9:133729451:+:32
 
 IEDB_neoepitopes-nullomers.filtered.tsv
 
