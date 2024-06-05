@@ -60,7 +60,6 @@ Below is an example that downloads published cfRNA data using SRA toolkit and ru
 fasterq-dump --split-3 SRR25143498
 run_neoepitopes.sh -o outpie -q 10 -m 5 -c 2.7 -x 60 -y 260 SRR25143498
 ```
-## OPTIONS
 
 ## OUTPUT format
 
