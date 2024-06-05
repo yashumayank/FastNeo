@@ -10,7 +10,8 @@ Contains a list of fusions and associated nullomers in the following column form
 6. genomic loci of 3’ junction.
 
 ### IEDB_neoepitopes-nullomers.filtered.tsv
-Contains a list of TSNEdb neoepitopes and the nullomers associated to the neoepitopes:
+Contains a list of IEDB neoepitopes and the nullomers associated to the neoepitopes:
+
 
 ### TSNAdb_[ICGC|TCGA]_neoepitopes-nullomers.filtered.tsv
 Contains a list of TSNEdb neoepitopes and the nullomers associated to the neoepitopes:
