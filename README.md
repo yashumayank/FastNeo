@@ -70,19 +70,23 @@ For IEDB/TSNEdb neoepitopes, the output file shows:-
 3) HGNC_symbol: Gene symbol
 4) top_nullomer: nullomer with most read covergage among the nullomers that are associated to the mutation/mutations that produce these neoepitopes
 5) neoepitopes: all wildtype-neoepitopes pairs associated to the top nullomer for the mutation:
-    column format:
+
+   column format:
    [{Wildtype epitope}->{Noepitope};] ...
-6) read_count: Number of mapped reads 
-7) nullomer_count: Number of nullomers on the read with most nullomers
-8) db_name: Name of the database/databases that contain these neoepitopes
-9) annotation: Known function of the protein that contains the epitopes
-10) wildTypeHLA: binding affinities of all HLA alleles predicted to bind to each wildtype epitope
+7) read_count: Number of mapped reads 
+8) nullomer_count: Number of nullomers on the read with most nullomers
+9) db_name: Name of the database/databases that contain these neoepitopes
+10) annotation: Known function of the protein that contains the epitopes
+11) wildTypeHLA: binding affinities of all HLA alleles predicted to bind to each wildtype epitope
+
     column format:
     [Epitope:{wildtype epitope};[{HLA allele};{binding affinity},] ...] ... 
-12) neoEpitopeHLA: Binding affinities of all HLA alleles predicted to bind to each neoepitope
+13) neoEpitopeHLA: Binding affinities of all HLA alleles predicted to bind to each neoepitope
+
     column format:
     [Epitope:{neoepitope};[{HLA allele};{binding affinity},] ...] ...
-13) GeneticAncestry: Allelic frequency of the neoepitope in germline variants from the genetic ancestry groups described in the gnomAD database.
+15) GeneticAncestry: Allelic frequency of the neoepitope in germline variants from the genetic ancestry groups described in the gnomAD database.
+
     column format:
     [SNV[1|2],{chromosome};{position};{old base};{new base},AF={AF};grpmax={group with highest frequency};AF_XX={AF_XX};AF_XY={AF_XY};AF_afr={AF_afr};AF_amr={AF_amr};AF_asj={asj};AF_eas={eas};AF_fin={fin};AF_mid={mid};AF_nfe={nfe};AF_sas={sas};] ...
 
