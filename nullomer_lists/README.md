@@ -14,7 +14,7 @@ Contains a list of fusions and associated nullomers in the following column form
 Contains a list of IEDB neoepitopes and the nullomers associated to the neoepitopes in the following column format:
 
 1. List of 6 nullomers
-2. coding sequence of the neoepitope in which the nullomer was found
+2. coding sequence of the RNA conformation of the neoepitope in which the nullomer was found
 3. peptide sequences of the wildtype epitope -> neoepitopes
 4. Transcript ID
 5.  Functional annotation of the gene
