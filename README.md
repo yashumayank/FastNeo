@@ -103,7 +103,9 @@ Output file format for the gene fusions:-
 8) junction5: genomic loci of 5’ junction
 9) junction3: genomic loci of 3’ junction.
 
-## Transposable elements and circular RNAs
-
-
 ## Auxiliary pipelines
+
+Scripts in the benchmarking_scripts folder can be used run the pipelines used for benchmarking FastNeo in the paper. These script have their own software requirements. Please install all the tools used in the each pipeline before running them
+
+1) run_gatk_bcftools_lofreq.sh: Pipeline to seach for IEDB and TSNEdb neoepitopes using GATK HaplotypeCaller (McKenna et al., 2010), samtools/bcftools mpileup (Li, 2011), and Lofreq (Wilm et al., 2012). The python script cds2neopitopes.py is required to run this pipeline
+2) runEpitopeDB_neoepitopes_STARmapped.sh: Pipeline for neoepitopes search using FastNeo with STAR mapping instead of Bowtie2 (Langmead and Salzberg, 2012). This pipeline requires mudskipper (https://github.com/OceanGenomics/mudskipper)
