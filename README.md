@@ -7,7 +7,7 @@ Release 0.1: First release as documented in the manuscript
 ### SYSTEM REQUIREMENTS
 x86-64 compatible processors, 4GB RAM and 64-bit Linux. The whole workflow runs on 2 cores and processes 10^10 bases (two 10GB fastq files) in ~15 minutes
 
-### INSTALL PRE-REQUISITES
+### PRE-REQUISITES
 
 This tool requires bowtie2 (https://bowtie-bio.sourceforge.net/bowtie2/), samtools (http://www.htslib.org) and julia (https://julialang.org/downloads/). Use the following command to download and install through conda
 ```
@@ -22,7 +22,7 @@ After julia is installed or loaded, use the following code to install the requir
 julia pkginstall.jl
 ```
 
-## INSTALL AND RUN
+### INSTALL AND RUN
 
 Download and install the FastNeo tool
 ```
@@ -111,7 +111,7 @@ Scripts in the benchmarking_scripts folder can be used run the pipelines used fo
 2) runEpitopeDB_neoepitopes_STARmapped.sh: Pipeline for neoepitopes search using FastNeo with STAR mapping instead of Bowtie2 (Langmead and Salzberg, 2012). This pipeline requires mudskipper (https://github.com/OceanGenomics/mudskipper)
 
 
-### CITATIONS
+### CITATION
 
 All the pipelines and tools in this repository were released with the following manuscript :-
 
