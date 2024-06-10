@@ -63,7 +63,7 @@ run_neoepitopes.sh -o outpie -q 10 -m 5 -c 2.7 -x 60 -y 260 SRR25143498
 
 ### OUTPUT format
 
-For IEDB/TSNEdb neoepitopes, the output file shows:-
+The column descriptions of the output file for IEDB/TSNEdb neoepitopes:-
 
 1) sample_id: fastq file name
 2) gene_id: Gene ID with ENSG prefix
@@ -91,7 +91,7 @@ For IEDB/TSNEdb neoepitopes, the output file shows:-
     [SNV[1|2],{chromosome};{position};{old base};{new base},AF={AF};grpmax={group with highest frequency};AF_XX={AF_XX};AF_XY={AF_XY};AF_afr={AF_afr};AF_amr={AF_amr};AF_asj={asj};AF_eas={eas};AF_fin={fin};AF_mid={mid};AF_nfe={nfe};AF_sas={sas};] ...
 
 
-Output file format for the gene fusions:-
+The column descriptions of the output file for gene fusions:-
 
 1) sample_id: fastq file name
 2) ChimerKB_id: ChimerKB ID
