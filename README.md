@@ -1,13 +1,13 @@
 # FastNeo
 This tool has been developed to detect known human neoepitopes and gene fusions in the cell-free RNA. It supports detection of neoepitopes from IEDB, TSNAdb, and neoepitopes produced via gene fusion events described in ChimerKB and ChimerPub (YE Jang et al. 2020: https://doi.org/10.1093/nar/gkz1013). Lists of neoepitopes and fusions and the nullomers associated with them are in the nullomer_lists folder.
 
-## RELEASE NOTES 
+### RELEASE NOTES 
 Release 0.1: First release as documented in the manuscript
 
-## SYSTEM REQUIREMENTS
+### SYSTEM REQUIREMENTS
 x86-64 compatible processors, 4GB RAM and 64-bit Linux. The whole workflow runs on 2 cores and processes 10^10 bases (two 10GB fastq files) in ~15 minutes
 
-## INSTALL PRE-REQUISITES
+### INSTALL PRE-REQUISITES
 
 This tool requires bowtie2 (https://bowtie-bio.sourceforge.net/bowtie2/), samtools (http://www.htslib.org) and julia (https://julialang.org/downloads/). Use the following command to download and install through conda
 ```
@@ -46,7 +46,7 @@ run_neoepitopes.sh {sample_name}
 
 The output is saved in the folder from where the command was run and is written to files with name {sample_name}_*_readCounts.tsv
 
-## TEST RUN 
+### TEST RUN 
 
 Search for neoepitopes in the sample dataset
 ```
@@ -61,7 +61,7 @@ fasterq-dump --split-3 SRR25143498
 run_neoepitopes.sh -o outpie -q 10 -m 5 -c 2.7 -x 60 -y 260 SRR25143498
 ```
 
-## OUTPUT format
+### OUTPUT format
 
 For IEDB/TSNEdb neoepitopes, the output file shows:-
 
@@ -103,7 +103,7 @@ Output file format for the gene fusions:-
 8) junction5: genomic loci of 5’ junction
 9) junction3: genomic loci of 3’ junction.
 
-## Auxiliary pipelines
+### AUXILIARY PIPELINES
 
 Scripts in the benchmarking_scripts folder can be used run the pipelines used for benchmarking FastNeo in the paper. These script have their own software requirements. Please install all the tools used in the each pipeline before running them
 
@@ -111,7 +111,7 @@ Scripts in the benchmarking_scripts folder can be used run the pipelines used fo
 2) runEpitopeDB_neoepitopes_STARmapped.sh: Pipeline for neoepitopes search using FastNeo with STAR mapping instead of Bowtie2 (Langmead and Salzberg, 2012). This pipeline requires mudskipper (https://github.com/OceanGenomics/mudskipper)
 
 
-## Citations
+### CITATIONS
 
 All the pipelines and tools in this repository were released with the following manuscript :-
 
