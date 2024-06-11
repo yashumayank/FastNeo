@@ -105,7 +105,7 @@ The column descriptions of the output file for gene fusions:-
 
 ### AUXILIARY PIPELINES
 
-Scripts in the benchmarking_scripts folder can be used run the pipelines used for benchmarking FastNeo in the paper. These script have their own software requirements. Please install all the tools used in the each pipeline before running them
+Scripts in the benchmarking_scripts folder can be used run the pipelines used for benchmarking FastNeo in the paper. These scripts are written to work on a local cluster and have their own software requirements. Both pipelines use some modules that are preinstalled on the cluster and some that were locally installed. Please install all the tools used in the each pipeline before running them.
 
 1) run_gatk_bcftools_lofreq.sh: Pipeline to seach for IEDB and TSNEdb neoepitopes using GATK HaplotypeCaller (McKenna et al., 2010), samtools/bcftools mpileup (Li, 2011), and Lofreq (Wilm et al., 2012). The python script cds2neopitopes.py is required to run this pipeline
 2) runEpitopeDB_neoepitopes_STARmapped.sh: Pipeline for neoepitopes search using FastNeo with STAR mapping instead of Bowtie2 (Langmead and Salzberg, 2012). This pipeline requires mudskipper (https://github.com/OceanGenomics/mudskipper)
