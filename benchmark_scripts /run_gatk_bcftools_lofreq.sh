@@ -7,7 +7,7 @@ path_to_indices=$path_prefix"STARindices"$overhang
 genome_fasta=$path_prefix"genome.fa"
 dbSNP_vcf=/data/hemberg/shared_resources/genomes/human/"1000GENOMES-phase_3.vcf.gz"
 
-n="SRR"$1
+n=$1
 /data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 $n
 sleep 5
 
