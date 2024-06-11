@@ -85,7 +85,7 @@ The column descriptions of the output file for IEDB/TSNEdb neoepitopes:-
 
     column format:
     [Epitope:{neoepitope};[{HLA allele};{binding affinity},] ...] ...
-15) GeneticAncestry: Allelic frequency of the neoepitope in germline variants from the genetic ancestry groups described in the gnomAD database.
+15) GeneticAncestry: Allelic frequency of the neoepitope in germline variants from the genetic ancestry groups
 
     column format:
     [SNV[1|2],{chromosome};{position};{old base};{new base},AF={AF};grpmax={group with highest frequency};AF_XX={AF_XX};AF_XY={AF_XY};AF_afr={AF_afr};AF_amr={AF_amr};AF_asj={asj};AF_eas={eas};AF_fin={fin};AF_mid={mid};AF_nfe={nfe};AF_sas={sas};] ...
