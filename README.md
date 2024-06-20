@@ -2,7 +2,7 @@
 This tool has been developed to detect known human neoepitopes and gene fusions in the cell-free RNA. It supports detection of neoepitopes from IEDB, TSNAdb, and neoepitopes produced via gene fusion events described in ChimerKB and ChimerPub (YE Jang et al. 2020: https://doi.org/10.1093/nar/gkz1013). Lists of neoepitopes and fusions and their corresponding nullomers are in the nullomer_lists folder.
 
 ### RELEASE NOTES 
-Release 0.1: First release as documented in the manuscript
+Release 0.1: First release as documented in the manuscript, https://doi.org/10.1101/2024.06.07.24308622
 
 ### SYSTEM REQUIREMENTS
 x86-64 compatible processors, 4GB RAM and 64-bit Linux. The whole workflow runs on 2 cores and processes 10^10 bases (two 10GB fastq files) in ~15 minutes
@@ -61,19 +61,42 @@ fasterq-dump --split-3 SRR25143498
 run_neoepitopes.sh -o outpie -q 10 -m 5 -c 2.7 -x 60 -y 260 SRR25143498
 ```
 
-### Optional parameters
+### Usage and options
 
 run_neoepitopes.sh [options] {input_filename_prefix}
 paired end data must be in 2 fastq files named as {input_filename_prefix}_1.fastq and {input_filename_prefix}_2.fastq
- other options (default value):
-   -m|--mapq [INT] Minimum expected alignment score (MES) filter is used if MAPQ is less than this value (10)
-      -x|--alignscore35 [INT] Minumum expected alignment score if read length = 35 nucleotides (64)
- -y|--alignscore150 [INT] Minumum expected alignment score if read length = 150 nucleotides (277)
- -c|--clippedbases [INT] Minimum value of (read length) / (clipped length) (3)
--q|--basequality [INT] Minimum squencing quality of all the bases in the nullomer (20)
- -f|--mapqf [INT] Expected alignment score filter  is used for fusions if MAPQ is less than this value (40)
- -v|--overlap [INT] Minimum number of mapped nucleotides on both side of the gene fusion junction (5)
--o|--outprefix [INT] Prefix for the output files (input_filename_prefix])
+```
+-m|--mapq [INT] 
+```
+Minimum expected alignment score (MES) filter is used if MAPQ is less than this value (10)
+```
+-x|--alignscore35 [INT]
+```
+Minumum expected alignment score if read length = 35 nucleotides (64)
+```
+ -y|--alignscore150 [INT]
+```
+Minumum expected alignment score if read length = 150 nucleotides (277)
+```
+-c|--clippedbases [INT]
+```
+Minimum value of (read length) / (clipped length) (3)
+```
+-q|--basequality [INT]
+```
+Minimum squencing quality of all the bases in the nullomer (20)
+```
+-f|--mapqf [INT]
+```
+Expected alignment score filter  is used for fusions if MAPQ is less than this value (40)
+```
+-v|--overlap [INT]
+```
+Minimum number of mapped nucleotides on both side of the gene fusion junction (5)
+```
+-o|--outprefix [INT]
+```
+Prefix for the output files (input_filename_prefix])
 
 ### OUTPUT format
 
