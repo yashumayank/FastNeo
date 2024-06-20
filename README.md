@@ -67,11 +67,11 @@ The minimum MAPQ score for the reads mapped to human consensus coding sequence c
 
 ` -x|--alignscore35 [INT] `
 
-Minumum expected alignment score if mapped read length = 35 nucleotides. This filter is used together with `--alignscore150` for the reads with MAPQ score below the value specified in `--mapq` (default: 64; allows 1 medium quality mismatch with penalty =4)
+Minumum expected alignment score if mapped read length = 35 nucleotides. This filter is used together with `--alignscore150` for the reads with MAPQ score below the value specified in `--mapq` (default: 64; allows 1 medium quality mismatch with penalty=4)
 
 ` -y|--alignscore150 [INT] `
 
-Minumum expected alignment score if mapped read length = 150 nucleotides. This filter is used together with `--alignscore35` for the reads with MAPQ score below the value specified in `--mapq` (default: 277; allows ~4 medium quality mismatch with penalty =15)
+Minumum expected alignment score if mapped read length = 150 nucleotides. This filter is used together with `--alignscore35` for the reads with MAPQ score below the value specified in `--mapq` (default: 277; allows ~4 medium quality mismatch with penalty=15)
 
 ` -c|--clippedbases [INT] `
 
