@@ -13,7 +13,7 @@ This tool requires bowtie2 (https://bowtie-bio.sourceforge.net/bowtie2/), samtoo
 ```
 conda install -c bioconda bowtie2 samtools julia
 ```
-Some or all of these tools might already be installed on your high performance cluster. You might just need to load them
+In case of a high performance cluster, some or all of these tools might already be installed on it. You might just need to load them
 ```
 module load bowtie2 samtools julia
 ```
