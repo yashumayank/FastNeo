@@ -95,7 +95,9 @@ Prefix for the output files (default: [input prefix])
 
 ### OUTPUT
 
-The output is saved in the folder from where the command was run and is written to files with name `{prefix}_neoepitopes.tsv` and `{prefix}_fusions.tsv`. The column descriptions of the output file for IEDB/TSNEdb neoepitopes:-
+The output is saved in the folder from where the command was run and is written to files with name `{prefix}_neoepitopes.tsv` and `{prefix}_fusions.tsv`. 
+
+The column descriptions of the output file for IEDB/TSNEdb neoepitopes:-
 
 1) sample_id: fastq file name
 2) gene_id: Gene ID with ENSG prefix
