@@ -95,7 +95,7 @@ Prefix for the output files (default: [input prefix])
 
 ### OUTPUT
 
-The output file/files are saved in the folder where the command was run and is/are written to files using the `input prefix` by default unless the different `--outprefix` is specified.
+The output file/files are written to the same folder from where the command was run. Output files use the `input prefix` by default unless the different `--outprefix` is specified.
 
 The descriptions of columns in the `{prefix}_neoepitopes.tsv`:-
 
