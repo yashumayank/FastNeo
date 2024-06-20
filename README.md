@@ -34,7 +34,7 @@ export PATH=`pwd`:$PATH
 
 ### TEST RUN 
 
-Search for neoepitopes in the sample dataset
+Search for neoepitopes and gene fusions in the sample dataset
 ```
 cd test_run
 run_neoepitopes.sh test_sample
