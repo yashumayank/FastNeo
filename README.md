@@ -61,34 +61,34 @@ The following command can be used to detect only IEDB/TSNAdb neoepitopes and ski
 
 #### Optional arguments
 
-##### `-m|--mapq [INT] `
+ `-m|--mapq [INT] `
 Minimum expected alignment score (MES) filter is used if MAPQ is less than this value (10)
 
-##### `-x|--alignscore35 [INT]`
+ `-x|--alignscore35 [INT]`
 
 Minumum expected alignment score if read length = 35 nucleotides (64)
 
-##### `-y|--alignscore150 [INT]`
+ `-y|--alignscore150 [INT]`
 
 Minumum expected alignment score if read length = 150 nucleotides (277)
 
-##### `-c|--clippedbases [INT]`
+ `-c|--clippedbases [INT]`
 
 Minimum value of (read length) / (clipped length) (3)
 
-##### `-q|--basequality [INT]`
+ `-q|--basequality [INT]`
 
 Minimum squencing quality of all the bases in the nullomer (20)
 
-##### `-f|--mapqf [INT]`
+ `-f|--mapqf [INT]`
 
 Expected alignment score filter  is used for fusions if MAPQ is less than this value (40)
 
-##### `-v|--overlap [INT]`
+ `-v|--overlap [INT]`
 
 Minimum number of mapped nucleotides on both side of the gene fusion junction (5)
 
-##### `-o|--outprefix [INT]`
+ `-o|--outprefix [INT]`
 
 Prefix for the output files (input_filename_prefix])
 
