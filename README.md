@@ -95,9 +95,9 @@ Prefix for the output files (default: [input prefix])
 
 ### OUTPUT
 
-The output is saved in the folder from where the command was run and is written to files with name `{prefix}_neoepitopes.tsv` and `{prefix}_fusions.tsv`. 
+The output is saved in the folder from where the command was run and is written to files with name  and `{prefix}_fusions.tsv`. 
 
-The column descriptions of the output file for IEDB/TSNEdb neoepitopes:-
+The descriptions of columns in the `{prefix}_neoepitopes.tsv`:-
 
 1) sample_id: fastq file name
 2) gene_id: Gene ID with ENSG prefix
@@ -125,7 +125,7 @@ The column descriptions of the output file for IEDB/TSNEdb neoepitopes:-
     [SNV[1|2],{chromosome};{position};{old base};{new base},AF={AF};grpmax={group with highest frequency};AF_XX={AF_XX};AF_XY={AF_XY};AF_afr={AF_afr};AF_amr={AF_amr};AF_asj={asj};AF_eas={eas};AF_fin={fin};AF_mid={mid};AF_nfe={nfe};AF_sas={sas};] ...
 
 
-The column descriptions of the output file for gene fusions:-
+The descriptions of columns in the `{prefix}_fusions.tsv`:-
 
 1) sample_id: fastq file name
 2) ChimerKB_id: ChimerKB ID
