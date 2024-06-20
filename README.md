@@ -67,10 +67,9 @@ FastNeo can be run with the following command:-
 
 `run_neoepitopes.sh [optional arguments] {input_filename_prefix}`
 
-FastNeo used many heuristics to maximize the signal to noise ratio from the stranded RNAseq data. Some of these heuristics can be customized using the optional arguments. The only required parameter to run FastNeo is the `{input_filename_prefix}`, and paired end RNA-seq data must be in 2 fastq files that are named as {input_filename_prefix}_1.fastq and {input_filename_prefix}_2.fastq.
+The `[optional arguments]` provide an interface to customize some of the heuristics that are used to maximize the signal to noise ratio in the stranded RNAseq data. The only required parameter is the `{input_filename_prefix}`, and paired end RNA-seq data must be in 2 fastq files that are named as {input_filename_prefix}_1.fastq and {input_filename_prefix}_2.fastq.
 
 #### Optional arguments
-
 
 ##### `-m|--mapq [INT] `
 Minimum expected alignment score (MES) filter is used if MAPQ is less than this value (10)
