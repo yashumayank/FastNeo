@@ -61,10 +61,14 @@ fasterq-dump --split-3 SRR25143498
 run_neoepitopes.sh -o outpie -q 10 -m 5 -c 2.7 -x 60 -y 260 SRR25143498
 ```
 
-### Usage and options
+### USAGE AND OPTIONS
 
-run_neoepitopes.sh [options] {input_filename_prefix}
-paired end RNA-seq data must be in 2 fastq files named as {input_filename_prefix}_1.fastq and {input_filename_prefix}_2.fastq
+FastNeo can be run with the following command:- 
+`run_neoepitopes.sh [optional arguments] {input_filename_prefix}`
+FastNeo used many heuristics to maximize the signal to noise ratio from the stranded RNAseq data. Some of these heuristics can be customized using the optional arguments. The only required parameter to run FastNeo is the `{input_filename_prefix}`, and paired end RNA-seq data must be in 2 fastq files that are named as {input_filename_prefix}_1.fastq and {input_filename_prefix}_2.fastq.
+
+#### Optional arguments
+
 
 ##### `-m|--mapq [INT] `
 Minimum expected alignment score (MES) filter is used if MAPQ is less than this value (10)
@@ -97,7 +101,7 @@ Minimum number of mapped nucleotides on both side of the gene fusion junction (5
 
 Prefix for the output files (input_filename_prefix])
 
-### OUTPUT format
+### OUTPUT
 
 The column descriptions of the output file for IEDB/TSNEdb neoepitopes:-
 
