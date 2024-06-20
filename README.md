@@ -61,6 +61,20 @@ fasterq-dump --split-3 SRR25143498
 run_neoepitopes.sh -o outpie -q 10 -m 5 -c 2.7 -x 60 -y 260 SRR25143498
 ```
 
+### Optional parameters
+
+run_neoepitopes.sh [options] {input_filename_prefix}
+paired end data must be in 2 fastq files named as {input_filename_prefix}_1.fastq and {input_filename_prefix}_2.fastq
+ other options (default value):
+   -m|--mapq [INT] Minimum expected alignment score (MES) filter is used if MAPQ is less than this value (10)
+      -x|--alignscore35 [INT] Minumum expected alignment score if read length = 35 nucleotides (64)
+ -y|--alignscore150 [INT] Minumum expected alignment score if read length = 150 nucleotides (277)
+ -c|--clippedbases [INT] Minimum value of (read length) / (clipped length) (3)
+-q|--basequality [INT] Minimum squencing quality of all the bases in the nullomer (20)
+ -f|--mapqf [INT] Expected alignment score filter  is used for fusions if MAPQ is less than this value (40)
+ -v|--overlap [INT] Minimum number of mapped nucleotides on both side of the gene fusion junction (5)
+-o|--outprefix [INT] Prefix for the output files (input_filename_prefix])
+
 ### OUTPUT format
 
 The column descriptions of the output file for IEDB/TSNEdb neoepitopes:-
