@@ -83,7 +83,7 @@ Minimum squencing quality of all the nucleotides in the nullomer, which usually 
 
 ` -f|--mapqf [INT] `
 
-The minimum MAPQ score for the reads mapped to gene fusion junctions can be specified here. As MAPQ score is irrelevant in when mapping to a small subset of sequences, hence the value specified here is much larger than used for the `--mapq`. If the MAPQ score is below this value then a filter specified by options `--alignscore35` and `--alignscore150` is used (default: 40)
+The minimum MAPQ score for the reads mapped to gene fusion junctions can be specified here. As MAPQ score is irrelevant in when mapping to a small subset of sequences, hence the value specified here is much larger than used for the `--mapq`. If the MAPQ score is below this value then a filter specified by options `--alignscore35` and `--alignscore150` is used (default: 30)
 
 ` -v|--overlap [INT] `
 
