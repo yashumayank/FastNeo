@@ -64,7 +64,9 @@ run_neoepitopes.sh -o outpie -q 10 -m 5 -c 2.7 -x 60 -y 260 SRR25143498
 ### USAGE AND OPTIONS
 
 FastNeo can be run with the following command:- 
+
 `run_neoepitopes.sh [optional arguments] {input_filename_prefix}`
+
 FastNeo used many heuristics to maximize the signal to noise ratio from the stranded RNAseq data. Some of these heuristics can be customized using the optional arguments. The only required parameter to run FastNeo is the `{input_filename_prefix}`, and paired end RNA-seq data must be in 2 fastq files that are named as {input_filename_prefix}_1.fastq and {input_filename_prefix}_2.fastq.
 
 #### Optional arguments
