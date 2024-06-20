@@ -88,7 +88,8 @@ else
   exit 1
 fi
 
-SLOPE=$(echo "scale=2;(${AS2}-${AS1})/(${AB2}-${AB1})"|bc)
+#SLOPE=$(echo "scale=2;(${AS2}-${AS1})/(${AB2}-${AB1})"|bc) #bc not found error
+SLOPE=$(awk -v as1="${AS1}" -v as2="${AS2}" -v ab1="${AB1}" -v ab2="${AB2}" 'BEGIN { printf "%.2f", (as2-as1)/(ab2-ab1) }' </dev/null)
 
 #julia
 #/data/hemberg/shared_resources/sratoolkit.2.11.2-centos_linux64/bin/fasterq-dump --split-3 ${sample}
