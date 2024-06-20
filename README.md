@@ -67,7 +67,7 @@ FastNeo can be run with the following command:-
 
 `run_neoepitopes.sh [optional arguments] {input filename prefix}`
 
-The `optional arguments` provide an interface to customize some of the heuristics that are used to maximize the signal to noise ratio in the stranded RNAseq data. The only required parameter is the `input filename prefix`, and paired end RNA-seq data must be in two fastq files that are named as input `filename prefix_1.fastq` and `input filename prefix_2.fastq`.
+The `optional arguments` provide an interface to customize some of the heuristics that are used to maximize the signal to noise ratio in the stranded RNAseq data. The only required parameter is the `input filename prefix`, and paired end RNA-seq data must be in two fastq files that are named as`input filename prefix_1.fastq` and `input filename prefix_2.fastq`.
 
 #### Optional arguments
 
@@ -104,7 +104,7 @@ Prefix for the output files (input_filename_prefix])
 
 ### OUTPUT
 
-The column descriptions of the output file for IEDB/TSNEdb neoepitopes:-
+The output is saved in the folder from where the command was run and is written to files with name `{sample_name}_*_readCounts.tsv`. The column descriptions of the output file for IEDB/TSNEdb neoepitopes:-
 
 1) sample_id: fastq file name
 2) gene_id: Gene ID with ENSG prefix
