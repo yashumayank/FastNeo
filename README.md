@@ -22,7 +22,7 @@ After julia is installed or loaded, use the following code to install the requir
 julia pkginstall.jl
 ```
 
-### INSTALL AND RUN
+### INSTALL
 
 Download and install the FastNeo tool
 ```
