@@ -53,9 +53,9 @@ FastNeo can be run with the following command:-
 
 `run_neoepitopes.sh [optional arguments] {input prefix}`
 
-The `optional arguments` provide an interface to customize some of the heuristics that are used to maximize the signal to noise ratio in the stranded RNAseq data. The only required parameter is the `input prefix`, and paired end RNA-seq data must be in two fastq files that are named as`input prefix_1.fastq` and `input prefix_2.fastq`.
+The `optional arguments` provide an interface to customize some of the heuristics that are used to maximize the signal to noise ratio in the stranded RNAseq data. The only required parameter to run the command is the `input prefix`, and the paired end RNA-seq data must be in two fastq files that are named as `input prefix_1.fastq` and `input prefix_2.fastq`.
 
-The following commandcan be run to detect only IEDB/TSNAdb neoepitopes and skip the gene fusions:-
+The following command can be used to detect only IEDB/TSNAdb neoepitopes and skip the gene fusions:-
 
 `runEpitopeDB_neoepitopes.sh [optional arguments] {input prefix}`
 
