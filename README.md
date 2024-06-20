@@ -9,7 +9,7 @@ x86-64 compatible processors, 4GB RAM and 64-bit Linux. The whole workflow runs 
 
 ### PRE-REQUISITES
 
-This tool requires bowtie2 (https://bowtie-bio.sourceforge.net/bowtie2/), samtools (http://www.htslib.org) and julia (https://julialang.org/downloads/). Use the following command to download and install through conda
+This tool requires bowtie2 (https://bowtie-bio.sourceforge.net/bowtie2/), samtools (http://www.htslib.org) and julia (https://julialang.org/downloads/). The following command can be used to download and install the pre-requisites via conda
 ```
 conda install -c bioconda bowtie2 samtools julia
 ```
