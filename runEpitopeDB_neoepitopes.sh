@@ -63,9 +63,9 @@ while [[ $# -gt 0 ]]; do
       echo "    -m|--mapq [INT] Expected alignment score filter (MES) is used if MAPQ is less than this value (10)"
       echo "    -x|--alignscore35 [INT] Minumum expected alignment score if read length = 35 nucleotides (64)"
       echo "    -y|--alignscore150 [INT] Minumum expected alignment score if read length = 150 nucleotides(277)"
-      echo "    -c|--clippedbases [INT] Minimum value of (read length) / (clipped length) (3)"
+      echo "    -c|--clippedbases [NUM] Minimum value of (read length) / (clipped length) (3)"
       echo "    -q|--basequality [INT] Minimum squencing quality of all the bases in the nullomer (20)"
-      echo "    -o|--outprefix [INT] Prefix for the output files (input_filename_prefix])"
+      echo "    -o|--outprefix [STR] Prefix for the output files (input_filename_prefix])"
       exit 1
       ;;
     *)
