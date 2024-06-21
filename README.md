@@ -61,37 +61,37 @@ Command to detect only IEDB/TSNAdb neoepitopes and skip the gene fusions:
 
 #### Optional arguments
 
-` -m|--mapq [INT] `
+` -m|--mapq [INTEGER] `
  
 The minimum MAPQ score for the reads mapped to human consensus coding sequence can be specified here. As MAPQ score is biased against short reads. Hence, a different quality filter is used for all the reads with MAPQ below this value. If the MAPQ score is below this value then a filter specified by options `--alignscore35` and `--alignscore150` is used (default: 10)
 
-` -x|--alignscore35 [INT] `
+` -x|--alignscore35 [INTEGER] `
 
 Minumum expected alignment score if mapped read length = 35 nucleotides. This filter is used together with `--alignscore150` for the reads with MAPQ score below the value specified in `--mapq` (default: 64; allows 1 medium quality mismatch with penalty=4)
 
-` -y|--alignscore150 [INT] `
+` -y|--alignscore150 [INTEGER] `
 
 Minumum expected alignment score if mapped read length = 150 nucleotides. This filter is used together with `--alignscore35` for the reads with MAPQ score below the value specified in `--mapq` (default: 277; allows ~4 medium quality mismatch with penalty=15)
 
-` -c|--clippedbases [INT] `
+` -c|--clippedbases [NUMBER] `
 
 This filter can be used to exclude the reads with mapped length less than the allowed fraction of the total length. Minimum allowed value of the (read length) / (clipped length) (default: 3)
 
-` -q|--basequality [INT] `
+` -q|--basequality [INTEGER] `
 
 Minimum squencing quality of all the nucleotides in the nullomer, which usually includes a few nucleotides around the mutated bases (default: 20)
 
-` -f|--mapqf [INT] `
+` -f|--mapqf [INTEGER] `
 
 The minimum MAPQ score for the reads mapped to gene fusion junctions can be specified here. As MAPQ score is irrelevant in when mapping to a small subset of sequences, hence the value specified here is much larger than used for the `--mapq`. If the MAPQ score is below this value then a filter specified by options `--alignscore35` and `--alignscore150` is used (default: 30)
 
-` -v|--overlap [INT] `
+` -v|--overlap [INTEGER] `
 
 Minimum number of nucleotides from the read that should be mapped to both sides of the gene fusion junction (default: 5)
 
-` -o|--outprefix [INT] `
+` -o|--outprefix [STRING] `
 
-Prefix for the output files (default: [input prefix])
+Prefix for the output files (default: {input prefix})
 
 ### OUTPUT
 
