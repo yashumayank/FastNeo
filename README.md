@@ -14,7 +14,7 @@ This tool requires bowtie2 (https://bowtie-bio.sourceforge.net/bowtie2/), samtoo
 conda install -c bioconda bowtie2 samtools julia
 ```
 
-In case of a high performance cluster (HPC), some or all of these tools might already be installed on the (HPC). Please check if the modules are installed `module spider bowtie2 samtools julia`, and then load them `module load bowtie2 samtools julia`
+In case of a high performance cluster (HPC), some or all of these pre-requisites might already be installed on the (HPC). Please check if the modules are installed `module spider bowtie2 samtools julia`, and then load them `module load bowtie2 samtools julia`. 
 
 ### INSTALL
 
