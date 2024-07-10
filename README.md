@@ -1,5 +1,5 @@
 # FastNeo
-This tool has been developed to detect known human neoepitopes and gene fusions in the cell-free RNA. It supports detection of neoepitopes from IEDB (https://www.iedb.org), TSNAdb (http://biopharm.zju.edu.cn/), and neoepitopes produced via gene fusion events described in ChimerKB and ChimerPub (https://www.kobic.re.kr/chimerdb/chimerkb). Lists of neoepitopes and fusions and their corresponding nullomers are in the nullomer_lists folder.
+This tool has been developed to detect known human neoepitopes and gene fusions in the stranded bulk RNA-seq data. It is especially suited for the data from cell-free RNA, which is usually fragmented and has higher noise. It supports detection of neoepitopes characterised in IEDB (https://www.iedb.org) and TSNAdb (http://biopharm.zju.edu.cn/), and neoepitopes produced via gene fusion events described in ChimerKB and ChimerPub (https://www.kobic.re.kr/chimerdb/chimerkb). The neoepitopes and fusions, and their corresponding nullomers are lists in the files provided in the nullomer_lists folder.
 
 ### RELEASE NOTES 
 Release 0.1: First release as documented in the manuscript, https://doi.org/10.1101/2024.06.07.24308622
