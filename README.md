@@ -18,7 +18,7 @@ In case of a high performance cluster (HPC), some or all of these prerequisites 
 
 ### INSTALLATION
 
-Please make sure you are in the folder where you would like to install FastNeo and then download and install using the following commands:-
+Please make sure you are in the folder where you would like to install. Then download and install FastNeo using the following commands:-
 ```
 git clone https://github.com/yashumayank/FastNeo.git
 cd FastNeo
