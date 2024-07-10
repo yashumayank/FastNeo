@@ -1,24 +1,24 @@
 # FastNeo
-This tool has been developed to detect known human neoepitopes and gene fusions in the stranded bulk RNA-seq data. It is especially suited for the data from cell-free RNA, which is usually fragmented and has higher noise. It supports detection of neoepitopes characterised in IEDB (https://www.iedb.org) and TSNAdb (http://biopharm.zju.edu.cn/), and neoepitopes produced via gene fusion events described in ChimerKB and ChimerPub (https://www.kobic.re.kr/chimerdb/chimerkb). The neoepitopes and fusions, and their corresponding nullomers are lists in the files provided in the nullomer_lists folder.
+This tool has been developed to detect known human neoepitopes and gene fusions in the stranded bulk RNA-seq data. It is especially suited for the data from cell-free RNA, which is usually fragmented and has higher noise. It supports detection of neoepitopes characterised in IEDB (https://www.iedb.org) and TSNAdb (http://biopharm.zju.edu.cn/), and neoepitopes produced via gene fusion events described in ChimerKB and ChimerPub (https://www.kobic.re.kr/chimerdb/chimerkb). The neoepitopes and fusions, and their corresponding nullomers are listed in the files provided in the nullomer_lists folder.
 
-### RELEASE NOTES 
+#### RELEASE NOTES 
 Release 0.1: First release as documented in the manuscript, https://doi.org/10.1101/2024.06.07.24308622
 
-### SYSTEM REQUIREMENTS
+#### SYSTEM REQUIREMENTS
 x86-64 compatible processors, 4GB RAM and 64-bit Linux. The whole workflow runs on 2 cores and processes 10^10 bases (two 10GB fastq files) in ~15 minutes
 
-### PRE-REQUISITES
+### PREREQUISITES
 
-This tool requires bowtie2 (https://bowtie-bio.sourceforge.net/bowtie2/), samtools (http://www.htslib.org) and julia (https://julialang.org/downloads/). The following command can be used to download and install the pre-requisites via conda
+This tool requires bowtie2 (https://bowtie-bio.sourceforge.net/bowtie2/), samtools (http://www.htslib.org) and julia (https://julialang.org/downloads/). The following command can be used to download and install the prerequisites via conda
 ```
 conda install -c bioconda bowtie2 samtools julia
 ```
 
-In case of a high performance cluster (HPC), some or all of these pre-requisites might already be installed on the (HPC). Please check if the modules are installed `module spider bowtie2 samtools julia`, and then load them `module load bowtie2 samtools julia`. 
+In case of a high performance cluster (HPC), some or all of these prerequisites might already be installed on the (HPC). Please check if the modules are installed using the following command: `module spider bowtie2 samtools julia`, and load the ones that are found using the following command `module load {module names}`. The prerequisites that are not present on the HPC must be installed separately. conda or the install instructions on the tools' webpage. 
 
 ### INSTALL
 
-Download and install using the folowing commands:-
+Download and install using the following commands:-
 ```
 git clone https://github.com/yashumayank/FastNeo.git
 cd FastNeo
@@ -73,11 +73,11 @@ This filter can be used to exclude the reads with mapped length less than the al
 
 ` -q|--basequality [INTEGER] `
 
-Minimum squencing quality of all the nucleotides in the nullomer, which usually includes a few nucleotides around the mutated bases (default: 20)
+Minimum sequencing quality of all the nucleotides in the nullomer, which usually includes a few nucleotides around the mutated bases (default: 20)
 
 ` -f|--mapqf [INTEGER] `
 
-The minimum MAPQ score for the reads mapped to gene fusion junctions can be specified here. As MAPQ score is irrelevant in when mapping to a small subset of sequences, hence the value specified here is much larger than used for the `--mapq`. If the MAPQ score is below this value then a filter specified by options `--alignscore35` and `--alignscore150` is used (default: 30)
+The minimum MAPQ score for the reads mapped to gene fusion junctions can be specified here. As MAPQ score is irrelevant when mapping to a small subset of sequences, hence the value specified here is much larger than used for the `--mapq`. If the MAPQ score is below this value then a filter specified by options `--alignscore35` and `--alignscore150` is used (default: 30)
 
 ` -v|--overlap [INTEGER] `
 
@@ -96,11 +96,11 @@ The descriptions of columns in the `{prefix}_neoepitopes.tsv`:-
 1) sample_id: fastq file name
 2) gene_id: Gene ID with ENSG prefix
 3) HGNC_symbol: Gene symbol
-4) top_nullomer: nullomer with most read covergage among the nullomers that are associated to the mutation/mutations that produce these neoepitopes
+4) top_nullomer: nullomer with most read coverage among the nullomers that are associated to the mutation/mutations that produce these neoepitopes
 5) neoepitopes: all wildtype-neoepitopes pairs associated to the top nullomer for the mutation:
 
    column format:
-   [{Wildtype epitope}->{Noepitope};] ...
+   [{wildtype epitope}->{neoepitope};] ...
 7) read_count: Number of mapped reads 
 8) nullomer_count: Number of nullomers on the read with most nullomers
 9) db_name: Name of the database/databases that contain these neoepitopes
@@ -133,9 +133,9 @@ The descriptions of columns in the `{prefix}_fusions.tsv`:-
 
 ### AUXILIARY PIPELINES
 
-Scripts in the benchmarking_scripts folder can be used to run the pipelines that were used to benchmarking this tool. These scripts are written to work on a local cluster and each of them has its specific software requirements. Please check the commnds used in the pipeline and install all the tools before running them.
+Scripts in the benchmarking_scripts folder can be used to run the pipelines that were used to benchmarking this tool. These scripts are written to work on a local cluster and each of them has its specific software requirements. Please check the commands used in the pipeline and install all the tools before running them.
 
-1) run_gatk_bcftools_lofreq.sh: Pipeline to seach for IEDB and TSNEdb neoepitopes using GATK HaplotypeCaller (McKenna et al., 2010), samtools/bcftools mpileup (Li, 2011), and Lofreq (Wilm et al., 2012). The python script cds2neopitopes.py is required to run this pipeline
+1) run_gatk_bcftools_lofreq.sh: Pipeline to search for IEDB and TSNEdb neoepitopes using GATK HaplotypeCaller (McKenna et al., 2010), samtools/bcftools mpileup (Li, 2011), and Lofreq (Wilm et al., 2012). The python script cds2neopitopes.py is required to run this pipeline
 2) runEpitopeDB_neoepitopes_STARmapped.sh: Pipeline for neoepitopes search using FastNeo with STAR mapping instead of Bowtie2 (Langmead and Salzberg, 2012). This pipeline requires mudskipper (https://github.com/OceanGenomics/mudskipper)
 
 
