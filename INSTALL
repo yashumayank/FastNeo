@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo ----------------------------------------------------
-echo |*  Setting the install path in executable files  *|
+echo    Setting the install path in executable files  
 echo ----------------------------------------------------
 
 echo \#\!/bin/bash > temp
@@ -15,7 +15,7 @@ cat run_neoepitopes.sh >>temp
 mv temp run_neoepitopes.sh
 
 echo ----------------------------------------------------
-echo |*  Grating permission to the executable files    *|
+echo    Grating permission to the executable files    
 echo ----------------------------------------------------
 
 #change permissions and add to path
@@ -24,7 +24,7 @@ echo "PATH=\"`pwd`:\$PATH\"" >> ~/.bash_profile
 
 
 echo ----------------------------------------------------
-echo |* Installing the julia packages in pkginstall.jl *|
+echo    Installing the julia packages in pkginstall.jl 
 echo ----------------------------------------------------
 
 julia pkginstall.jl
