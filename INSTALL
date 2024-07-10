@@ -1,5 +1,9 @@
 #!/bin/bash
-#add paths to run file
+
+echo ----------------------------------------------------
+echo |*  Setting the install path in executable files  *|
+echo ----------------------------------------------------
+
 echo \#\!/bin/bash > temp
 echo path1=\"`pwd`\" >> temp
 cat runEpitopeDB_neoepitopes.sh >>temp
@@ -9,6 +13,10 @@ echo \#\!/bin/bash > temp
 echo path1=\"`pwd`\" >> temp
 cat run_neoepitopes.sh >>temp
 mv temp run_neoepitopes.sh
+
+echo ----------------------------------------------------
+echo |*  Grating permission to the executable files    *|
+echo ----------------------------------------------------
 
 #change permissions and add to path
 chmod +x runEpitopeDB_neoepitopes.sh run_neoepitopes.sh
