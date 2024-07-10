@@ -17,10 +17,6 @@ In case of a high performance cluster, some or all of these tools might already 
 ```
 module load bowtie2 samtools julia
 ```
-After julia is installed or loaded, use the following code to install the required julia packages
-```
-julia pkginstall.jl
-```
 
 ### INSTALL
 
