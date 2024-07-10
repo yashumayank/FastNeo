@@ -16,9 +16,9 @@ conda install -c bioconda bowtie2 samtools julia
 
 In case of a high performance cluster (HPC), some or all of these prerequisites might already be installed on the (HPC). Please check if the modules are already installed using the following command: `module spider bowtie2 samtools julia`. and load the ones that are installed using the following command `module load {module names}`. The prerequisites that are not installed on the HPC must be installed separately. Please use conda, as shown above, or the install instructions on the tools' webpage. 
 
-### INSTALL
+### INSTALLATION
 
-Download and install using the following commands:-
+Please make sure you are in the folder where you would like to install FastNeo and then download and install using the following commands:-
 ```
 git clone https://github.com/yashumayank/FastNeo.git
 cd FastNeo
