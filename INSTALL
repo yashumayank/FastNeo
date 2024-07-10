@@ -13,3 +13,10 @@ mv temp run_neoepitopes.sh
 #change permissions and add to path
 chmod +x runEpitopeDB_neoepitopes.sh run_neoepitopes.sh
 echo "PATH=\"`pwd`:\$PATH\"" >> ~/.bash_profile
+
+
+echo ----------------------------------------------------
+echo |* Installing the julia packages in pkginstall.jl *|
+echo ----------------------------------------------------
+
+julia pkginstall.jl
