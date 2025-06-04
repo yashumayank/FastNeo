@@ -1,4 +1,4 @@
-### NEOEPITOPE DETECTION PIPELINE 
+### NEOEPITOPE DETECTION: BENCHMARKING PIPELINE 
 
 These scripts were used to benchmarking FastNeo against the most famous variant calling tools. They detect the known neoepitopes that are characterised in IEDB (https://www.iedb.org) and TSNAdb (http://biopharm.zju.edu.cn/). These scripts are written to work on a local cluster and each of them has its specific software requirements. Please check the commands used in the pipeline and install all the tools before running them.
 
