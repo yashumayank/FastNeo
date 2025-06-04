@@ -1,5 +1,5 @@
 # FastNeo
-This tool has been developed to detect known human neoepitopes and gene fusions in the stranded bulk RNA-seq data. It is especially suited for the data from cell-free RNA, which is usually fragmented and has higher noise. It supports detection of neoepitopes characterised in IEDB (https://www.iedb.org) and TSNAdb (http://biopharm.zju.edu.cn/), and neoepitopes produced via gene fusion events described in ChimerKB and ChimerPub (https://www.kobic.re.kr/chimerdb/chimerkb). The neoepitopes and fusions, and their corresponding nullomers are listed in the files provided in the nullomer_lists folder.
+FastNeo detects known human neoepitopes and gene fusions in the stranded bulk RNA-seq data. It is especially suited for the cell-free RNA data with short fragmented sequences and low allele coverage. FastNeo detects known neoepitopes that are characterised in IEDB (https://www.iedb.org) and TSNAdb (http://biopharm.zju.edu.cn/). It also detects neoepitopes produced via the gene fusion events described in ChimerKB and ChimerPub (https://www.kobic.re.kr/chimerdb/chimerkb). The neoepitopes, gene fusions, and corrresponding metadata are listed in the files provided in the nullomer_lists folder.
 
 #### RELEASE NOTES 
 Release 0.1: First release as documented in the manuscript, https://doi.org/10.1101/2024.06.07.24308622
@@ -9,16 +9,19 @@ x86-64 compatible processors, 4GB RAM and 64-bit Linux. The whole workflow runs 
 
 ### PREREQUISITES
 
-This tool requires bowtie2 (https://bowtie-bio.sourceforge.net/bowtie2/), samtools (http://www.htslib.org) and julia (https://julialang.org/downloads/). The following command can be used to download and install the prerequisites via conda
+bowtie2 (https://bowtie-bio.sourceforge.net/bowtie2/)
+samtools (http://www.htslib.org)
+julia (https://julialang.org/downloads/) 
+The following command can be used to download and install the prerequisites via conda :-
 ```
 conda install -c bioconda bowtie2 samtools julia
 ```
 
-In case of a high performance cluster (HPC), some or all of these prerequisites might already be installed on the (HPC). Please check if the modules are already installed using the following command: `module spider bowtie2 samtools julia`. and load the ones that are installed using the following command `module load {module names}`. The prerequisites that are not installed on the HPC must be installed separately. Please use conda, as shown above, or the install instructions on the tools' webpage. 
+In case of a high performance cluster (HPC), some or all of these prerequisites might already be installed on the (HPC). Please check if the modules are already installed using the following command: `module spider bowtie2 samtools julia` and load the ones that are installed using the following command `module load {module names}`. The prerequisites that are not installed on the HPC must be installed separately. Please use conda, as shown above, or the install instructions on the tools' webpage. 
 
 ### INSTALLATION
 
-Please make sure you are in the folder where you would like to install. Then download and install FastNeo using the following commands:-
+Please make sure you are in the folder where you want to install. Then download and install FastNeo using the following commands:-
 ```
 git clone https://github.com/yashumayank/FastNeo.git
 cd FastNeo
