@@ -1,5 +1,6 @@
 # FastNeo
 FastNeo detects known human neoepitopes and gene fusions in the stranded bulk RNA-seq data. It is especially suited for the cell-free RNA data with short fragmented sequences and low allele coverage. FastNeo detects known neoepitopes that are characterised in IEDB (https://www.iedb.org) and TSNAdb (http://biopharm.zju.edu.cn/). It also detects neoepitopes produced via the gene fusion events described in ChimerKB and ChimerPub (https://www.kobic.re.kr/chimerdb/chimerkb). The neoepitopes, gene fusions, and corrresponding metadata are listed in the files provided in the nullomer_lists folder.
+The cancer classifier is in the supervised_machine_learning folder, and scripts for neoepitope detection using GATK and samtools are in the benchmark_scripts folder.
 
 #### RELEASE NOTES 
 Release 0.1: First release as documented in the manuscript, https://doi.org/10.1093/bioinformatics/btaf138
