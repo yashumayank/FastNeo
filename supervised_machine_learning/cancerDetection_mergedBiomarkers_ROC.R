@@ -28,6 +28,7 @@ setwd("cfRNA/backup")
 ds=""
 dataTE<-fread(paste0(ds,"all_cancer_SalmonTE_quant.tsv"))
 
+#dataset selection
 ds="HCC2n5tissue" # 5tissue HCC2 HCC2n5tissue pancreatic
 
 #setwd(paste0("/data/hemberg/nullomers/IEDB/",ds))
@@ -60,18 +61,21 @@ metadata2 <- fread("metadata_HCCn5tissue_cfRNA.csv")[,c("Run","disease","Bases",
 metadata2$STAGE <- factor(sub(" .*", "", metadata2$disease))
 metadata2$stat <- as.integer(as.factor(metadata2$STAGE))
 
+#Calculate coverage for normalization and flag the smaples with no TEs or Neoepitopes
 metadata <- rbind(metadata1[,c("Run","STAGE","stat","Bases","AvgSpotLen")], metadata2[,c("Run","STAGE","stat","Bases","AvgSpotLen")], metadata3[,c("Run","STAGE","stat","Bases","AvgSpotLen")])
 metadata$readCov = metadata$Bases / 10/ GRCh38_allbases
 metadata$readCovTE = metadata$Bases/metadata$AvgSpotLen/GRCh38_allbases/10
 missingN <- setdiff(metadata$Run,unique(data$sample_id))
 missingT <- setdiff(metadata$Run,unique(dataTE$sample_id))
 
+#Normalize, logscale and filter neoepitopes
 data2 <- left_join(data,metadata[,c("Run","stat","readCov")], by= c("sample_id"="Run"))
 data2$nCov <- data2$rCount/data2$readCov
 data2$nCov[data2$nCov < 1] <- 1
 data2$lnCov <- as.numeric(log10(data2$nCov))
 data_stat <- dcast(data2[data2$rCount>=3 & data2$"#nullomers">=1,], sample_id + stat ~ epitope_ID2, fun=max, value.var = "lnCov", fill="0")
 
+#Normalize, logscale and filter TEs
 data2TE <- left_join(dataTE,metadata[,c("Run","stat","readCovTE")], by= c("sample_id"="Run"))
 data2TE$RKP <- (data2TE$NumReads/data2TE$readCovTE)/data2TE$EffectiveLength
 data2TE$RKP[data2TE$RKP < 1] <- 1
@@ -79,6 +83,7 @@ data2TE$logRKP <- as.numeric(log10(data2TE$RKP))
 data2TE$Name <- gsub("-", "_", data2TE$Name,fixed = TRUE)
 data_statTE <- dcast(data2TE, sample_id + stat ~ Name, value.var = "logRKP", fill="0") #fun=mean
 
+#Normalize and logscale circRNAs
 data2Circ <- left_join(dataCirc[dataCirc$bsj>=2 & dataCirc$circ_type == "exon",],metadata[,c("Run","stat")], by= c("sample_id"="Run"))
 data2Circ$CPM <- data2Circ$CPM * 10
 data2Circ$CPM[data2Circ$CPM < 1] <- 1
@@ -88,9 +93,10 @@ data_statCirc <- dcast(data2Circ, sample_id + stat ~ Name, fun=max, value.var = 
 dataset <- c("Colorectal", "Esophagus", "Healthy", "HCC", "Lung", "Stomach", "M.Myeloma", "all")
 gROCplots<-NULL
 
-# outermost Loop across cancer-types as specified in the "dataset". add the missing patients with no biomarkers for each set
+#Loop across the cancer-types in the "dataset" array
 for (x1 in c(1,4)){ # start of function
 	print(x1)
+	#add samples with no detectable neoepitopes, TEs, or circRNAs to simplify the merger later
 	missingN <- setdiff(metadata$Run,unique(data_stat$sample_id))
 	missingT <- setdiff(metadata$Run,unique(data_statTE$sample_id))	
 	missingC <- setdiff(metadata$Run,unique(data_statCirc$sample_id))	
@@ -119,32 +125,35 @@ for (x1 in c(1,4)){ # start of function
 			data_mergedCirc$stat[data_mergedCirc$stat==x1] <- 1
 			data_mergedCirc$stat[data_mergedCirc$stat==3] <- 0		
 	}
-	
+
+	#keep neoepitopes found in 1 or more patients after filtering
 	neo_all <- colSums(data_merged[,-c("stat","sample_id")])
 	neo_inc <- neo_all[neo_all >0]
 	data_in <- data_merged[] %>% select(c("sample_id","stat",names(neo_inc))) %>% arrange(sample_id)
 #	data_in <- data_in[,-c("sample_id")]
 #	data_in[] <- lapply(data_in, as.numeric)
 
+	#keep TEs found in 1 or more patients after filtering
 	neo_allTE <- colSums(data_mergedTE[,-c("stat","sample_id")])
 	neo_incTE <- neo_allTE[neo_allTE >0]
 	data_inTE <- data_mergedTE[] %>% select(c("sample_id","stat",names(neo_incTE))) %>% arrange(sample_id)
 #	data_inTE <- data_inTE[,-c("sample_id")]
 #	data_inTE[] <- lapply(data_inTE, as.numeric)
+	#keep circRNAs found in 1 or more patients after filtering
 	neo_allCirc <- colSums(data_mergedCirc[,-c("stat","sample_id")])
 	neo_incCirc <- neo_allCirc[neo_allCirc >0]
 	data_inCirc <- data_mergedCirc[] %>% select(c("sample_id","stat",names(neo_incCirc))) %>% arrange(sample_id)
 
-  # Specify the settings and parameters  
+  # Specify the methods and parameters  
 	methods <- c("Ridge","Lasso","SVM","RF") # "Ridge","Lasso","NN","SVM","RF"
+	nRepeats <- 10 #iterations to run
+	K <- 5  # K-fold cross validation
+#	fsType <- "log2fold" #"PCA" #"mRMR" "LVQ" "wCox" "xgb" "log2fold"
 	#softplus <- function(x) log(1 + exp(x))
 	lambda_seq <- 10^seq(2, -2, by = -.1)
 	depthTree <- 2
 #	layersNN <- c(200,150,20,20)
 	layersNN <- c(50,50,10)
-	nRepeats <- 10 #iterations to run
-	K <- 5  # K-fold cross validation
-#	fsType <- "log2fold" #"PCA" #"mRMR" "LVQ" "wCox" "xgb" "log2fold"
 	minXgbGain <- 1e-4
 	wCoxPval <- 1e-7
 	wCox_minN <- 5
@@ -283,6 +292,8 @@ for (x1 in c(1,4)){ # start of function
 			tr3 <- inner_join(tr2,training_foldC, by=c("sample_id","stat"))
 #			training_fold <- setDT(tr2)[, .SD[!all(.SD[, -1, with = F] == 0)], by = sample_id]
 #			training_fold <- tr2[rowSums(tr2[,-c(1,2)] == 0) != ncol(tr2)-2,]
+
+# Finally merge the three biomarkers
             te2 <- inner_join(test_foldT,test_foldN, by=c("sample_id","stat"))
     		te3 <- inner_join(te2,test_foldC, by=c("sample_id","stat"))
             training_fold <- tr3[,-1]
@@ -293,6 +304,7 @@ for (x1 in c(1,4)){ # start of function
 		  F1List <- vector()
 		  sensivList <- vector()
 		  specifList <- vector()
+	# Apply each method seperately and create the result file and AUROC curve for each method
 		  for (m in methods) {
 		      print(m)
 			  # SVM/RF classifier
